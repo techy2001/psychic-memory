@@ -1,13 +1,12 @@
 package main.java.mialee.psychicmemory;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class PMSettings {
     public static boolean setting1 = false;
@@ -15,39 +14,33 @@ public class PMSettings {
     public static boolean setting3 = false;
 
     protected PMSettings() {
-        //load();
+        load();
         save();
     }
 
-
     public static void load() {
+        if (Path.of("run/settings.json").isAbsolute())
         try {
-            JSONArray obj = new JSONArray(Files.readString(Path.of("run/settings.json")));
-            setting1 = obj.getBoolean("setting1");
-            setting2 = obj.getBoolean("setting2");
-            setting3 = obj.getBoolean("setting3");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+            JSONObject obj = new JSONObject(Files.readString(Path.of("run/settings.json")));
 
-    public static Object getIfPresent() {
-        return null;
+            if (obj.has("settings1")) setting1 = obj.getBoolean("setting1");
+            if (obj.has("settings2")) setting2 = obj.getBoolean("setting2");
+            if (obj.has("settings3")) setting3 = obj.getBoolean("setting3");
+
+        } catch (IOException ignored) {}
     }
 
     public static void save() {
-        Map<String, Object> settings = new LinkedHashMap<>();
+        JSONObject settings = new JSONObject();
+
         settings.put("setting1", setting1);
         settings.put("setting2", setting2);
         settings.put("setting3", setting3);
 
-        boolean created = new File("run").mkdir();
-        if (created) System.out.println("Creating run directory.");
+        if (new File("run").mkdir()) System.out.println("Creating run directory.");
         try (FileWriter file = new FileWriter("run/settings.json")) {
-            file.write(String.valueOf(settings));
+            file.write(settings.toString());
             file.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored) {}
     }
 }
