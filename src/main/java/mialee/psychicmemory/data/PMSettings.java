@@ -1,4 +1,4 @@
-package main.java.mialee.psychicmemory.data;
+package mialee.psychicmemory.data;
 
 public class PMSettings {
     public boolean start = false;

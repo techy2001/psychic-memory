@@ -1,10 +1,8 @@
-package main.java.mialee.psychicmemory;
+package mialee.psychicmemory;
 
-import main.java.mialee.psychicmemory.data.PMData;
-import main.java.mialee.psychicmemory.data.PMSave;
-import main.java.mialee.psychicmemory.data.PMSettings;
-
-import java.util.LinkedHashMap;
+import mialee.psychicmemory.data.PMData;
+import mialee.psychicmemory.data.PMSave;
+import mialee.psychicmemory.data.PMSettings;
 
 public class PMGame {
     public PMSettings SETTING_VALUES;
