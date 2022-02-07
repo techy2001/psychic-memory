@@ -8,14 +8,16 @@ import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static mialee.psychicmemory.Main.dir;
+
 //This class is used to manage Settings and Save data.
 public class PMData {
     //Creates a new PMSettings object and populates it with settings read from the settings.json file.
     //If no json is present generates a new one and saves it.
     public static PMSettings populateSettings() {
         PMSettings pmSettings = new PMSettings();
-        PMData.load(Path.of("run/settings.json"), pmSettings);
-        PMData.save(Path.of("run/settings.json"), pmSettings);
+        PMData.load(Path.of("%s/settings.json".formatted(dir)), pmSettings);
+        PMData.save(Path.of("%s/settings.json".formatted(dir)), pmSettings);
         return pmSettings;
     }
 
@@ -23,8 +25,8 @@ public class PMData {
     //If no save is present generates a new one and saves it.
     public static PMSave populateSave(int save) {
         PMSave pmSave = new PMSave();
-        PMData.load(Path.of("run/save%d.json".formatted(save)), pmSave);
-        PMData.save(Path.of("run/save%d.json".formatted(save)), pmSave);
+        PMData.load(Path.of("%s/save%d.json".formatted(dir, save)), pmSave);
+        PMData.save(Path.of("%s/save%d.json".formatted(dir, save)), pmSave);
         return pmSave;
     }
 
