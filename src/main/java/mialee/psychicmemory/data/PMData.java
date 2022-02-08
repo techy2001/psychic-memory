@@ -8,7 +8,8 @@ import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static mialee.psychicmemory.Main.dir;
+import static mialee.psychicmemory.PMGame.LOGGER;
+import static mialee.psychicmemory.PMGame.dir;
 
 //This class is used to manage Settings and Save data.
 public class PMData {
@@ -19,7 +20,7 @@ public class PMData {
 
         //If the file isn't loaded, print that it will generate a new one.
         boolean loaded = PMData.load(Path.of("%s/settings.json".formatted(dir)), pmSettings);
-        if (!loaded) System.out.print("Generating new settings file.\n");
+        if (!loaded) LOGGER.loggedPrint("Generating new settings file.");
 
         //Saves file immediately, easier to edit if needed.
         PMData.save(Path.of("%s/settings.json".formatted(dir)), pmSettings);
@@ -34,7 +35,7 @@ public class PMData {
 
         //If the file isn't loaded, print that it will generate a new one.
         boolean loaded = PMData.load(Path.of("%s/save%d.json".formatted(dir, save)), pmSave);
-        if (!loaded) System.out.printf("Generating new save file in save slot %d.\n", save);
+        if (!loaded) LOGGER.loggedPrint("Generating new save file in save slot %d.", save);
 
         //Saves file immediately, easier to edit if needed.
         PMData.save(Path.of("%s/save%d.json".formatted(dir, save)), pmSave);
@@ -63,11 +64,11 @@ public class PMData {
             }
 
             //Returns true if file was loaded successfully.
-            System.out.printf("%s read successfully.\n", path.getName(path.getNameCount() - 1));
+            LOGGER.loggedPrint("%s read successfully.", path.getName(path.getNameCount() - 1));
             return true;
         } catch (IOException e) {
             //Returns false if file not found and sends to log.
-            System.out.printf("File %s not found.\n", path.getName(path.getNameCount() - 1));
+            LOGGER.loggedError("File %s not found.", path.getName(path.getNameCount() - 1));
             return false;
         }
     }
@@ -82,9 +83,9 @@ public class PMData {
                 jsonObject.put(field.getName(), map.getClass().getField(field.getName()).get(map));
             } catch (NoSuchFieldException e) {
                 //This won't occur as fields are taken from the class.
-                System.out.printf("Unexpected error.\n%s\n", e.getMessage());
+                LOGGER.loggedError("Unexpected error. %s", e.getMessage());
             } catch (IllegalAccessException e) {
-                System.out.printf("Unable to save %s classes to files as they are inaccessible.\n%s\n", map.getClass().getName(), e.getMessage());
+                LOGGER.loggedError("Unable to save %s classes to files as they are inaccessible. %s", map.getClass().getName(), e.getMessage());
             }
         }
 
@@ -93,7 +94,7 @@ public class PMData {
             jsonFile.write(jsonObject.toString());
             jsonFile.flush();
         } catch (IOException e) {
-            System.out.printf("Failed to save data.\n%s\n", e.getMessage());
+            LOGGER.loggedError("Failed to save data. %s", e.getMessage());
         }
     }
 
@@ -102,7 +103,7 @@ public class PMData {
         try {
             save(path, map.getClass().newInstance());
         } catch (InstantiationException | IllegalAccessException e) {
-            System.out.printf("Failed to wipe save data.\n%s\n", e.getMessage());
+            LOGGER.loggedError("Failed to wipe save data. %s", e.getMessage());
         }
     }
 }
