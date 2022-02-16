@@ -4,9 +4,10 @@ import mialee.psychicmemory.data.PMData;
 import mialee.psychicmemory.data.PMLogger;
 import mialee.psychicmemory.data.PMSave;
 import mialee.psychicmemory.data.PMSettings;
+import mialee.psychicmemory.lang.TranslatableText;
+import mialee.psychicmemory.window.PMWindow;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -21,6 +22,11 @@ public class PMGame {
     public static Map<Integer, PMSave> SAVE_VALUES;
 
     public static void main(String[] args) {
+        if (true) {
+            testMain(args);
+            return;
+        }
+
         //Starts by creating a new logger, which will be used instead of System.out.print.
         LOGGER = new PMLogger();
 
@@ -31,5 +37,12 @@ public class PMGame {
         SETTING_VALUES = PMData.populateSettings();
         SAVE_VALUES = new LinkedHashMap<>();
         for(int i = 1; i <= 3; i++) SAVE_VALUES.put(i, PMData.populateSave(i));
+
+        PMWindow.createWindow();
+    }
+
+    public static void testMain(String[] args) {
+        LOGGER = new PMLogger();
+        System.out.println(new TranslatableText("test"));
     }
 }
