@@ -4,6 +4,7 @@ import mialee.psychicmemory.data.PMData;
 import mialee.psychicmemory.data.PMLogger;
 import mialee.psychicmemory.data.PMSave;
 import mialee.psychicmemory.data.PMSettings;
+import mialee.psychicmemory.lang.Language;
 import mialee.psychicmemory.lang.TranslatableText;
 import mialee.psychicmemory.window.PMWindow;
 
@@ -16,19 +17,19 @@ public class PMGame {
     public static String dir = "PMData";
     //Logger used to keep records of past games.
     public static PMLogger LOGGER;
+    //Language allows for multiple language translations.
+    public static Language LANGUAGE;
     //The games current settings values.
     public static PMSettings SETTING_VALUES;
     //A map containing all the individual save files by number.
     public static Map<Integer, PMSave> SAVE_VALUES;
 
     public static void main(String[] args) {
-        if (true) {
-            testMain(args);
-            return;
-        }
-
         //Starts by creating a new logger, which will be used instead of System.out.print.
         LOGGER = new PMLogger();
+
+        //Sets a new language.
+        LANGUAGE = new Language("en_ie");
 
         //Prints an extra message if the data directory has just been created.
         if (new File(dir + "/logs/").mkdirs()) LOGGER.loggedPrint("Running first time setup.");
@@ -39,10 +40,13 @@ public class PMGame {
         for(int i = 1; i <= 3; i++) SAVE_VALUES.put(i, PMData.populateSave(i));
 
         PMWindow.createWindow();
+
+        testMain(args);
     }
 
     public static void testMain(String[] args) {
-        LOGGER = new PMLogger();
-        System.out.println(new TranslatableText("test"));
+        System.out.println(LANGUAGE.getLang().toString());
+        ;
+        LOGGER.loggedPrint(new TranslatableText("test").toString());
     }
 }
