@@ -9,6 +9,8 @@ public class PMWindow extends JFrame {
         super("Psychic Memory");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
+        setLocationRelativeTo(null);
+        setLayout(null);
         setVisible(true);
     }
 
