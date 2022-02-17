@@ -65,11 +65,11 @@ public class PMData {
             }
 
             //Returns true if file was loaded successfully.
-            LOGGER.loggedPrint("%s read successfully.", path.getName(path.getNameCount() - 1));
+            LOGGER.loggedPrint(new TranslatableText("pm.data.file.missing"), path.getName(path.getNameCount() - 1));
             return true;
         } catch (IOException e) {
             //Returns false if file not found and sends to log.
-            LOGGER.loggedError("File %s not found.", path.getName(path.getNameCount() - 1));
+            LOGGER.loggedError(new TranslatableText("pm.data.file.missing"), path.getName(path.getNameCount() - 1));
             return false;
         }
     }
@@ -84,9 +84,9 @@ public class PMData {
                 jsonObject.put(field.getName(), map.getClass().getField(field.getName()).get(map));
             } catch (NoSuchFieldException e) {
                 //This won't occur as fields are taken from the class.
-                LOGGER.loggedError("Unexpected error. %s", e.getMessage());
+                LOGGER.loggedError(new TranslatableText("pm.error"), e.getMessage());
             } catch (IllegalAccessException e) {
-                LOGGER.loggedError("Unable to save %s classes to files as they are inaccessible. %s", map.getClass().getName(), e.getMessage());
+                LOGGER.loggedError(new TranslatableText("pm.data.file.inaccessible"), map.getClass().getName(), e.getMessage());
             }
         }
 
@@ -95,7 +95,7 @@ public class PMData {
             jsonFile.write(jsonObject.toString());
             jsonFile.flush();
         } catch (IOException e) {
-            LOGGER.loggedError("Failed to save data. %s", e.getMessage());
+            LOGGER.loggedError(new TranslatableText("pm.data.save.fail"));
         }
     }
 
@@ -104,7 +104,7 @@ public class PMData {
         try {
             save(path, map.getClass().newInstance());
         } catch (InstantiationException | IllegalAccessException e) {
-            LOGGER.loggedError("Failed to wipe save data. %s", e.getMessage());
+            LOGGER.loggedError(new TranslatableText("pm.data.wipe.fail"));
         }
     }
 }

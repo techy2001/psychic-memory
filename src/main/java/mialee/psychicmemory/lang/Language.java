@@ -21,8 +21,7 @@ public class Language {
             lang = new JSONObject(Files.readString(Path.of(resource.toURI())));
             langName = name;
         } catch (Exception e) {
-            LOGGER.loggedError(e.toString());
-            LOGGER.loggedError("Language \"%s\" not found.", name);
+            LOGGER.loggedError(new TranslatableText("pm.lang.missing"), name);
         }
     }
 

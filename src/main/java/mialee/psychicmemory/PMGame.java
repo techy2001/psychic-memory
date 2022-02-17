@@ -9,6 +9,7 @@ import mialee.psychicmemory.lang.TranslatableText;
 import mialee.psychicmemory.window.PMWindow;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class PMGame {
     //A map containing all the individual save files by number.
     public static Map<Integer, PMSave> SAVE_VALUES;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //Starts by creating a new logger, which will be used instead of System.out.print.
         LOGGER = new PMLogger();
 
@@ -41,4 +42,5 @@ public class PMGame {
 
         PMWindow.createWindow();
     }
+
 }

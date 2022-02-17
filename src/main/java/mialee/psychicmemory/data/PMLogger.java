@@ -20,22 +20,12 @@ public class PMLogger {
 
     //The standard print, uses the standard prefix.
     public void loggedPrint(TranslatableText string, Object ... args) {
-        this.loggedPrint(string.toString(), args);
-    }
-
-    //An error print, uses a warning prefix, using translatable text.
-    public void loggedError(TranslatableText string, Object ... args) {
-        this.loggedError(string.toString(), args);
-    }
-
-    //The standard print, uses the standard prefix.
-    public void loggedPrint(String string, Object ... args) {
-        this.loggedPrint("[Psychic Memory]", string, args);
+        this.loggedPrint("[Psychic Memory]", string.toString(), args);
     }
 
     //An error print, uses a warning prefix.
-    public void loggedError(String string, Object ... args) {
-        this.loggedPrint("[Warning]", string, args);
+    public void loggedError(TranslatableText string, Object ... args) {
+        this.loggedPrint("[Warning]", string.toString(), args);
     }
 
     //The logged print, takes a prefix and a formatted message.
