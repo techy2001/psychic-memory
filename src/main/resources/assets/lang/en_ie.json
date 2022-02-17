@@ -1,3 +1,7 @@
 {
-  "test" : "Tested"
+  "test" : "Tested",
+
+  "pm.data.setup" : "Running first time setup.",
+  "pm.data.gen_settings" : "Generating new settings file.",
+  "pm.data.gen_save" : "Generating new save file in save slot %d."
 }

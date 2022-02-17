@@ -19,9 +19,9 @@ public class TranslatableText {
     public String toString() {
         String string = this.string;
         try {
-            string = PMGame.LANGUAGE.getLang().get(this.string).toString();
+            string = PMGame.LANGUAGE.getLang().get(string).toString();
         } catch (JSONException e) {
-            LOGGER.loggedError("Lang entry for \"%s\" not found in language %s.", PMGame.LANGUAGE.getLangName());
+            LOGGER.loggedError("Lang entry for \"%s\" not found in language %s.", this.string, PMGame.LANGUAGE.getLangName());
         } catch (NullPointerException ignored) {}
         return string;
     }

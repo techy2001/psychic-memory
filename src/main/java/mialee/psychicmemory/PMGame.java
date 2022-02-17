@@ -32,7 +32,7 @@ public class PMGame {
         LANGUAGE = new Language("en_ie");
 
         //Prints an extra message if the data directory has just been created.
-        if (new File(dir + "/logs/").mkdirs()) LOGGER.loggedPrint("Running first time setup.");
+        if (new File(dir + "/logs/").mkdirs()) LOGGER.loggedPrint(new TranslatableText("pm.data.setup"));
 
         //Takes the settings and save file data from the data directory for easy access.
         SETTING_VALUES = PMData.populateSettings();
@@ -40,13 +40,5 @@ public class PMGame {
         for(int i = 1; i <= 3; i++) SAVE_VALUES.put(i, PMData.populateSave(i));
 
         PMWindow.createWindow();
-
-        testMain(args);
-    }
-
-    public static void testMain(String[] args) {
-        System.out.println(LANGUAGE.getLang().toString());
-        ;
-        LOGGER.loggedPrint(new TranslatableText("test").toString());
     }
 }

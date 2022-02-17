@@ -1,5 +1,6 @@
 package mialee.psychicmemory.data;
 
+import mialee.psychicmemory.lang.TranslatableText;
 import org.json.JSONObject;
 
 import java.io.FileWriter;
@@ -20,7 +21,7 @@ public class PMData {
 
         //If the file isn't loaded, print that it will generate a new one.
         boolean loaded = PMData.load(Path.of("%s/settings.json".formatted(dir)), pmSettings);
-        if (!loaded) LOGGER.loggedPrint("Generating new settings file.");
+        if (!loaded) LOGGER.loggedPrint(new TranslatableText("pm.data.gen_settings"));
 
         //Saves file immediately, easier to edit if needed.
         PMData.save(Path.of("%s/settings.json".formatted(dir)), pmSettings);
@@ -35,7 +36,7 @@ public class PMData {
 
         //If the file isn't loaded, print that it will generate a new one.
         boolean loaded = PMData.load(Path.of("%s/save%d.json".formatted(dir, save)), pmSave);
-        if (!loaded) LOGGER.loggedPrint("Generating new save file in save slot %d.", save);
+        if (!loaded) LOGGER.loggedPrint(new TranslatableText("pm.data.gen_save"), save);
 
         //Saves file immediately, easier to edit if needed.
         PMData.save(Path.of("%s/save%d.json".formatted(dir, save)), pmSave);
