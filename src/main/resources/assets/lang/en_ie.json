@@ -1,11 +1,9 @@
 {
   "pm.game" : "Psychic Memory",
-
-
+  
   "pm.lang.missing" : "Language \"%s\" not found.",
   "pm.lang.missing_translation" : "Lang entry for \"%s\" not found in language %s.",
   "pm.window.fail" : "Game window failed to initialize.",
-
 
   "pm.data.setup" : "Running first time setup.",
   "pm.data.gen_settings" : "Generating new settings file.",
