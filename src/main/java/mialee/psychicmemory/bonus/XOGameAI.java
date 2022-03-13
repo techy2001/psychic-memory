@@ -18,38 +18,24 @@ public class XOGameAI {
 
             if (Objects.equals(input[0], "start") && input.length > 2) {
                 switch (input[1]) {
-                    case "easy":
-                        difficulty1 = Difficulty.EASY;
-                        break;
-                    case "medium":
-                        difficulty1 = Difficulty.MEDIUM;
-                        break;
-                    case "hard":
-                        difficulty1 = Difficulty.HARD;
-                        break;
-                    case "user":
-                        difficulty1 = Difficulty.USER;
-                        break;
-                    default:
+                    case "easy" -> difficulty1 = Difficulty.EASY;
+                    case "medium" -> difficulty1 = Difficulty.MEDIUM;
+                    case "hard" -> difficulty1 = Difficulty.HARD;
+                    case "user" -> difficulty1 = Difficulty.USER;
+                    default -> {
                         System.out.println("Bad parameters!");
                         continue;
+                    }
                 }
                 switch (input[2]) {
-                    case "easy":
-                        difficulty2 = Difficulty.EASY;
-                        break;
-                    case "medium":
-                        difficulty2 = Difficulty.MEDIUM;
-                        break;
-                    case "hard":
-                        difficulty2 = Difficulty.HARD;
-                        break;
-                    case "user":
-                        difficulty2 = Difficulty.USER;
-                        break;
-                    default:
+                    case "easy" -> difficulty2 = Difficulty.EASY;
+                    case "medium" -> difficulty2 = Difficulty.MEDIUM;
+                    case "hard" -> difficulty2 = Difficulty.HARD;
+                    case "user" -> difficulty2 = Difficulty.USER;
+                    default -> {
                         System.out.println("Bad parameters!");
                         continue;
+                    }
                 }
                 game();
             } else if(Objects.equals(input[0], "exit")) {
@@ -331,12 +317,8 @@ public class XOGameAI {
             oCount = 0;
             for(int j = 0; j < 3; j++) {
                 switch (board[i][j]) {
-                    case 'X':
-                        xCount++;
-                        break;
-                    case 'O':
-                        oCount++;
-                        break;
+                    case 'X' -> xCount++;
+                    case 'O' -> oCount++;
                 }
             }
             if (xCount == 3) {
@@ -350,12 +332,8 @@ public class XOGameAI {
             oCount = 0;
             for(int j = 0; j < 3; j++) {
                 switch (board[j][i]) {
-                    case 'X':
-                        xCount++;
-                        break;
-                    case 'O':
-                        oCount++;
-                        break;
+                    case 'X' -> xCount++;
+                    case 'O' -> oCount++;
                 }
             }
             if (xCount == 3) {
@@ -368,12 +346,8 @@ public class XOGameAI {
         oCount = 0;
         for(int i = 0; i < 3; i++) {
             switch (board[i][i]) {
-                case 'X':
-                    xCount++;
-                    break;
-                case 'O':
-                    oCount++;
-                    break;
+                case 'X' -> xCount++;
+                case 'O' -> oCount++;
             }
             if (xCount == 3) {
                 xWins++;
@@ -385,12 +359,8 @@ public class XOGameAI {
         oCount = 0;
         for(int i = 0; i < 3; i++) {
             switch (board[i][2 - i]) {
-                case 'X':
-                    xCount++;
-                    break;
-                case 'O':
-                    oCount++;
-                    break;
+                case 'X' -> xCount++;
+                case 'O' -> oCount++;
             }
             if (xCount == 3) {
                 xWins++;
@@ -404,12 +374,8 @@ public class XOGameAI {
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
                 switch (board[i][j]) {
-                    case 'X':
-                        xCount++;
-                        break;
-                    case 'O':
-                        oCount++;
-                        break;
+                    case 'X' -> xCount++;
+                    case 'O' -> oCount++;
                 }
             }
         }
@@ -423,32 +389,12 @@ public class XOGameAI {
     }
     public static void printBoardState() {
         switch (getBoardState()) {
-            case 'U':
-                System.out.println("Game not finished");
-                break;
-            case 'D':
-                System.out.println("Draw");
-                break;
-            case 'X':
-                System.out.println("X wins");
-                break;
-            case 'O':
-                System.out.println("O wins");
-                break;
-            case 'I':
-                System.out.println("Impossible");
-                break;
-            default:
-                System.out.println("Error");
-                break;
-        }
-    }
-    public static void setBoard() {
-        System.out.print("Enter the cells: ");
-        char[] input = scanner.nextLine().toCharArray();
-
-        for(int i = 0; i < 3; i++) {
-            System.arraycopy(input, (i * 3), board[i], 0, 3);
+            case 'U' -> System.out.println("Game not finished");
+            case 'D' -> System.out.println("Draw");
+            case 'X' -> System.out.println("X wins");
+            case 'O' -> System.out.println("O wins");
+            case 'I' -> System.out.println("Impossible");
+            default -> System.out.println("Error");
         }
     }
 }

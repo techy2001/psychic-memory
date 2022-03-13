@@ -77,12 +77,8 @@ public class XOGame {
             oCount = 0;
             for(int j = 0; j < 3; j++) {
                 switch (board[i][j]) {
-                    case 'X':
-                        xCount++;
-                        break;
-                    case 'O':
-                        oCount++;
-                        break;
+                    case 'X' -> xCount++;
+                    case 'O' -> oCount++;
                 }
             }
             if (xCount == 3) {
@@ -96,12 +92,8 @@ public class XOGame {
             oCount = 0;
             for(int j = 0; j < 3; j++) {
                 switch (board[j][i]) {
-                    case 'X':
-                        xCount++;
-                        break;
-                    case 'O':
-                        oCount++;
-                        break;
+                    case 'X' -> xCount++;
+                    case 'O' -> oCount++;
                 }
             }
             if (xCount == 3) {
@@ -114,12 +106,8 @@ public class XOGame {
         oCount = 0;
         for(int i = 0; i < 3; i++) {
             switch (board[i][i]) {
-                case 'X':
-                    xCount++;
-                    break;
-                case 'O':
-                    oCount++;
-                    break;
+                case 'X' -> xCount++;
+                case 'O' -> oCount++;
             }
             if (xCount == 3) {
                 xWins++;
@@ -131,12 +119,8 @@ public class XOGame {
         oCount = 0;
         for(int i = 0; i < 3; i++) {
             switch (board[i][2 - i]) {
-                case 'X':
-                    xCount++;
-                    break;
-                case 'O':
-                    oCount++;
-                    break;
+                case 'X' -> xCount++;
+                case 'O' -> oCount++;
             }
             if (xCount == 3) {
                 xWins++;
@@ -150,12 +134,8 @@ public class XOGame {
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
                 switch (board[i][j]) {
-                    case 'X':
-                        xCount++;
-                        break;
-                    case 'O':
-                        oCount++;
-                        break;
+                    case 'X' -> xCount++;
+                    case 'O' -> oCount++;
                 }
             }
         }
@@ -169,24 +149,12 @@ public class XOGame {
     }
     public static void printBoardState() {
         switch (getBoardState()) {
-            case 'U':
-                System.out.println("Game not finished");
-                break;
-            case 'D':
-                System.out.println("Draw");
-                break;
-            case 'X':
-                System.out.println("X wins");
-                break;
-            case 'O':
-                System.out.println("O wins");
-                break;
-            case 'I':
-                System.out.println("Impossible");
-                break;
-            default:
-                System.out.println("Error");
-                break;
+            case 'U' -> System.out.println("Game not finished");
+            case 'D' -> System.out.println("Draw");
+            case 'X' -> System.out.println("X wins");
+            case 'O' -> System.out.println("O wins");
+            case 'I' -> System.out.println("Impossible");
+            default -> System.out.println("Error");
         }
     }
 }
