@@ -1,8 +1,8 @@
 package mialee.psychicmemory.math;
 
 public class Vec2d {
-    double x;
-    double y;
+    public double x;
+    public double y;
 
     public Vec2d(double x, double y) {
         this.x = x;

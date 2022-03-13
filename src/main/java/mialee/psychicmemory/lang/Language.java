@@ -6,7 +6,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static mialee.psychicmemory.PMGame.LOGGER;
+import static mialee.psychicmemory.PsychicMemory.LOGGER;
 
 public class Language {
     private JSONObject lang;
@@ -16,8 +16,6 @@ public class Language {
         URL resource = TranslatableText.class.getClassLoader().getResource("assets/lang/%s.json".formatted(name));
         try {
             assert resource != null;
-            System.out.println(resource.toURI());
-            System.out.println(Path.of(resource.toURI()));
             lang = new JSONObject(Files.readString(Path.of(resource.toURI())));
             langName = name;
         } catch (Exception e) {

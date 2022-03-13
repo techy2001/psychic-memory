@@ -26,6 +26,6 @@ public class PMGameScreen extends JPanel {
 
     public void drawElements(Graphics g) {
         g.setColor(Color.RED);
-        g.fillOval((int)0, (int)0, 30, 30);
+        g.fillOval(0, 0, 30, 30);
     }
 }

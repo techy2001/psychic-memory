@@ -9,8 +9,8 @@ import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static mialee.psychicmemory.PMGame.LOGGER;
-import static mialee.psychicmemory.PMGame.dir;
+import static mialee.psychicmemory.PsychicMemory.LOGGER;
+import static mialee.psychicmemory.PsychicMemory.dir;
 
 //This class is used to manage Settings and Save data.
 public class DataManager {

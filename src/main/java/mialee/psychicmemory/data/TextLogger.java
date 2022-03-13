@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.MissingFormatArgumentException;
 
-import static mialee.psychicmemory.PMGame.dir;
+import static mialee.psychicmemory.PsychicMemory.dir;
 
 //This class is used instead of System.out.print, in order to save copies of the game's logs.
 public class TextLogger {

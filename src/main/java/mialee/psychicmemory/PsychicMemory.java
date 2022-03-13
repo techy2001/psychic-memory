@@ -4,15 +4,19 @@ import mialee.psychicmemory.data.DataManager;
 import mialee.psychicmemory.data.TextLogger;
 import mialee.psychicmemory.data.PMSave;
 import mialee.psychicmemory.data.PMSettings;
+import mialee.psychicmemory.game.Board;
+import mialee.psychicmemory.game.entities.Entity;
 import mialee.psychicmemory.lang.Language;
 import mialee.psychicmemory.lang.TranslatableText;
-import mialee.psychicmemory.window.PMWindow;
+import mialee.psychicmemory.math.Vec2d;
+import mialee.psychicmemory.window.Renderer;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class PMGame {
+public class PsychicMemory {
     //Name given to the saved data folder.
     public static String dir = "PMData";
     //Logger used to keep records of past games.
@@ -23,6 +27,9 @@ public class PMGame {
     public static PMSettings SETTING_VALUES;
     //A map containing all the individual save files by number.
     public static Map<Integer, PMSave> SAVE_VALUES;
+
+
+    public static Board board = new Board();
 
     public static void main(String[] args) {
         //Starts by creating a new logger, which will be used instead of System.out.print.
@@ -39,6 +46,8 @@ public class PMGame {
         SAVE_VALUES = new LinkedHashMap<>();
         for(int i = 1; i <= 3; i++) SAVE_VALUES.put(i, DataManager.populateSave(i));
 
-        PMWindow.createWindow();
+        Renderer.startRenderer();
+
+        board.entities.add(new Entity(board, new Vec2d(0, 0), new Vec2d(0, 0)));
     }
 }
