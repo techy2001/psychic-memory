@@ -13,18 +13,18 @@ import static mialee.psychicmemory.PMGame.LOGGER;
 import static mialee.psychicmemory.PMGame.dir;
 
 //This class is used to manage Settings and Save data.
-public class PMData {
+public class DataManager {
     //Creates a new PMSettings object and populates it with settings read from the settings.json file.
     //If no json is present generates a new one and saves it.
     public static PMSettings populateSettings() {
         PMSettings pmSettings = new PMSettings();
 
         //If the file isn't loaded, print that it will generate a new one.
-        boolean loaded = PMData.load(Path.of("%s/settings.json".formatted(dir)), pmSettings);
+        boolean loaded = DataManager.load(Path.of("%s/settings.json".formatted(dir)), pmSettings);
         if (!loaded) LOGGER.loggedPrint(new TranslatableText("pm.data.gen_settings"));
 
         //Saves file immediately, easier to edit if needed.
-        PMData.save(Path.of("%s/settings.json".formatted(dir)), pmSettings);
+        DataManager.save(Path.of("%s/settings.json".formatted(dir)), pmSettings);
 
         return pmSettings;
     }
@@ -35,11 +35,11 @@ public class PMData {
         PMSave pmSave = new PMSave();
 
         //If the file isn't loaded, print that it will generate a new one.
-        boolean loaded = PMData.load(Path.of("%s/save%d.json".formatted(dir, save)), pmSave);
+        boolean loaded = DataManager.load(Path.of("%s/save%d.json".formatted(dir, save)), pmSave);
         if (!loaded) LOGGER.loggedPrint(new TranslatableText("pm.data.gen_save"), save);
 
         //Saves file immediately, easier to edit if needed.
-        PMData.save(Path.of("%s/save%d.json".formatted(dir, save)), pmSave);
+        DataManager.save(Path.of("%s/save%d.json".formatted(dir, save)), pmSave);
 
         return pmSave;
     }

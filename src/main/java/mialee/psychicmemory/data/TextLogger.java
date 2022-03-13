@@ -10,10 +10,10 @@ import java.util.MissingFormatArgumentException;
 import static mialee.psychicmemory.PMGame.dir;
 
 //This class is used instead of System.out.print, in order to save copies of the game's logs.
-public class PMLogger {
+public class TextLogger {
     long logTime;
 
-    public PMLogger() {
+    public TextLogger() {
         //This time is used to name the log file.
         logTime = Calendar.getInstance().getTimeInMillis();
     }
