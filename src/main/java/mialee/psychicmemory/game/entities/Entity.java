@@ -13,20 +13,13 @@ public class Entity {
     public final Vec2d position;
     public final Vec2d velocity;
     private double rotation;
+    private final EntityType type;
 
-    public BufferedImage image = null;
-
-    public Entity(Board board, Vec2d position, Vec2d velocity) {
+    public Entity(EntityType type, Board board, Vec2d position, Vec2d velocity) {
+        this.type = type;
         this.board = board;
         this.position = position;
         this.velocity = velocity;
-
-        try {
-            image = Renderer.loadSprite("assets/textures/cod.png");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public void tick(float deltaTime) {
@@ -34,8 +27,11 @@ public class Entity {
     }
 
     public void render(Graphics graphics) {
-        if (image == null) return;
-        graphics.drawImage(image, (int) position.x - (image.getWidth() / 2), (int) position.y - (image.getHeight() / 2), image.getWidth(), image.getHeight(), null);
+        if (type.image == null) return;
+        graphics.drawImage(type.image,
+                (int) position.x - (type.image.getWidth() / 2),
+                (int) position.y - (type.image.getHeight() / 2),
+                type.visualSize, type.visualSize, null);
     }
 
     public double getRotation() {

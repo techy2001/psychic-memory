@@ -6,11 +6,13 @@ import mialee.psychicmemory.data.PMSave;
 import mialee.psychicmemory.data.PMSettings;
 import mialee.psychicmemory.game.Board;
 import mialee.psychicmemory.game.entities.Entity;
+import mialee.psychicmemory.game.entities.EntityType;
 import mialee.psychicmemory.lang.Language;
 import mialee.psychicmemory.lang.TranslatableText;
 import mialee.psychicmemory.math.Vec2d;
 import mialee.psychicmemory.window.Renderer;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -27,7 +29,6 @@ public class PsychicMemory {
     public static PMSettings SETTING_VALUES;
     //A map containing all the individual save files by number.
     public static Map<Integer, PMSave> SAVE_VALUES;
-
 
     public static Board board = new Board();
 
@@ -48,6 +49,6 @@ public class PsychicMemory {
 
         Renderer.startRenderer();
 
-        board.entities.add(new Entity(board, new Vec2d(0, 0), new Vec2d(0, 0)));
+        board.entities.add(new Entity(type, board, new Vec2d(150, 150), new Vec2d(0, 0)));
     }
 }

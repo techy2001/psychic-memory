@@ -32,7 +32,7 @@ public class Renderer {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setBackground(Color.MAGENTA);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //TODO: Better close method.
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
         Thread renderThread = new Thread(() -> {
@@ -47,7 +47,6 @@ public class Renderer {
                 if (System.nanoTime() > lastFrameTime + 1000000000) {
                     lastFrameTime = System.nanoTime();
                     frameRate = frames;
-                    System.out.println(frameRate);
                     frames = 0;
                 }
 
