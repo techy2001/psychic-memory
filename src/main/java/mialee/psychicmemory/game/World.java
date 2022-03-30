@@ -1,11 +1,11 @@
 package mialee.psychicmemory.game;
 
-import mialee.psychicmemory.game.entities.Entity;
+import mialee.psychicmemory.game.entities.core.Entity;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Board {
+public class World {
     public final ArrayList<Entity> entities = new ArrayList<>();
 
     public void tick(float deltaTime) {

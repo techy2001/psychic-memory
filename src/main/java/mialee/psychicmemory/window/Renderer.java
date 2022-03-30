@@ -1,20 +1,13 @@
 package mialee.psychicmemory.window;
 
 import mialee.psychicmemory.PsychicMemory;
-import mialee.psychicmemory.game.entities.Entity;
 import mialee.psychicmemory.input.Input;
 import mialee.psychicmemory.lang.TranslatableText;
 import mialee.psychicmemory.math.Vec2i;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
-import java.io.IOException;
-import java.util.Objects;
-
-import static mialee.psychicmemory.PsychicMemory.LOGGER;
 
 public class Renderer {
     private static JFrame frame;
@@ -58,10 +51,10 @@ public class Renderer {
                 graphics.setColor(Color.MAGENTA);
                 graphics.fillRect(0, 0, dimensions.x, dimensions.y);
 
-                graphics.setColor(Color.GRAY);
+                graphics.setColor(Color.BLACK);
                 graphics.drawString("FPS: " + frameRate, 0, dimensions.y);
 
-                PsychicMemory.board.render(graphics);
+                PsychicMemory.world.render(graphics);
 
                 graphics.dispose();
                 graphics = canvas.getGraphics();
@@ -71,12 +64,5 @@ public class Renderer {
         });
         renderThread.setName("renderThread");
         renderThread.start();
-    }
-
-    public static BufferedImage loadSprite(String path) throws IOException {
-        BufferedImage file = ImageIO.read(Objects.requireNonNull(Renderer.class.getClassLoader().getResource(path)));
-        BufferedImage image = canvas.getGraphicsConfiguration().createCompatibleImage(file.getWidth() * 4, file.getHeight() * 4, file.getTransparency());
-        image.getGraphics().drawImage(file, 0, 0, file.getWidth() * 4, file.getHeight() * 4, null);
-        return image;
     }
 }

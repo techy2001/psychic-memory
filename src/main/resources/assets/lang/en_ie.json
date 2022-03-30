@@ -13,5 +13,7 @@
   "pm.data.file.read" : "%s read successfully.",
   "pm.data.file.missing" : "File %s not found.",
   "pm.data.file.inaccessible" : "Unable to save %s classes to files as they are inaccessible. %s",
+  "pm.data.image.missing" : "Unable to find image %s. %s",
+  "pm.data.entity.fail" : "Unable to load entity. %s",
   "pm.error" : "Unexpected error: %s"
 }

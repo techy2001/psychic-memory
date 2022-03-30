@@ -65,7 +65,6 @@ public class DataManager {
             }
 
             //Returns true if file was loaded successfully.
-            LOGGER.loggedPrint(new TranslatableText("pm.data.file.missing"), path.getName(path.getNameCount() - 1));
             return true;
         } catch (IOException e) {
             //Returns false if file not found and sends to log.

@@ -1,21 +1,18 @@
-package mialee.psychicmemory.game.entities;
+package mialee.psychicmemory.game.entities.core;
 
-import mialee.psychicmemory.game.Board;
+import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.math.Vec2d;
-import mialee.psychicmemory.window.Renderer;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
-public class Entity {
-    private final Board board;
+public abstract class Entity {
+    private final World board;
     public final Vec2d position;
     public final Vec2d velocity;
     private double rotation;
-    private final EntityType type;
+    private final BaseEntity type;
 
-    public Entity(EntityType type, Board board, Vec2d position, Vec2d velocity) {
+    public Entity(BaseEntity type, World board, Vec2d position, Vec2d velocity) {
         this.type = type;
         this.board = board;
         this.position = position;
@@ -28,9 +25,9 @@ public class Entity {
 
     public void render(Graphics graphics) {
         if (type.image == null) return;
-        graphics.drawImage(type.image,
-                (int) position.x - (type.image.getWidth() / 2),
-                (int) position.y - (type.image.getHeight() / 2),
+        graphics.drawImage(type.image.getImage(),
+                (int) position.x - (type.image.getIconWidth() / 2),
+                (int) position.y - (type.image.getIconHeight() / 2),
                 type.visualSize, type.visualSize, null);
     }
 
@@ -41,4 +38,6 @@ public class Entity {
     public void setRotation(double rotation) {
         this.rotation = rotation;
     }
+
+
 }
