@@ -3,20 +3,34 @@ package mialee.psychicmemory.game.entities.core;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.math.Vec2d;
 
+import javax.swing.*;
 import java.awt.*;
 
 public abstract class Entity {
-    private final World board;
-    public final Vec2d position;
-    public final Vec2d velocity;
+    private World board;
+    public Vec2d position;
+    public Vec2d velocity;
     private double rotation;
-    private final BaseEntity type;
 
-    public Entity(BaseEntity type, World board, Vec2d position, Vec2d velocity) {
-        this.type = type;
+    public String name;
+    public ImageIcon image;
+    public double hitRadius;
+    public int visualSize;
+    public int health;
+
+    public Entity createInstance(World board, Vec2d position, Vec2d velocity) {
         this.board = board;
         this.position = position;
         this.velocity = velocity;
+        return this;
+    }
+
+    public Entity(String name, double hitRadius, int visualSize, int health, ImageIcon image) {
+        this.name = name;
+        this.hitRadius = hitRadius;
+        this.visualSize = visualSize;
+        this.health = health;
+        this.image = image;
     }
 
     public void tick(float deltaTime) {
@@ -24,11 +38,11 @@ public abstract class Entity {
     }
 
     public void render(Graphics graphics) {
-        if (type.image == null) return;
-        graphics.drawImage(type.image.getImage(),
-                (int) position.x - (type.image.getIconWidth() / 2),
-                (int) position.y - (type.image.getIconHeight() / 2),
-                type.visualSize, type.visualSize, null);
+        if (image == null) return;
+        graphics.drawImage(image.getImage(),
+                (int) position.x - (image.getIconWidth() / 2),
+                (int) position.y - (image.getIconHeight() / 2),
+                visualSize, visualSize, null);
     }
 
     public double getRotation() {
@@ -38,6 +52,4 @@ public abstract class Entity {
     public void setRotation(double rotation) {
         this.rotation = rotation;
     }
-
-
 }
