@@ -12,7 +12,7 @@ import java.awt.image.VolatileImage;
 public class Renderer {
     private static JFrame frame;
     private static Canvas canvas;
-    private static final Vec2i dimensions = new Vec2i(800, 600);
+    private static final Vec2i dimensions = new Vec2i(960, 720);
 
     public static void startRenderer() {
         canvas = new Canvas();

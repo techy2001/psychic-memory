@@ -1,16 +1,20 @@
 package mialee.psychicmemory.game;
 
 import mialee.psychicmemory.game.entities.core.Entity;
+import mialee.psychicmemory.math.Vec2d;
+import mialee.psychicmemory.math.Vec2i;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class World {
     public final ArrayList<Entity> entities = new ArrayList<>();
+    public final Vec2i size = new Vec2i(960, 720);
+    private int gameState;
 
-    public void tick(float deltaTime) {
+    public void tick() {
         for (Entity entity : entities) {
-            entity.tick(deltaTime);
+            entity.tick();
         }
     }
 

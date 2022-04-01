@@ -1,5 +1,6 @@
 package mialee.psychicmemory.game.entities.core;
 
+import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.math.Vec2d;
 
@@ -7,49 +8,54 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class Entity {
-    private World board;
-    public Vec2d position;
-    public Vec2d velocity;
-    private double rotation;
+    public final World board;
+    public final Vec2d position;
+    public final Vec2d velocity;
 
-    public String name;
-    public ImageIcon image;
-    public double hitRadius;
-    public int visualSize;
-    public int health;
+    private String name;
+    private ImageIcon image;
+    private double hitRadius;
+    private int visualSize;
 
-    public Entity createInstance(World board, Vec2d position, Vec2d velocity) {
+    public Entity(World board, Vec2d position, Vec2d velocity) {
         this.board = board;
         this.position = position;
         this.velocity = velocity;
-        return this;
+        registerStats();
     }
 
-    public Entity(String name, double hitRadius, int visualSize, int health, ImageIcon image) {
-        this.name = name;
-        this.hitRadius = hitRadius;
-        this.visualSize = visualSize;
-        this.health = health;
-        this.image = image;
+    protected void registerStats() {
+        this.name = "";
+        this.hitRadius = 20;
+        this.visualSize = 50;
+        this.image = PsychicMemory.getIcon("cod.png");
     }
 
-    public void tick(float deltaTime) {
+    public void tick() {
         position.add(velocity);
     }
 
     public void render(Graphics graphics) {
         if (image == null) return;
         graphics.drawImage(image.getImage(),
-                (int) position.x - (image.getIconWidth() / 2),
-                (int) position.y - (image.getIconHeight() / 2),
+                (int) position.x - (visualSize / 2),
+                (int) position.y - (visualSize / 2),
                 visualSize, visualSize, null);
     }
 
-    public double getRotation() {
-        return rotation;
+    public String getName() {
+        return name;
     }
 
-    public void setRotation(double rotation) {
-        this.rotation = rotation;
+    public ImageIcon getImage() {
+        return image;
+    }
+
+    public double getHitRadius() {
+        return hitRadius;
+    }
+
+    public int getVisualSize() {
+        return visualSize;
     }
 }
