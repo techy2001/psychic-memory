@@ -3,14 +3,14 @@ package mialee.psychicmemory.game.tasks.entitytasks;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.EntityTask;
 
-public class MoveWithVelocityTask extends EntityTask {
-    public MoveWithVelocityTask(Entity owner, int length) {
-        super(owner, length);
+public class DeleteSelfTask extends EntityTask {
+    public DeleteSelfTask(Entity owner) {
+        super(owner, 1);
     }
 
     @Override
     public void tick() {
-        owner.position.add(owner.velocity);
+        owner.markForDeletion();
         super.tick();
     }
 }

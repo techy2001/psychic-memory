@@ -27,6 +27,12 @@ public class Vec2d {
         return this;
     }
 
+    public Vec2d set(Vec2d vec) {
+        this.x = vec.x;
+        this.y = vec.y;
+        return this;
+    }
+
     public Vec2d lerp(Vec2d dest, double amount) {
         return new Vec2d(MathHelper.lerpDouble(amount, this.x, dest.x), MathHelper.lerpDouble(amount, this.y, dest.y));
     }

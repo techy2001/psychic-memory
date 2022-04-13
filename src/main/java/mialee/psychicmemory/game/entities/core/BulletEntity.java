@@ -5,7 +5,7 @@ import mialee.psychicmemory.math.Vec2d;
 
 import java.awt.*;
 
-public class BulletEntity extends Entity {
+public abstract class BulletEntity extends Entity {
     protected int damage;
     protected EntityType enemyFaction;
 
@@ -40,21 +40,5 @@ public class BulletEntity extends Entity {
                 }
             }
         }
-    }
-
-    @Override
-    protected void registerStats() {
-        super.registerStats();
-        this.hitRadius = 12;
-        this.visualSize = 20;
-    }
-
-    @Override
-    public void render(Graphics graphics) {
-        super.render(graphics);
-        graphics.setColor(Color.BLACK);
-        graphics.fillOval((int) (position.x - (getHitRadius() / 2)), (int) (position.y - (getHitRadius() / 2)), getHitRadius(), getHitRadius());
-        graphics.setColor(Color.RED);
-        graphics.fillOval((int) (position.x - (getHitRadius() / 2)) + 2, (int) (position.y - (getHitRadius() / 2)) + 2, getHitRadius() - 4, getHitRadius() - 4);
     }
 }

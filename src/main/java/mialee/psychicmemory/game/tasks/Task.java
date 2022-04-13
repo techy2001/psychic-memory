@@ -2,7 +2,7 @@ package mialee.psychicmemory.game.tasks;
 
 public abstract class Task {
     protected int tick = 0;
-    private final int length;
+    protected final int length;
     private boolean complete = false;
     protected boolean loop = true;
 
@@ -11,6 +11,7 @@ public abstract class Task {
     }
 
     public void tick() {
+        if (tick == 0) refresh();
         tick++;
         if (tick >= length) {
             complete = true;

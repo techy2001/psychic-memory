@@ -21,7 +21,7 @@ public class PlayerEntity extends LivingEntity {
         super.tick();
         velocity.x = 0;
         velocity.y = 0;
-        int speed = 6;
+        int speed = 4;
 
         boolean left = Input.getKey(PsychicMemory.SETTING_VALUES.LEFT_KEY);
         boolean right = Input.getKey(PsychicMemory.SETTING_VALUES.RIGHT_KEY);
@@ -29,7 +29,7 @@ public class PlayerEntity extends LivingEntity {
         boolean down = Input.getKey(PsychicMemory.SETTING_VALUES.DOWN_KEY);
 
         if (Input.getKey(PsychicMemory.SETTING_VALUES.SLOW_KEY)) {
-            speed /= 3;
+            speed /= 2;
         }
         if (left) {
             velocity.x -= speed;
@@ -60,8 +60,7 @@ public class PlayerEntity extends LivingEntity {
 
         if (fireCooldown > 0) fireCooldown--;
         if (Input.getKey(PsychicMemory.SETTING_VALUES.FIRE_KEY) && fireCooldown <= 0) {
-            this.world.addEntity(new BulletEntity(this.world, this.position.copy(), new Vec2d(0, -25),
-                    EntityType.PLAYER_BULLET, EntityType.ENEMY, 1));
+            this.world.addEntity(new PlayerBulletEntity(this.world, this.position.copy(), new Vec2d(0, -25), 1));
             fireCooldown = 4;
         }
     }
@@ -70,8 +69,8 @@ public class PlayerEntity extends LivingEntity {
     protected void registerStats() {
         super.registerStats();
         this.name = "Player";
-        this.hitRadius = 12;
-        this.visualSize = 42;
+        this.hitRadius = 6;
+        this.visualSize = 18;
         this.image = PsychicMemory.getIcon("entities/salmon.png");
         this.health = 10000;
     }
@@ -84,10 +83,9 @@ public class PlayerEntity extends LivingEntity {
         super.render(graphics);
         if (Input.getKey(PsychicMemory.SETTING_VALUES.SLOW_KEY)) {
             graphics.setColor(Color.BLACK);
-            graphics.fillOval((int) (position.x - (getHitRadius() / 2)), (int) (position.y - (getHitRadius() / 2)), (int) getHitRadius(), (int) getHitRadius());
+            graphics.fillOval((int) (position.x - (getHitRadius())), (int) (position.y - getHitRadius()), getHitRadius() * 2, getHitRadius() * 2);
             graphics.setColor(Color.RED);
-            graphics.fillOval((int) (position.x - (getHitRadius() / 2)) + 2, (int) (position.y - (getHitRadius() / 2)) + 2,
-                    (int) getHitRadius() - 4, (int) getHitRadius() - 4);
+            graphics.fillOval((int) (position.x - (getHitRadius())) + 2, (int) (position.y - getHitRadius()) + 2, (getHitRadius() * 2) - 4, (getHitRadius() * 2) - 4);
         }
     }
 

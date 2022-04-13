@@ -3,7 +3,7 @@ package mialee.psychicmemory.game.entities.core;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.math.Vec2d;
 
-public class LivingEntity extends Entity {
+public abstract class LivingEntity extends Entity {
     protected int health;
 
     public LivingEntity(World board, Vec2d position, Vec2d velocity, EntityType faction) {

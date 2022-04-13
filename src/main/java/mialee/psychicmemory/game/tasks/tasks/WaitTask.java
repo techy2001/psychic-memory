@@ -6,9 +6,4 @@ public class WaitTask extends Task {
     public WaitTask(int length) {
         super(length);
     }
-
-    @Override
-    public void tick() {
-        super.tick();
-    }
 }

@@ -1,9 +1,8 @@
 package mialee.psychicmemory.game.tasks.entitytasks;
 
+import mialee.psychicmemory.game.entities.EnemyBulletEntity;
 import mialee.psychicmemory.game.entities.PlayerEntity;
-import mialee.psychicmemory.game.entities.core.BulletEntity;
 import mialee.psychicmemory.game.entities.core.Entity;
-import mialee.psychicmemory.game.entities.core.EntityType;
 import mialee.psychicmemory.game.tasks.EntityTask;
 import mialee.psychicmemory.math.Vec2d;
 
@@ -30,13 +29,23 @@ public class FireAtPlayerTask extends EntityTask {
         super.tick();
         if (cooldown <= 0) {
             if (player != null) {
-                double size = Math.abs(player.position.x - owner.position.x) + Math.abs(player.position.y - owner.position.y);
-                int amount = (count - 1) / 2;
-                for (double i = -(amount * deviation); i <= (amount * deviation); i += deviation) {
-                    double rotation = (Math.toDegrees(Math.asin((player.position.x - owner.position.x) / size)));
-                    double f = Math.sin((i + rotation) * ((float) Math.PI / 180));
-                    double h = Math.cos((i + rotation) * ((float) Math.PI / 180));
-                    owner.world.addEntity(new BulletEntity(owner.world, owner.position.copy(), new Vec2d(f * speed, h * speed), EntityType.ENEMY_BULLET, EntityType.PLAYER, 1));
+                double size = Math.abs(owner.position.y - player.position.y) + Math.abs(owner.position.y - player.position.y);
+                if (count % 2 == 0) {
+                    int amount = count / 2;
+                    for (double i = -(amount - 0.5); i <= (amount - 0.5) ; i += 1) {
+                        double rotation = (Math.toDegrees(Math.asin((player.position.x - owner.position.x) / size)));
+                        double f = Math.sin((i * deviation + rotation) * ((float) Math.PI / 180));
+                        double h = Math.cos((i * deviation + rotation) * ((float) Math.PI / 180));
+                        owner.world.addEntity(new EnemyBulletEntity(owner.world, owner.position.copy(), new Vec2d(f * speed, h * speed)));
+                    }
+                } else {
+                    int amount = (count - 1) / 2;
+                    for (double i = -amount; i <= amount; i += 1) {
+                        double rotation = (Math.toDegrees(Math.asin((player.position.x - owner.position.x) / size)));
+                        double f = Math.sin((i * deviation + rotation) * ((float) Math.PI / 180));
+                        double h = Math.cos((i * deviation + rotation) * ((float) Math.PI / 180));
+                        owner.world.addEntity(new EnemyBulletEntity(owner.world, owner.position.copy(), new Vec2d(f * speed, h * speed)));
+                    }
                 }
                 cooldown = cooldownMax;
             } else {

@@ -1,7 +1,6 @@
 package mialee.psychicmemory.game;
 
 import mialee.psychicmemory.game.entities.core.Entity;
-import mialee.psychicmemory.math.Vec2d;
 import mialee.psychicmemory.math.Vec2i;
 
 import java.awt.*;
@@ -11,7 +10,6 @@ public class World {
     private final ArrayList<Entity> entities = new ArrayList<>();
     private final ArrayList<Entity> newEntities = new ArrayList<>();
     public final Vec2i size;
-    private int gameState;
 
     public World(Vec2i size) {
         this.size = size;
@@ -34,6 +32,7 @@ public class World {
         }
     }
 
+    @SuppressWarnings("ForLoopReplaceableByForEach")
     public void render(Graphics graphics) {
         for (int i = 0; i < entities.size(); i++) {
             Entity entity = entities.get(i);

@@ -7,7 +7,7 @@ import mialee.psychicmemory.data.TextLogger;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.PlayerEntity;
 import mialee.psychicmemory.game.entities.core.EntityType;
-import mialee.psychicmemory.game.entities.core.TestEntity;
+import mialee.psychicmemory.game.entities.TestEntity;
 import mialee.psychicmemory.lang.Language;
 import mialee.psychicmemory.lang.TranslatableText;
 import mialee.psychicmemory.math.Vec2d;

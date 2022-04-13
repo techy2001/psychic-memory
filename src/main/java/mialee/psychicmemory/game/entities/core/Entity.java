@@ -22,8 +22,8 @@ public abstract class Entity {
     protected int hitRadius;
     protected int visualSize;
 
-    private final ArrayList<EntityTask> taskList = new ArrayList<>();
-    private final ArrayList<EntityTask> pendingTasks = new ArrayList<>();
+    private final ArrayList<Task> taskList = new ArrayList<>();
+    private final ArrayList<Task> pendingTasks = new ArrayList<>();
     protected int age = 0;
     private boolean markedForDeletion = false;
 
@@ -37,19 +37,19 @@ public abstract class Entity {
     }
 
     protected void initializeTasks() {
-        addTask(new MoveWithVelocityTask(this, Integer.MAX_VALUE, true));
+        addTask(new MoveWithVelocityTask(this, Integer.MAX_VALUE));
     }
 
     protected void registerStats() {
         this.name = "";
-        this.hitRadius = 40;
-        this.visualSize = 50;
+        this.hitRadius = 20;
+        this.visualSize = 30;
     }
 
     public void tick() {
         age++;
         if (!taskList.isEmpty()) {
-            EntityTask task = taskList.get(0);
+            Task task = taskList.get(0);
             task.tick();
             if (task.isComplete()) {
                 if (task.shouldLoop()) {
@@ -65,10 +65,7 @@ public abstract class Entity {
 
     public void render(Graphics graphics) {
         if (image == null) image = PsychicMemory.missingTexture;
-        graphics.drawImage(image.getImage(),
-                (int) (position.x - (visualSize / 2)),
-                (int) (position.y - (visualSize / 2)),
-                visualSize, visualSize, null);
+        graphics.drawImage(image.getImage(), (int) (position.x - visualSize), (int) (position.y - visualSize), visualSize * 2, visualSize * 2, null);
     }
 
     public ImageIcon getImage() {
@@ -88,14 +85,15 @@ public abstract class Entity {
     }
 
     public double squaredDistanceTo(Entity entity) {
-        return (((this.position.x - entity.position.x) * (this.position.x - entity.position.x)) + ((this.position.y - entity.position.y) * (this.position.y - entity.position.y))) * 2;
+        return Math.sqrt(Math.pow(Math.abs((this.position.x - entity.position.x)), 2) +
+                Math.pow(Math.abs((this.position.y - entity.position.y)), 2));
     }
 
     public double squaredHitboxes(Entity entity) {
-        return this.hitRadius * entity.hitRadius * 4;
+        return this.hitRadius + entity.hitRadius;
     }
 
     public void addTask(Task task) {
-        pendingTasks.add((EntityTask) task);
+        pendingTasks.add(task);
     }
 }
