@@ -18,7 +18,9 @@ public class Renderer {
     public static void startRenderer() {
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(dimensions.x, dimensions.y));
-        canvas.addKeyListener(new Input());
+        //canvas.addKeyListener(new Input());
+
+        canvas.addKeyListener(PsychicMemory.menu);
 
         frame = new JFrame(new TranslatableText("pm.game").toString());
         frame.add(canvas);
@@ -53,6 +55,9 @@ public class Renderer {
 
                 if (PsychicMemory.gameState != GameState.MENU) {
                     PsychicMemory.world.render(graphics);
+                }
+                if (PsychicMemory.gameState == GameState.MENU) {
+                    PsychicMemory.menu.render(graphics);
                 }
 
                 graphics.setColor(Color.BLACK);

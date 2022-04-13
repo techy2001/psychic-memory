@@ -11,6 +11,7 @@ import mialee.psychicmemory.lang.Language;
 import mialee.psychicmemory.lang.TranslatableText;
 import mialee.psychicmemory.math.Vec2d;
 import mialee.psychicmemory.math.Vec2i;
+import mialee.psychicmemory.menu.Menu;
 import mialee.psychicmemory.window.Renderer;
 
 import javax.swing.*;
@@ -27,9 +28,12 @@ public class PsychicMemory {
     public static Language LANGUAGE;
     public static PMSettings SETTING_VALUES;
     public static Map<Integer, PMSave> SAVE_VALUES;
+    private final static Map<String, ImageIcon> sprites = new LinkedHashMap<>();
+    private static final ImageIcon missingTexture = new ImageIcon(Objects.requireNonNull(PsychicMemory.class.getClassLoader().getResource("assets/textures/cod.png")));
     public static World world = new World(new Vec2i(960, 720));
+    public static Menu menu = new Menu();
     public static long ticksPerSecond = 0;
-    public static GameState gameState = GameState.INGAME;
+    public static GameState gameState = GameState.MENU;
 
     /**
      * @param args main
@@ -82,7 +86,6 @@ public class PsychicMemory {
         gameThread.start();
     }
 
-    private final static Map<String, ImageIcon> sprites = new LinkedHashMap<>();
     public static ImageIcon getIcon(String name) {
         if (!sprites.containsKey(name)) {
             sprites.put(name, loadImage(name));
@@ -90,7 +93,6 @@ public class PsychicMemory {
         return sprites.get(name);
     }
 
-    private static final ImageIcon missingTexture = new ImageIcon(Objects.requireNonNull(PsychicMemory.class.getClassLoader().getResource("assets/textures/cod.png")));
     private static ImageIcon loadImage(String location) {
         ImageIcon icon;
         try {
@@ -103,5 +105,6 @@ public class PsychicMemory {
     }
 
     public static void start() {
+        System.out.println("start");
     }
 }
