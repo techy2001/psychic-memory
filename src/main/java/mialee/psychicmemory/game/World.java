@@ -9,8 +9,12 @@ import java.util.ArrayList;
 
 public class World {
     public final ArrayList<Entity> entities = new ArrayList<>();
-    public final Vec2i size = new Vec2i(960, 720);
+    public final Vec2i size;
     private int gameState;
+
+    public World(Vec2i size) {
+        this.size = size;
+    }
 
     public void tick() {
         for (Entity entity : entities) {

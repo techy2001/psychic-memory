@@ -1,6 +1,6 @@
-package mialee.psychicmemory.game.tasks.core;
+package mialee.psychicmemory.game.tasks;
 
-public class Task {
+public abstract class Task {
     private int tick = 0;
     private final int length;
     private boolean complete = false;
@@ -9,7 +9,7 @@ public class Task {
         this.length = length;
     }
 
-    private void doAction() {
+    public void tick() {
         tick++;
 
         if (tick >= length) {

@@ -1,5 +1,6 @@
 package mialee.psychicmemory.window;
 
+import mialee.psychicmemory.GameState;
 import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.input.Input;
 import mialee.psychicmemory.lang.TranslatableText;
@@ -26,7 +27,6 @@ public class Renderer {
         frame.setLocationRelativeTo(null);
         frame.setBackground(Color.MAGENTA);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
 
         Thread renderThread = new Thread(() -> {
             GraphicsConfiguration graphicsConfiguration = canvas.getGraphicsConfiguration();
@@ -51,18 +51,32 @@ public class Renderer {
                 graphics.setColor(Color.MAGENTA);
                 graphics.fillRect(0, 0, dimensions.x, dimensions.y);
 
+                if (PsychicMemory.gameState != GameState.MENU) {
+                    PsychicMemory.world.render(graphics);
+                }
+
                 graphics.setColor(Color.BLACK);
                 graphics.drawString("FPS: " + frameRate, 0, dimensions.y);
-
-                PsychicMemory.world.render(graphics);
+                graphics.drawString("TPS: " + PsychicMemory.ticksPerSecond, 0, dimensions.y - 10);
+                graphics.setColor(Color.WHITE);
+                graphics.drawString("FPS: " + frameRate, 0, dimensions.y - 1);
+                graphics.drawString("TPS: " + PsychicMemory.ticksPerSecond, 0, dimensions.y - 11);
 
                 graphics.dispose();
                 graphics = canvas.getGraphics();
                 graphics.drawImage(volatileImage, 0, 0, dimensions.x, dimensions.y, null);
                 graphics.dispose();
+
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
         renderThread.setName("renderThread");
         renderThread.start();
+
+        frame.setVisible(true);
     }
 }

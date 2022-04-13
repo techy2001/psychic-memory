@@ -6,8 +6,8 @@ import mialee.psychicmemory.math.Vec2d;
 import java.awt.*;
 
 public class TestEntity extends Entity {
-    public TestEntity(World board, Vec2d position, Vec2d velocity) {
-        super(board, position, velocity);
+    public TestEntity(World board, Vec2d position, Vec2d velocity, EntityType faction) {
+        super(board, position, velocity, faction);
     }
 
     public void tick() {
@@ -24,7 +24,6 @@ public class TestEntity extends Entity {
         if (position.y < 0) {
             position.y = board.size.y;
         }
-        System.out.println(position);
     }
 
     public void render(Graphics graphics) {

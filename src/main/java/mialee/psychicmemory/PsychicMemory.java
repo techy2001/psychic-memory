@@ -5,10 +5,12 @@ import mialee.psychicmemory.data.PMSave;
 import mialee.psychicmemory.data.PMSettings;
 import mialee.psychicmemory.data.TextLogger;
 import mialee.psychicmemory.game.World;
+import mialee.psychicmemory.game.entities.core.EntityType;
 import mialee.psychicmemory.game.entities.core.TestEntity;
 import mialee.psychicmemory.lang.Language;
 import mialee.psychicmemory.lang.TranslatableText;
 import mialee.psychicmemory.math.Vec2d;
+import mialee.psychicmemory.math.Vec2i;
 import mialee.psychicmemory.window.Renderer;
 
 import javax.swing.*;
@@ -25,8 +27,13 @@ public class PsychicMemory {
     public static Language LANGUAGE;
     public static PMSettings SETTING_VALUES;
     public static Map<Integer, PMSave> SAVE_VALUES;
-    public static World world = new World();
+    public static World world = new World(new Vec2i(960, 720));
+    public static long ticksPerSecond = 0;
+    public static GameState gameState = GameState.INGAME;
 
+    /**
+     * @param args main
+     */
     public static void main(String[] args) {
         LOGGER = new TextLogger();
         LANGUAGE = new Language("en_ie");
@@ -35,28 +42,44 @@ public class PsychicMemory {
         SAVE_VALUES = new LinkedHashMap<>();
         for(int i = 1; i <= 3; i++) SAVE_VALUES.put(i, DataManager.populateSave(i));
 
+        for (int i = -0; i <= 4; i++) {
+            for (int j = -0; j <= 4; j++) {
+                world.entities.add(new TestEntity(world, new Vec2d(0, 0), new Vec2d(i, j), EntityType.ENEMY));
+            }
+        }
+
         Renderer.startRenderer();
 
         Thread gameThread = new Thread(() -> {
+            int ticks = 0;
             long lastTickTime = 0;
+            long lastSecond = 0;
             while(true) {
+                if (System.nanoTime() > lastSecond + 1000000000) {
+                    lastSecond = System.nanoTime();
+                    ticksPerSecond = ticks;
+                    ticks = 0;
+                }
                 if (System.nanoTime() > lastTickTime + (1000000000 / 60)) {
                     lastTickTime = System.nanoTime();
+                    ticks++;
                 } else {
                     continue;
                 }
 
-                world.tick();
+                if (gameState == GameState.INGAME) {
+                    world.tick();
+                }
+
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
         gameThread.setName("gameThread");
         gameThread.start();
-
-        for (int i = -0; i <= 8; i++) {
-            for (int j = -0; j <= 8; j++) {
-                world.entities.add(new TestEntity(world, new Vec2d(0, 0), new Vec2d(i, j)));
-            }
-        }
     }
 
     private final static Map<String, ImageIcon> sprites = new LinkedHashMap<>();
@@ -77,5 +100,8 @@ public class PsychicMemory {
             LOGGER.loggedError(new TranslatableText("pm.data.image.missing"), location, e);
         }
         return icon;
+    }
+
+    public static void start() {
     }
 }

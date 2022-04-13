@@ -4,15 +4,15 @@ import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.math.Vec2d;
 
 public class LivingEntity extends Entity {
-    private int health;
+    protected int health;
 
-    public LivingEntity(World board, Vec2d position, Vec2d velocity) {
-        super(board, position, velocity);
+    public LivingEntity(World board, Vec2d position, Vec2d velocity, EntityType faction) {
+        super(board, position, velocity, faction);
     }
 
     @Override
     protected void registerStats() {
         super.registerStats();
-        this.health = 5;
+        this.health = 1;
     }
 }
