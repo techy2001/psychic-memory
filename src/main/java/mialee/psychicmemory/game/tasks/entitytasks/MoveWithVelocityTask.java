@@ -4,8 +4,9 @@ import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.EntityTask;
 
 public class MoveWithVelocityTask extends EntityTask {
-    public MoveWithVelocityTask(Entity owner, int length) {
+    public MoveWithVelocityTask(Entity owner, int length, boolean loop) {
         super(owner, length);
+        this.loop = loop;
     }
 
     @Override

@@ -8,7 +8,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class World {
-    public final ArrayList<Entity> entities = new ArrayList<>();
+    private final ArrayList<Entity> entities = new ArrayList<>();
+    private final ArrayList<Entity> newEntities = new ArrayList<>();
     public final Vec2i size;
     private int gameState;
 
@@ -20,11 +21,31 @@ public class World {
         for (Entity entity : entities) {
             entity.tick();
         }
+        entities.addAll(newEntities);
+        newEntities.clear();
+        for (int i = 0; i < entities.size(); i++) {
+            Entity entity = entities.get(i);
+            if (entity != null) {
+                if (entity.isMarkedForDeletion()) {
+                    entities.remove(entity);
+                    i--;
+                }
+            }
+        }
     }
 
     public void render(Graphics graphics) {
-        for (Entity entity : entities) {
-            entity.render(graphics);
+        for (int i = 0; i < entities.size(); i++) {
+            Entity entity = entities.get(i);
+            if (entity != null) entity.render(graphics);
         }
+    }
+
+    public void addEntity(Entity entity) {
+        newEntities.add(entity);
+    }
+
+    public ArrayList<Entity> getEntities() {
+        return entities;
     }
 }

@@ -11,18 +11,16 @@ import java.awt.*;
 import java.awt.image.VolatileImage;
 
 public class Renderer {
-    private static JFrame frame;
     private static Canvas canvas;
-    private static final Vec2i dimensions = new Vec2i(960, 720);
+    private static final Vec2i dimensions = new Vec2i(720, 840);
 
     public static void startRenderer() {
         canvas = new Canvas();
-        canvas.setPreferredSize(new Dimension(dimensions.x, dimensions.y));
-        //canvas.addKeyListener(new Input());
-
+        canvas.setSize(new Dimension(dimensions.x, dimensions.y));
+        canvas.addKeyListener(new Input());
         canvas.addKeyListener(PsychicMemory.menu);
 
-        frame = new JFrame(new TranslatableText("pm.game").toString());
+        JFrame frame = new JFrame(new TranslatableText("pm.game").toString());
         frame.add(canvas);
         frame.pack();
         frame.setResizable(false);

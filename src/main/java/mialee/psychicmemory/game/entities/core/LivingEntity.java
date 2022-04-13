@@ -15,4 +15,15 @@ public class LivingEntity extends Entity {
         super.registerStats();
         this.health = 1;
     }
+
+    public void damage(int amount) {
+        health -= amount;
+        if (health <= 0) {
+            this.onDeath();
+        }
+    }
+
+    protected void onDeath() {
+        this.markForDeletion();
+    }
 }

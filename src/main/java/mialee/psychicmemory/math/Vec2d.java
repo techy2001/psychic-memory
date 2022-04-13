@@ -31,6 +31,10 @@ public class Vec2d {
         return new Vec2d(MathHelper.lerpDouble(amount, this.x, dest.x), MathHelper.lerpDouble(amount, this.y, dest.y));
     }
 
+    public Vec2d copy() {
+        return new Vec2d(this.x, this.y);
+    }
+
     @Override
     public String toString() {
         return "vec2d: %.2f, %.2f".formatted(x, y);

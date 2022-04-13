@@ -5,11 +5,11 @@ import java.awt.*;
 
 public record Button(ImageIcon[] visuals, Runnable press, int x, int y, int offset) {
     public int getX(boolean selected) {
-        return selected ? x + offset : x;
+        return (selected ? x + offset : x) - (visuals[0].getIconWidth() / 2);
     }
 
     public int getY(boolean selected) {
-        return selected ? y + offset : y;
+        return (selected ? y + offset : y) - (visuals[0].getIconHeight() / 2);
     }
 
     public Image getImage(boolean selected) {
