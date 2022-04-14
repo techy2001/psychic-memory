@@ -33,7 +33,6 @@ public abstract class Entity {
         this.velocity = velocity;
         this.faction = faction;
         this.registerStats();
-        this.initializeTasks();
     }
 
     protected void initializeTasks() {
@@ -47,6 +46,7 @@ public abstract class Entity {
     }
 
     public void tick() {
+        if (age == 1) initializeTasks();
         age++;
         if (!taskList.isEmpty()) {
             Task task = taskList.get(0);

@@ -1,5 +1,6 @@
 package mialee.psychicmemory.game.entities;
 
+import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.core.EntityType;
 import mialee.psychicmemory.game.entities.core.LivingEntity;
@@ -41,12 +42,12 @@ public class TestEntity extends LivingEntity {
 
     @Override
     protected void initializeTasks() {
-        addTask(new MoveToPositionTask(this, new Vec2d(300, 300), 50));
-        addTask(new WaitTask(50));
+        addTask(new MoveToPositionTask(this, new Vec2d(PsychicMemory.RANDOM.nextInt(400), PsychicMemory.RANDOM.nextInt(400)), 20));
+//        addTask(new WaitTask(50));
 //        addTask(new MoveWithVelocityTask(this, 50));
         addTask(new FireAtPlayerTask(this, 100, 50, 4, 10, 1.5f, true));
-        addTask(new MoveToPositionTask(this, new Vec2d(100, 100), 100));
-        addTask(new WaitTask(50));
+        addTask(new MoveToPositionTask(this, new Vec2d(PsychicMemory.RANDOM.nextInt(400), PsychicMemory.RANDOM.nextInt(200)), 20));
+//        addTask(new WaitTask(50));
         addTask(new FireAtPlayerTask(this, 100, 50, 6, 22.5, 1.5f, true));
 //        addTask(new DeleteSelfTask(this));
     }

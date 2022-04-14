@@ -6,6 +6,8 @@ import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.EntityTask;
 import mialee.psychicmemory.math.Vec2d;
 
+import java.util.ArrayList;
+
 public class FireAtPlayerTask extends EntityTask {
     private final int cooldownMax;
     private final int count;
@@ -55,9 +57,11 @@ public class FireAtPlayerTask extends EntityTask {
         cooldown--;
     }
 
+    @SuppressWarnings("ForLoopReplaceableByForEach")
     private void findPlayer() {
-        for (Entity entity : owner.world.getEntities()) {
-            if (entity instanceof PlayerEntity player) {
+        ArrayList<Entity> entities = owner.world.getEntities();
+        for (int i = 0; i < entities.size(); i++) {
+            if (entities.get(i) instanceof PlayerEntity player) {
                 this.player = player;
             }
         }

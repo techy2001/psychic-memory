@@ -12,6 +12,9 @@ import java.awt.*;
 
 public class PlayerEntity extends LivingEntity {
     private int fireCooldown = 0;
+    private int lives = 1;
+    private int iFrames = 0;
+
     public PlayerEntity(World board, Vec2d position, Vec2d velocity, EntityType faction) {
         super(board, position, velocity, faction);
     }
@@ -22,6 +25,7 @@ public class PlayerEntity extends LivingEntity {
         velocity.x = 0;
         velocity.y = 0;
         int speed = 4;
+        if (iFrames > 0) iFrames--;
 
         boolean left = Input.getKey(PsychicMemory.SETTING_VALUES.LEFT_KEY);
         boolean right = Input.getKey(PsychicMemory.SETTING_VALUES.RIGHT_KEY);
@@ -72,7 +76,7 @@ public class PlayerEntity extends LivingEntity {
         this.hitRadius = 6;
         this.visualSize = 18;
         this.image = PsychicMemory.getIcon("entities/salmon.png");
-        this.health = 10000;
+        this.health = 12;
     }
 
     @Override
@@ -90,12 +94,22 @@ public class PlayerEntity extends LivingEntity {
     }
 
     @Override
-    public void damage(int amount) {
-        super.damage(amount);
+    public boolean damage(int amount) {
+        if (iFrames == 0) {
+            return super.damage(amount);
+        } else {
+            return false;
+        }
     }
 
     @Override
     protected void onDeath() {
-        super.onDeath();
+        if (lives > 0) {
+            lives--;
+            iFrames = 120;
+            world.clearBullets(false);
+        } else {
+            PsychicMemory.end(false);
+        }
     }
 }

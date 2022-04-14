@@ -16,11 +16,12 @@ public abstract class LivingEntity extends Entity {
         this.health = 1;
     }
 
-    public void damage(int amount) {
+    public boolean damage(int amount) {
         health -= amount;
         if (health <= 0) {
             this.onDeath();
         }
+        return true;
     }
 
     protected void onDeath() {

@@ -8,16 +8,17 @@ import mialee.psychicmemory.math.Vec2i;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.awt.image.VolatileImage;
 
 public class Renderer {
+    private static Canvas canvas;
     private static final Vec2i dimensions = new Vec2i(1060, 840);
 
     public static void startRenderer() {
-        Canvas canvas = new Canvas();
+        canvas = new Canvas();
         canvas.setSize(new Dimension(2 * dimensions.x / 3, dimensions.y));
         canvas.addKeyListener(new Input());
-        canvas.addKeyListener(PsychicMemory.menu);
 
         Canvas canvas2 = new Canvas();
         canvas2.setSize(new Dimension(dimensions.x / 3, dimensions.y));
@@ -56,10 +57,10 @@ public class Renderer {
                 graphics.fillRect(0, 0, dimensions.x, dimensions.y);
 
                 if (PsychicMemory.gameState != GameState.MENU) {
-                    PsychicMemory.world.render(graphics);
+                    if (PsychicMemory.world != null) PsychicMemory.world.render(graphics);
                 }
                 if (PsychicMemory.gameState == GameState.MENU) {
-                    PsychicMemory.menu.render(graphics);
+                    if (PsychicMemory.menu != null) PsychicMemory.menu.render(graphics);
                 }
 
                 graphics.setColor(Color.BLACK);
@@ -85,5 +86,9 @@ public class Renderer {
         renderThread.start();
 
         frame.setVisible(true);
+    }
+
+    public static void addInput(KeyListener listener) {
+        canvas.addKeyListener(listener);
     }
 }

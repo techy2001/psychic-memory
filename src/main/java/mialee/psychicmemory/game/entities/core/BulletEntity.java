@@ -1,6 +1,7 @@
 package mialee.psychicmemory.game.entities.core;
 
 import mialee.psychicmemory.game.World;
+import mialee.psychicmemory.game.entities.PlayerEntity;
 import mialee.psychicmemory.math.Vec2d;
 
 import java.awt.*;
@@ -34,8 +35,9 @@ public abstract class BulletEntity extends Entity {
             if (entity instanceof LivingEntity livingEntity) {
                 if (entity.faction == enemyFaction) {
                     if (entity.squaredDistanceTo(this) < entity.squaredHitboxes(this)) {
-                        livingEntity.damage(damage);
-                        this.markForDeletion();
+                        if (livingEntity.damage(damage)) {
+                            this.markForDeletion();
+                        }
                     }
                 }
             }

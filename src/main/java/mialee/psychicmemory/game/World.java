@@ -1,6 +1,9 @@
 package mialee.psychicmemory.game;
 
+import mialee.psychicmemory.game.entities.ScoreTextEntity;
 import mialee.psychicmemory.game.entities.core.Entity;
+import mialee.psychicmemory.game.entities.core.EntityType;
+import mialee.psychicmemory.math.Vec2d;
 import mialee.psychicmemory.math.Vec2i;
 
 import java.awt.*;
@@ -46,5 +49,17 @@ public class World {
 
     public ArrayList<Entity> getEntities() {
         return entities;
+    }
+
+    public void clearBullets(boolean points) {
+        for (Entity entity : entities) {
+            if (entity.faction == EntityType.ENEMY_BULLET) {
+                if (points) this.addEntity(new ScoreTextEntity(this, entity.position.copy(), new Vec2d(0, -0.5), 40, 10));
+                entity.markForDeletion();
+            }
+        }
+    }
+
+    public void addScore(int value) {
     }
 }
