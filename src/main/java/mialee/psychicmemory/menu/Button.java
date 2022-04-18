@@ -1,24 +1,25 @@
 package mialee.psychicmemory.menu;
 
-import javax.swing.*;
+import mialee.psychicmemory.window.PMRenderer;
+
 import java.awt.*;
 
-public record Button(ImageIcon[] visuals, Runnable press, int x, int y, int offset) {
+public record Button(String text, Runnable press, int x, int y, int offset) {
     public int getX(boolean selected) {
-        return (selected ? x + offset : x) - (visuals[0].getIconWidth() / 2);
+        return (selected ? x + offset : x) - (text.length() * 36);
     }
 
     public int getY(boolean selected) {
-        return (selected ? y + offset : y) - (visuals[0].getIconHeight() / 2);
+        return (selected ? y + offset : y) - 36;
     }
 
-    public Image getImage(boolean selected) {
-        return selected ? this.visuals[0].getImage() : this.visuals[1].getImage();
+    public Color getColor(boolean selected) {
+        return selected ? Color.WHITE : Color.GRAY;
     }
 
     public void render(Graphics graphics, boolean selected) {
-        if (visuals == null) return;
-        Image image = getImage(selected);
-        graphics.drawImage(image, getX(selected), getY(selected), image.getWidth(null), image.getHeight(null), null);
+        graphics.setFont(PMRenderer.getBaseFont().deriveFont(72f));
+        graphics.setColor(getColor(selected));
+        graphics.drawString(text, getX(selected), getY(selected));
     }
 }

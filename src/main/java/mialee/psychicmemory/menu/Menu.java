@@ -19,21 +19,19 @@ public class Menu implements KeyListener {
 
     public Menu() {
         buttonsMain = new Button[]{
-                new Button(new ImageIcon[]{PsychicMemory.getIcon("menu/start_selected.png"), PsychicMemory.getIcon("menu/start.png")}, PsychicMemory::start,
-                        360, 400, -5),
-                new Button(new ImageIcon[]{PsychicMemory.getIcon("menu/options_selected.png"), PsychicMemory.getIcon("menu/options.png")}, () -> {
+                new Button("Start", PsychicMemory::start, 537, 400, 0),
+                new Button("Options", () -> {
                         inOptions = true;
                         selected = 0;
-                    }, 360, 470, -5),
-                new Button(new ImageIcon[]{PsychicMemory.getIcon("menu/quit_selected.png"), PsychicMemory.getIcon("menu/quit.png")}, () -> System.exit(1),
-                        360, 540, -5)
+                    }, 537, 470, 0),
+                new Button("Quit", () -> System.exit(1), 537, 540, 0)
         };
 
         buttonsOptions = new Button[]{
-                new Button(new ImageIcon[]{PsychicMemory.getIcon("menu/back_selected.png"), PsychicMemory.getIcon("menu/back.png")}, () -> {
+                new Button("Back", () -> {
                     inOptions = false;
                     selected = 1;
-                }, 360, 540, -5)
+                }, 537, 540, -5)
         };
     }
 

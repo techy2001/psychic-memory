@@ -31,6 +31,9 @@ public class PMRenderer {
         frame.setBackground(Color.MAGENTA);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        System.out.println(canvas.getWidth());
+        System.out.println(frame.getWidth());
+
         Thread renderThread = new Thread(() -> {
             GraphicsConfiguration graphicsConfiguration = canvas.getGraphicsConfiguration();
             VolatileImage volatileImage = graphicsConfiguration.createCompatibleVolatileImage(dimensions.x, dimensions.y);

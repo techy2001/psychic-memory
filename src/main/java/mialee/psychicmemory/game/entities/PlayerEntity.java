@@ -69,6 +69,7 @@ public class PlayerEntity extends LivingEntity {
             this.world.addEntity(new PlayerBulletEntity(this.world, this.position.copy(), new Vec2d(0, -25), 1));
             fireCooldown = 4;
         }
+        System.out.println(position);
     }
 
     @Override
