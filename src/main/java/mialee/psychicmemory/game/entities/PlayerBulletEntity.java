@@ -12,6 +12,7 @@ import java.awt.*;
 public class PlayerBulletEntity extends BulletEntity {
     public PlayerBulletEntity(World board, Vec2d position, Vec2d velocity, int damage) {
         super(board, position, velocity, EntityType.PLAYER_BULLET, EntityType.ENEMY, damage);
+        this.color = Color.CYAN;
     }
 
     @Override

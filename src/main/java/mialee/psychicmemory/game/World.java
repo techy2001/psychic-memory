@@ -1,11 +1,13 @@
 package mialee.psychicmemory.game;
 
+import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.game.entities.ScoreTextEntity;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.entities.core.EntityType;
 import mialee.psychicmemory.math.MathHelper;
 import mialee.psychicmemory.math.Vec2d;
 import mialee.psychicmemory.math.Vec2i;
+import mialee.psychicmemory.window.PMRenderer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -48,6 +50,19 @@ public class World {
             Entity entity = entities.get(i);
             if (entity != null) entity.render(graphics);
         }
+    }
+
+    public void renderUI(Graphics graphics) {
+        graphics.setColor(Color.GREEN);
+        graphics.fillRect(size.x, 0, PMRenderer.dimensions.x - size.x, PMRenderer.dimensions.y);
+        graphics.setColor(Color.BLACK);
+        graphics.drawRect(size.x, 0, PMRenderer.dimensions.x - size.x, PMRenderer.dimensions.y);
+
+        graphics.setFont(PMRenderer.getBaseFont().deriveFont(24f));
+        graphics.setColor(Color.BLACK);
+        graphics.drawString("SCORE: " + PsychicMemory.world.getScoreVisual(), 761, 101);
+        graphics.setColor(Color.WHITE);
+        graphics.drawString("SCORE: " + PsychicMemory.world.getScoreVisual(), 760, 100);
     }
 
     public void addEntity(Entity entity) {

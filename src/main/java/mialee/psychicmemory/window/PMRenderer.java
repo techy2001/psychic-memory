@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class PMRenderer {
     private static Canvas canvas;
-    private static final Vec2i dimensions = new Vec2i(1060, 840);
+    public static final Vec2i dimensions = new Vec2i(960, 720);
     private static Font baseFont;
 
     public static void startRenderer() {
@@ -30,9 +30,6 @@ public class PMRenderer {
         frame.setLocationRelativeTo(null);
         frame.setBackground(Color.MAGENTA);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        System.out.println(canvas.getWidth());
-        System.out.println(frame.getWidth());
 
         Thread renderThread = new Thread(() -> {
             GraphicsConfiguration graphicsConfiguration = canvas.getGraphicsConfiguration();
@@ -60,12 +57,8 @@ public class PMRenderer {
                 if (PsychicMemory.gameState != GameState.MENU) {
                     if (PsychicMemory.world != null) {
                         PsychicMemory.world.render(graphics);
-
                         resetFont(graphics);
-                        graphics.setColor(Color.BLACK);
-                        graphics.drawString("SCORE: " + PsychicMemory.world.getScoreVisual(), 0, 10);
-                        graphics.setColor(Color.WHITE);
-                        graphics.drawString("SCORE: " + PsychicMemory.world.getScoreVisual(), 0, 11);
+                        PsychicMemory.world.renderUI(graphics);
                     }
                 }
                 if (PsychicMemory.gameState == GameState.MENU) {
@@ -73,12 +66,14 @@ public class PMRenderer {
                 }
 
                 resetFont(graphics);
-                graphics.setColor(Color.BLACK);
-                graphics.drawString("FPS: " + frameRate, 0, dimensions.y);
-                graphics.drawString("TPS: " + PsychicMemory.ticksPerSecond, 0, dimensions.y - 10);
+                String fps = "FPS: %d".formatted(frameRate);
+                String tps = "TPS: %d".formatted(PsychicMemory.ticksPerSecond);
+                graphics.setColor(Color.GRAY);
+                graphics.drawString(fps, dimensions.x - 53, 13);
+                graphics.drawString(tps, dimensions.x - 53, 25);
                 graphics.setColor(Color.WHITE);
-                graphics.drawString("FPS: " + frameRate, 0, dimensions.y - 1);
-                graphics.drawString("TPS: " + PsychicMemory.ticksPerSecond, 0, dimensions.y - 11);
+                graphics.drawString(fps, dimensions.x - 54, 12);
+                graphics.drawString(tps, dimensions.x - 54, 24);
 
                 graphics.dispose();
                 graphics = canvas.getGraphics();

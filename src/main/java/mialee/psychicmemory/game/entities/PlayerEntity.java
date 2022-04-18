@@ -7,6 +7,7 @@ import mialee.psychicmemory.game.entities.core.EntityType;
 import mialee.psychicmemory.game.entities.core.LivingEntity;
 import mialee.psychicmemory.input.Input;
 import mialee.psychicmemory.math.Vec2d;
+import mialee.psychicmemory.math.Vec2i;
 
 import java.awt.*;
 
@@ -14,9 +15,11 @@ public class PlayerEntity extends LivingEntity {
     private int fireCooldown = 0;
     private int lives = 1;
     private int iFrames = 0;
+    private final Vec2d spawnPosition;
 
     public PlayerEntity(World board, Vec2d position, Vec2d velocity, EntityType faction) {
         super(board, position, velocity, faction);
+        spawnPosition = position;
     }
 
     @Override
@@ -69,7 +72,6 @@ public class PlayerEntity extends LivingEntity {
             this.world.addEntity(new PlayerBulletEntity(this.world, this.position.copy(), new Vec2d(0, -25), 1));
             fireCooldown = 4;
         }
-        System.out.println(position);
     }
 
     @Override
@@ -79,7 +81,7 @@ public class PlayerEntity extends LivingEntity {
         this.hitRadius = 6;
         this.visualSize = 18;
         this.image = PsychicMemory.getIcon("entities/salmon.png");
-        this.health = 12;
+        this.health = 1;
     }
 
     @Override
@@ -110,6 +112,7 @@ public class PlayerEntity extends LivingEntity {
         if (lives > 0) {
             lives--;
             iFrames = 120;
+            position.set(spawnPosition);
             world.clearBullets(false);
         } else {
             PsychicMemory.end(false);

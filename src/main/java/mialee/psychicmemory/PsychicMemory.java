@@ -1,9 +1,6 @@
 package mialee.psychicmemory;
 
-import mialee.psychicmemory.data.DataManager;
-import mialee.psychicmemory.data.PMSave;
-import mialee.psychicmemory.data.PMSettings;
-import mialee.psychicmemory.data.TextLogger;
+import mialee.psychicmemory.data.*;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.PlayerEntity;
 import mialee.psychicmemory.game.entities.core.EntityType;
@@ -16,6 +13,7 @@ import mialee.psychicmemory.menu.Menu;
 import mialee.psychicmemory.window.PMRenderer;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -28,6 +26,7 @@ public class PsychicMemory {
     public static Language LANGUAGE;
     public static Random RANDOM = new Random();
     public static PMSettings SETTING_VALUES;
+    public static int selectedSave = 1;
     public static Map<Integer, PMSave> SAVE_VALUES;
     private final static Map<String, ImageIcon> sprites = new LinkedHashMap<>();
     public static final ImageIcon missingTexture = new ImageIcon(Objects.requireNonNull(PsychicMemory.class.getClassLoader().getResource("assets/textures/entities/cod.png")));
@@ -77,7 +76,7 @@ public class PsychicMemory {
         gameThread.setName("gameThread");
         gameThread.start();
 
-        end(false);
+        restart();
     }
 
     public static void start() {
@@ -93,10 +92,18 @@ public class PsychicMemory {
     }
 
     public static void end(boolean win) {
-        System.out.println("end");
+        PMSave save = SAVE_VALUES.get(selectedSave);
+        GameRecord record = new GameRecord("eg", world.getScore());
+        save.scores.add(record);
+        if (save.highScore.getScore() < world.getScore()) save.highScore = record;
+        DataManager.populateSave(selectedSave);
+        restart();
+    }
+
+    public static void restart() {
         menu = new Menu();
         PMRenderer.addInput(menu);
-        world = new World(new Vec2i(720, 840));
+        world = new World(new Vec2i(620, 720));
         gameState = GameState.MENU;
     }
 
