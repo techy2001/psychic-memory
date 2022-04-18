@@ -1,12 +1,11 @@
 package mialee.psychicmemory.lang;
 
+import mialee.psychicmemory.PsychicMemory;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
-import static mialee.psychicmemory.PsychicMemory.LOGGER;
 
 public class Language {
     private JSONObject lang;
@@ -19,7 +18,7 @@ public class Language {
             lang = new JSONObject(Files.readString(Path.of(resource.toURI())));
             langName = name;
         } catch (Exception e) {
-            LOGGER.loggedError(new TranslatableText("pm.lang.missing"), name);
+            PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.lang.missing"), name, e.getMessage());
         }
     }
 

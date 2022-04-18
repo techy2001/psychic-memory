@@ -2,7 +2,8 @@ package mialee.psychicmemory.menu;
 
 import mialee.psychicmemory.window.PMRenderer;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public record Button(String text, Runnable press, int x, int y, int offset) {
     public int getX(boolean selected) {

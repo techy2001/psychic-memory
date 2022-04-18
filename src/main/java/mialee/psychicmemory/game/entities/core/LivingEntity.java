@@ -6,7 +6,7 @@ import mialee.psychicmemory.math.Vec2d;
 public abstract class LivingEntity extends Entity {
     protected int health;
 
-    public LivingEntity(World board, Vec2d position, Vec2d velocity, EntityType faction) {
+    public LivingEntity(World board, Vec2d position, Vec2d velocity, EntityFaction faction) {
         super(board, position, velocity, faction);
     }
 

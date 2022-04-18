@@ -6,8 +6,14 @@ import mialee.psychicmemory.input.Input;
 import mialee.psychicmemory.lang.TranslatableText;
 import mialee.psychicmemory.math.Vec2i;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.Graphics;
+import java.awt.GraphicsConfiguration;
 import java.awt.event.KeyListener;
 import java.awt.image.VolatileImage;
 import java.io.File;

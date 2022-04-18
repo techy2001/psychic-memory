@@ -1,6 +1,6 @@
 package mialee.psychicmemory.game.entities.core;
 
-public enum EntityType {
+public enum EntityFaction {
     PLAYER,
     ENEMY,
     PLAYER_BULLET,

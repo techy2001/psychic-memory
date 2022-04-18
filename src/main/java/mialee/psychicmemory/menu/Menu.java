@@ -4,12 +4,9 @@ import mialee.psychicmemory.GameState;
 import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.math.MathHelper;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import static mialee.psychicmemory.PsychicMemory.SETTING_VALUES;
 
 public class Menu implements KeyListener {
     private int selected = 0;
@@ -59,17 +56,17 @@ public class Menu implements KeyListener {
     public void keyPressed(KeyEvent e) {
         if (PsychicMemory.gameState == GameState.MENU) {
             int keyCode = e.getKeyCode();
-            if (keyCode == SETTING_VALUES.UP_KEY) {
+            if (keyCode == PsychicMemory.SETTING_VALUES.UP_KEY) {
                 changeSelected(-1);
-            } else if (keyCode == SETTING_VALUES.DOWN_KEY) {
+            } else if (keyCode == PsychicMemory.SETTING_VALUES.DOWN_KEY) {
                 changeSelected(1);
-            } else if (keyCode == SETTING_VALUES.FIRE_KEY) {
+            } else if (keyCode == PsychicMemory.SETTING_VALUES.FIRE_KEY) {
                 if (!inOptions) {
                     buttonsMain[selected].press().run();
                 } else {
                     buttonsOptions[selected].press().run();
                 }
-            } else if (keyCode == SETTING_VALUES.SLOW_KEY) {
+            } else if (keyCode == PsychicMemory.SETTING_VALUES.SLOW_KEY) {
                 if (inOptions) {
                     inOptions = false;
                 } else {

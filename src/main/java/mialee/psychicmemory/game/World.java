@@ -3,7 +3,7 @@ package mialee.psychicmemory.game;
 import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.game.entities.ScoreTextEntity;
 import mialee.psychicmemory.game.entities.core.Entity;
-import mialee.psychicmemory.game.entities.core.EntityType;
+import mialee.psychicmemory.game.entities.core.EntityFaction;
 import mialee.psychicmemory.math.MathHelper;
 import mialee.psychicmemory.math.Vec2d;
 import mialee.psychicmemory.math.Vec2i;
@@ -75,7 +75,7 @@ public class World {
 
     public void clearBullets(boolean points) {
         for (Entity entity : entities) {
-            if (entity.faction == EntityType.ENEMY_BULLET) {
+            if (entity.faction == EntityFaction.ENEMY_BULLET) {
                 if (points) this.addEntity(new ScoreTextEntity(this, entity.position.copy(), new Vec2d(0, -0.5), 40, 10));
                 entity.markForDeletion();
             }

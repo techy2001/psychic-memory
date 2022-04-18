@@ -1,19 +1,10 @@
 {
   "pm.game" : "Psychic Memory",
-
-  "pm.lang.missing" : "Language \"%s\" not found.",
-  "pm.lang.missing_translation" : "Lang entry for \"%s\" not found in language %s.",
-  "pm.window.fail" : "Game window failed to initialize.",
-
   "pm.data.setup" : "Running first time setup.",
-  "pm.data.gen_settings" : "Generating new settings file.",
-  "pm.data.gen_save" : "Generating new save file in save slot %d.",
-  "pm.data.save.fail" : "Failed to save data.",
-  "pm.data.wipe.fail" : "Failed to wipe data.",
-  "pm.data.file.read" : "%s read successfully.",
-  "pm.data.file.missing" : "File %s not found.",
-  "pm.data.file.inaccessible" : "Unable to save %s classes to files as they are inaccessible. %s",
-  "pm.data.image.missing" : "Unable to find image %s. %s",
-  "pm.data.entity.fail" : "Unable to load entity. %s",
+  "pm.data.file.missing" : "File \"%s\" not found. %s",
+  "pm.data.file.corrupt" : "File \"%s\" corrupt. %s",
+  "pm.data.lang.missing" : "Language \"%s\" not found. %s",
+  "pm.data.image.missing" : "Image \"%s\" not found. %s",
+  "pm.lang.missing_translation" : "Lang entry for \"%s\" not found in language %s.",
   "pm.error" : "Unexpected error: %s"
 }

@@ -2,20 +2,19 @@ package mialee.psychicmemory.game.entities.core;
 
 import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.game.World;
-import mialee.psychicmemory.game.tasks.EntityTask;
 import mialee.psychicmemory.game.tasks.Task;
 import mialee.psychicmemory.game.tasks.entitytasks.MoveWithVelocityTask;
 import mialee.psychicmemory.math.Vec2d;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 public abstract class Entity {
     public final World world;
     public final Vec2d position;
     public final Vec2d velocity;
-    public final EntityType faction;
+    public final EntityFaction faction;
 
     protected String name;
     protected ImageIcon image;
@@ -27,7 +26,7 @@ public abstract class Entity {
     protected int age = 0;
     private boolean markedForDeletion = false;
 
-    public Entity(World world, Vec2d position, Vec2d velocity, EntityType faction) {
+    public Entity(World world, Vec2d position, Vec2d velocity, EntityFaction faction) {
         this.world = world;
         this.position = position;
         this.velocity = velocity;
@@ -66,10 +65,6 @@ public abstract class Entity {
     public void render(Graphics graphics) {
         if (image == null) image = PsychicMemory.missingTexture;
         graphics.drawImage(image.getImage(), (int) (position.x - visualSize), (int) (position.y - visualSize), visualSize * 2, visualSize * 2, null);
-    }
-
-    public ImageIcon getImage() {
-        return image;
     }
 
     public int getHitRadius() {

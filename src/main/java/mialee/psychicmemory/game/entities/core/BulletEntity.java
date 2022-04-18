@@ -1,17 +1,17 @@
 package mialee.psychicmemory.game.entities.core;
 
 import mialee.psychicmemory.game.World;
-import mialee.psychicmemory.game.entities.PlayerEntity;
 import mialee.psychicmemory.math.Vec2d;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public abstract class BulletEntity extends Entity {
     protected int damage;
-    protected EntityType enemyFaction;
+    protected EntityFaction enemyFaction;
     protected Color color;
 
-    public BulletEntity(World board, Vec2d position, Vec2d velocity, EntityType faction, EntityType enemyFaction, int damage) {
+    public BulletEntity(World board, Vec2d position, Vec2d velocity, EntityFaction faction, EntityFaction enemyFaction, int damage) {
         super(board, position, velocity, faction);
         this.damage = damage;
         this.enemyFaction = enemyFaction;

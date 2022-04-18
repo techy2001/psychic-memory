@@ -1,10 +1,12 @@
 package mialee.psychicmemory;
 
-import mialee.psychicmemory.data.*;
+import mialee.psychicmemory.data.DataManager;
+import mialee.psychicmemory.data.PMSettings;
+import mialee.psychicmemory.data.TextLogger;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.PlayerEntity;
-import mialee.psychicmemory.game.entities.core.EntityType;
 import mialee.psychicmemory.game.entities.TestEntity;
+import mialee.psychicmemory.game.entities.core.EntityFaction;
 import mialee.psychicmemory.lang.Language;
 import mialee.psychicmemory.lang.TranslatableText;
 import mialee.psychicmemory.math.Vec2d;
@@ -12,8 +14,7 @@ import mialee.psychicmemory.math.Vec2i;
 import mialee.psychicmemory.menu.Menu;
 import mialee.psychicmemory.window.PMRenderer;
 
-import javax.swing.*;
-import javax.xml.crypto.Data;
+import javax.swing.ImageIcon;
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,8 +27,6 @@ public class PsychicMemory {
     public static Language LANGUAGE;
     public static Random RANDOM = new Random();
     public static PMSettings SETTING_VALUES;
-    public static int selectedSave = 1;
-    public static Map<Integer, PMSave> SAVE_VALUES;
     private final static Map<String, ImageIcon> sprites = new LinkedHashMap<>();
     public static final ImageIcon missingTexture = new ImageIcon(Objects.requireNonNull(PsychicMemory.class.getClassLoader().getResource("assets/textures/entities/cod.png")));
     public static World world;
@@ -39,9 +38,7 @@ public class PsychicMemory {
         LOGGER = new TextLogger();
         LANGUAGE = new Language("en_ie");
         if (new File(dir + "/logs/").mkdirs()) LOGGER.loggedPrint(new TranslatableText("pm.data.setup"));
-        SETTING_VALUES = DataManager.populateSettings();
-        SAVE_VALUES = new LinkedHashMap<>();
-        for(int i = 1; i <= 3; i++) SAVE_VALUES.put(i, DataManager.populateSave(i));
+        SETTING_VALUES = DataManager.readSettings();
 
         PMRenderer.startRenderer();
 
@@ -82,22 +79,8 @@ public class PsychicMemory {
     public static void start() {
         System.out.println("start");
         gameState = GameState.INGAME;
-//        for (int i = -2; i <= 2; i++) {
-//            for (int j = -2; j <=  2; j++) {
-//                world.addEntity(new TestEntity(world, new Vec2d(0, 0), new Vec2d(i, j), EntityType.ENEMY));
-//            }
-//        }
-        world.addEntity(new TestEntity(world, new Vec2d(0, 100), new Vec2d(3, 0), EntityType.ENEMY));
-        world.addEntity(new PlayerEntity(world, new Vec2d(360, 400), new Vec2d(0, 0), EntityType.PLAYER));
-    }
-
-    public static void end(boolean win) {
-        PMSave save = SAVE_VALUES.get(selectedSave);
-        GameRecord record = new GameRecord("eg", world.getScore());
-        save.scores.add(record);
-        if (save.highScore.getScore() < world.getScore()) save.highScore = record;
-        DataManager.populateSave(selectedSave);
-        restart();
+        world.addEntity(new TestEntity(world, new Vec2d(0, 100), new Vec2d(3, 0), EntityFaction.ENEMY));
+        world.addEntity(new PlayerEntity(world, new Vec2d(360, 400), new Vec2d(0, 0), EntityFaction.PLAYER));
     }
 
     public static void restart() {
@@ -120,7 +103,7 @@ public class PsychicMemory {
             icon = new ImageIcon(Objects.requireNonNull(PsychicMemory.class.getClassLoader().getResource("assets/textures/" + location)));
         } catch (Exception e) {
             icon = missingTexture;
-            LOGGER.loggedError(new TranslatableText("pm.data.image.missing"), location, e);
+            LOGGER.loggedError(new TranslatableText("pm.data.image.missing"), location, e.getMessage());
         }
         return icon;
     }

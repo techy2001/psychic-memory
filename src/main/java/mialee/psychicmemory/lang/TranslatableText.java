@@ -3,8 +3,6 @@ package mialee.psychicmemory.lang;
 import mialee.psychicmemory.PsychicMemory;
 import org.json.JSONException;
 
-import static mialee.psychicmemory.PsychicMemory.LOGGER;
-
 public class TranslatableText {
     private final String string;
     public TranslatableText(String value) {
@@ -17,7 +15,7 @@ public class TranslatableText {
         try {
             string = PsychicMemory.LANGUAGE.getLang().get(string).toString();
         } catch (JSONException e) {
-            LOGGER.loggedError(new TranslatableText("pm.lang.missing_translation"), this.string, PsychicMemory.LANGUAGE.getLangName());
+            PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.lang.missing_translation"), this.string, PsychicMemory.LANGUAGE.getLangName());
         } catch (NullPointerException ignored) {}
         return string;
     }

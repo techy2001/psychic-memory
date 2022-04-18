@@ -2,14 +2,13 @@ package mialee.psychicmemory.game.entities;
 
 import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.game.World;
-import mialee.psychicmemory.game.entities.core.BulletEntity;
-import mialee.psychicmemory.game.entities.core.EntityType;
+import mialee.psychicmemory.game.entities.core.EntityFaction;
 import mialee.psychicmemory.game.entities.core.LivingEntity;
 import mialee.psychicmemory.input.Input;
 import mialee.psychicmemory.math.Vec2d;
-import mialee.psychicmemory.math.Vec2i;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public class PlayerEntity extends LivingEntity {
     private int fireCooldown = 0;
@@ -17,7 +16,7 @@ public class PlayerEntity extends LivingEntity {
     private int iFrames = 0;
     private final Vec2d spawnPosition;
 
-    public PlayerEntity(World board, Vec2d position, Vec2d velocity, EntityType faction) {
+    public PlayerEntity(World board, Vec2d position, Vec2d velocity, EntityFaction faction) {
         super(board, position, velocity, faction);
         spawnPosition = position;
     }
@@ -115,7 +114,7 @@ public class PlayerEntity extends LivingEntity {
             position.set(spawnPosition);
             world.clearBullets(false);
         } else {
-            PsychicMemory.end(false);
+            PsychicMemory.restart();
         }
     }
 }
