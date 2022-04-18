@@ -3,6 +3,7 @@ package mialee.psychicmemory.game;
 import mialee.psychicmemory.game.entities.ScoreTextEntity;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.entities.core.EntityType;
+import mialee.psychicmemory.math.MathHelper;
 import mialee.psychicmemory.math.Vec2d;
 import mialee.psychicmemory.math.Vec2i;
 
@@ -13,6 +14,10 @@ public class World {
     private final ArrayList<Entity> entities = new ArrayList<>();
     private final ArrayList<Entity> newEntities = new ArrayList<>();
     public final Vec2i size;
+    private int score = 0;
+    private int scoreOld = 0;
+    private int scoreVisual = 0;
+    private int scoreProgress = 0;
 
     public World(Vec2i size) {
         this.size = size;
@@ -33,6 +38,8 @@ public class World {
                 }
             }
         }
+        if (scoreProgress < 100) scoreProgress++;
+        scoreVisual = MathHelper.lerpInt((float) scoreProgress / 100, scoreOld, score);
     }
 
     @SuppressWarnings("ForLoopReplaceableByForEach")
@@ -61,5 +68,16 @@ public class World {
     }
 
     public void addScore(int value) {
+        scoreProgress = 0;
+        scoreOld = scoreVisual;
+        score += value;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getScoreVisual() {
+        return scoreVisual;
     }
 }

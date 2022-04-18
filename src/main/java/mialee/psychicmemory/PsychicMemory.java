@@ -13,7 +13,7 @@ import mialee.psychicmemory.lang.TranslatableText;
 import mialee.psychicmemory.math.Vec2d;
 import mialee.psychicmemory.math.Vec2i;
 import mialee.psychicmemory.menu.Menu;
-import mialee.psychicmemory.window.Renderer;
+import mialee.psychicmemory.window.PMRenderer;
 
 import javax.swing.*;
 import java.io.File;
@@ -30,7 +30,7 @@ public class PsychicMemory {
     public static PMSettings SETTING_VALUES;
     public static Map<Integer, PMSave> SAVE_VALUES;
     private final static Map<String, ImageIcon> sprites = new LinkedHashMap<>();
-    public static final ImageIcon missingTexture = new ImageIcon(Objects.requireNonNull(PsychicMemory.class.getClassLoader().getResource("assets/cod.png")));
+    public static final ImageIcon missingTexture = new ImageIcon(Objects.requireNonNull(PsychicMemory.class.getClassLoader().getResource("assets/textures/entities/cod.png")));
     public static World world;
     public static Menu menu;
     public static long ticksPerSecond = 0;
@@ -44,7 +44,7 @@ public class PsychicMemory {
         SAVE_VALUES = new LinkedHashMap<>();
         for(int i = 1; i <= 3; i++) SAVE_VALUES.put(i, DataManager.populateSave(i));
 
-        Renderer.startRenderer();
+        PMRenderer.startRenderer();
 
         Thread gameThread = new Thread(() -> {
             int ticks = 0;
@@ -83,11 +83,11 @@ public class PsychicMemory {
     public static void start() {
         System.out.println("start");
         gameState = GameState.INGAME;
-        for (int i = -2; i <= 2; i++) {
-            for (int j = -2; j <=  2; j++) {
-                world.addEntity(new TestEntity(world, new Vec2d(0, 0), new Vec2d(i, j), EntityType.ENEMY));
-            }
-        }
+//        for (int i = -2; i <= 2; i++) {
+//            for (int j = -2; j <=  2; j++) {
+//                world.addEntity(new TestEntity(world, new Vec2d(0, 0), new Vec2d(i, j), EntityType.ENEMY));
+//            }
+//        }
         world.addEntity(new TestEntity(world, new Vec2d(0, 100), new Vec2d(3, 0), EntityType.ENEMY));
         world.addEntity(new PlayerEntity(world, new Vec2d(360, 400), new Vec2d(0, 0), EntityType.PLAYER));
     }
@@ -95,7 +95,7 @@ public class PsychicMemory {
     public static void end(boolean win) {
         System.out.println("end");
         menu = new Menu();
-        Renderer.addInput(menu);
+        PMRenderer.addInput(menu);
         world = new World(new Vec2i(720, 840));
         gameState = GameState.MENU;
     }

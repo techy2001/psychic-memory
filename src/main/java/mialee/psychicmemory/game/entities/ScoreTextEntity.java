@@ -41,7 +41,8 @@ public class ScoreTextEntity extends Entity {
 
     @Override
     public void render(Graphics graphics) {
+        int length = Integer.toString(value).length();
         graphics.setColor(Color.WHITE);
-        graphics.drawString(String.valueOf(value), (int) position.x, (int) position.y);
+        graphics.drawString(String.valueOf(value), (int) position.x - (6 * length), (int) position.y - 6);
     }
 }

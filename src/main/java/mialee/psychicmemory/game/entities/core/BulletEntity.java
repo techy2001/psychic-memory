@@ -43,4 +43,13 @@ public abstract class BulletEntity extends Entity {
             }
         }
     }
+
+    @Override
+    public void render(Graphics graphics) {
+        Color color = faction == EntityType.ENEMY_BULLET ? Color.RED : Color.CYAN;
+        graphics.setColor(color);
+        graphics.fillOval((int) (position.x - getHitRadius()), (int) (position.y - getHitRadius()), getHitRadius() * 2, getHitRadius() * 2);
+        graphics.setColor(Color.WHITE);
+        graphics.fillOval((int) (position.x - getHitRadius()) + 2, (int) (position.y - getHitRadius()) + 2, (getHitRadius() * 2) - 4, (getHitRadius() * 2) - 4);
+    }
 }

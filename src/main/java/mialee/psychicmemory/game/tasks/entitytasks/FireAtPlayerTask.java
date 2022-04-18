@@ -23,7 +23,6 @@ public class FireAtPlayerTask extends EntityTask {
         this.deviation = deviation;
         this.speed = speed;
         this.loop = loop;
-        findPlayer();
     }
 
     @Override
@@ -36,16 +35,18 @@ public class FireAtPlayerTask extends EntityTask {
                     int amount = count / 2;
                     for (double i = -(amount - 0.5); i <= (amount - 0.5) ; i += 1) {
                         double rotation = (Math.toDegrees(Math.asin((player.position.x - owner.position.x) / size)));
-                        double f = Math.sin((i * deviation + rotation) * ((float) Math.PI / 180));
-                        double h = Math.cos((i * deviation + rotation) * ((float) Math.PI / 180));
+                        double radians = Math.toRadians(i * deviation + rotation);
+                        double f = Math.sin(radians);
+                        double h = Math.cos(radians);
                         owner.world.addEntity(new EnemyBulletEntity(owner.world, owner.position.copy(), new Vec2d(f * speed, h * speed)));
                     }
                 } else {
                     int amount = (count - 1) / 2;
                     for (double i = -amount; i <= amount; i += 1) {
                         double rotation = (Math.toDegrees(Math.asin((player.position.x - owner.position.x) / size)));
-                        double f = Math.sin((i * deviation + rotation) * ((float) Math.PI / 180));
-                        double h = Math.cos((i * deviation + rotation) * ((float) Math.PI / 180));
+                        double radians = Math.toRadians(i * deviation + rotation);
+                        double f = Math.sin(radians);
+                        double h = Math.cos(radians);
                         owner.world.addEntity(new EnemyBulletEntity(owner.world, owner.position.copy(), new Vec2d(f * speed, h * speed)));
                     }
                 }

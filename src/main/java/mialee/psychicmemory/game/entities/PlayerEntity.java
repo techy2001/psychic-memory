@@ -32,6 +32,8 @@ public class PlayerEntity extends LivingEntity {
         boolean up = Input.getKey(PsychicMemory.SETTING_VALUES.UP_KEY);
         boolean down = Input.getKey(PsychicMemory.SETTING_VALUES.DOWN_KEY);
 
+        if (Input.getKey(88)) world.clearBullets(true);
+
         if (Input.getKey(PsychicMemory.SETTING_VALUES.SLOW_KEY)) {
             speed /= 2;
         }
