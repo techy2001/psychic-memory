@@ -19,7 +19,7 @@ public class TestEntity extends LivingEntity {
     @Override
     protected void registerStats() {
         super.registerStats();
-        this.health = 5000;
+        this.health = 10;
     }
 
     public void tick() {
@@ -50,5 +50,11 @@ public class TestEntity extends LivingEntity {
         super.render(graphics);
         graphics.setColor(Color.BLUE);
         graphics.fillOval((int) (position.x - (getHitRadius())), (int) (position.y - (getHitRadius())), getHitRadius() * 2, getHitRadius() * 2);
+    }
+
+    @Override
+    protected void onDeath() {
+        world.addEntity(new ScoreTextEntity(world, this.position.copy(), new Vec2d(0, -0.5), 40, 200));
+        super.onDeath();
     }
 }

@@ -1,6 +1,7 @@
 package mialee.psychicmemory;
 
 import mialee.psychicmemory.data.DataManager;
+import mialee.psychicmemory.data.GameRecord;
 import mialee.psychicmemory.data.PMSettings;
 import mialee.psychicmemory.data.TextLogger;
 import mialee.psychicmemory.game.World;
@@ -15,12 +16,16 @@ import mialee.psychicmemory.menu.Menu;
 import mialee.psychicmemory.window.PMRenderer;
 
 import javax.swing.ImageIcon;
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * The main game class.
+ */
 public class PsychicMemory {
     public static String dir = "PMData";
     public static TextLogger LOGGER;
@@ -34,6 +39,12 @@ public class PsychicMemory {
     public static long ticksPerSecond = 0;
     public static GameState gameState = GameState.MENU;
 
+    /**
+     * The main method of the program.
+     * This method does all the setup for the game, and starts both the main game thread and the render thread in {@link PMRenderer#startRenderer()}
+     *
+     * Both the main thread and the render thread keep track of the ticks per second (TPS) and frames per second (FPS) respectively.
+     */
     public static void main(String[] args) {
         LOGGER = new TextLogger();
         LANGUAGE = new Language("en_ie");
@@ -66,7 +77,7 @@ public class PsychicMemory {
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.sleep.error"), e.getMessage());
                 }
             }
         });
@@ -76,13 +87,18 @@ public class PsychicMemory {
         restart();
     }
 
+    /**
+     * Used to start the game, beginning the selected stage.
+     */
     public static void start() {
-        System.out.println("start");
         gameState = GameState.INGAME;
         world.addEntity(new TestEntity(world, new Vec2d(0, 100), new Vec2d(3, 0), EntityFaction.ENEMY));
         world.addEntity(new PlayerEntity(world, new Vec2d(360, 400), new Vec2d(0, 0), EntityFaction.PLAYER));
     }
 
+    /**
+     * Used to reset the world back to its default state and return to the main menu, also used for the first time start.
+     */
     public static void restart() {
         menu = new Menu();
         PMRenderer.addInput(menu);
@@ -90,6 +106,19 @@ public class PsychicMemory {
         gameState = GameState.MENU;
     }
 
+    /**
+     * Called when the player dies or wins the game.
+     * @param win Tells if the end state was triggered by a win or a loss.
+     */
+    public static void end(boolean win) {
+        DataManager.writeScore("dummy", world.getScore());
+        restart();
+    }
+
+    /**
+     * Used to get image files from the stored cache. If a file is not in the cache it will call {@link #loadImage(String)} to load and add the file to the cache.
+     * @param name Name of the image file to load.
+     */
     public static ImageIcon getIcon(String name) {
         if (!sprites.containsKey(name)) {
             sprites.put(name, loadImage(name));
@@ -97,6 +126,11 @@ public class PsychicMemory {
         return sprites.get(name);
     }
 
+    /**
+     * Reads the requested texture file from the resources' folder, and adds it to the cache.
+     * If the image is not found it will use the preset missing texture.
+     * @param location The location of the image file to load.
+     */
     private static ImageIcon loadImage(String location) {
         ImageIcon icon;
         try {

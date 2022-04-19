@@ -2,75 +2,76 @@ package mialee.psychicmemory.menu;
 
 import mialee.psychicmemory.GameState;
 import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.data.DataManager;
+import mialee.psychicmemory.data.PMSettings;
 import mialee.psychicmemory.math.MathHelper;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 public class Menu implements KeyListener {
-    private int selected = 0;
-    private boolean inOptions = false;
-    private final Button[] buttonsMain;
-    private final Button[] buttonsOptions;
+    private final ArrayList<Page> pages = new ArrayList<>();
+    private int selectedPage = 0;
+    private boolean rebinding = false;
+    private int rebindingTarget = 0;
 
     public Menu() {
-        buttonsMain = new Button[]{
-                new Button("Start", PsychicMemory::start, 537, 400, 0),
-                new Button("Options", () -> {
-                        inOptions = true;
-                        selected = 0;
-                    }, 537, 470, 0),
-                new Button("Quit", () -> System.exit(1), 537, 540, 0)
-        };
+        Page pageMain = new Page();
+        pageMain.addButton(new Button("Start", PsychicMemory::start, 480, 400, 0));
+        pageMain.addButton(new Button("Options", () -> selectedPage = 1, 480, 470, 0));
+        pageMain.addButton(new Button("Quit", () -> System.exit(1), 480, 540, 0));
+        pages.add(pageMain);
 
-        buttonsOptions = new Button[]{
-                new Button("Back", () -> {
-                    inOptions = false;
-                    selected = 1;
-                }, 537, 540, -5)
-        };
+        Page pageOptions = new Page();
+        pageOptions.addText(new Text("Rebind Keys", 480, 200));
+        pageOptions.addButton(new KeyButton(0, "Left: ", () -> startRebind(0), 480, 300, 0));
+        pageOptions.addButton(new KeyButton(1, "Up: ", () -> startRebind(1), 480, 350, 0));
+        pageOptions.addButton(new KeyButton(2, "Right: ", () -> startRebind(2), 480, 400, 0));
+        pageOptions.addButton(new KeyButton(3, "Down: ", () -> startRebind(3), 480, 450, 0));
+        pageOptions.addButton(new KeyButton(4, "Fire: ", () -> startRebind(4), 480, 500, 0));
+        pageOptions.addButton(new KeyButton(5, "Slow: ", () -> startRebind(5), 480, 550, 0));
+        pageOptions.addButton(new Button("Back", () -> selectedPage = 0, 480, 650, 0));
+        pages.add(pageOptions);
     }
 
     public void render(Graphics graphics) {
-        if (!inOptions) {
-            for (int i = 0; i < buttonsMain.length; i++) {
-                buttonsMain[i].render(graphics, selected == i);
-            }
-        } else {
-            for (int i = 0; i < buttonsOptions.length; i++) {
-                buttonsOptions[i].render(graphics, selected == i);
-            }
-        }
+        pages.get(selectedPage).render(graphics, rebinding);
     }
 
-    public void changeSelected(int change) {
-        if (!inOptions) {
-            this.selected = MathHelper.clampLoop(0, buttonsMain.length - 1, selected + change);
-        } else {
-            this.selected = MathHelper.clampLoop(0, buttonsOptions.length - 1, selected + change);
-        }
+    private void startRebind(int target) {
+        rebinding = true;
+        rebindingTarget = target;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         if (PsychicMemory.gameState == GameState.MENU) {
-            int keyCode = e.getKeyCode();
-            if (keyCode == PsychicMemory.SETTING_VALUES.UP_KEY) {
-                changeSelected(-1);
-            } else if (keyCode == PsychicMemory.SETTING_VALUES.DOWN_KEY) {
-                changeSelected(1);
-            } else if (keyCode == PsychicMemory.SETTING_VALUES.FIRE_KEY) {
-                if (!inOptions) {
-                    buttonsMain[selected].press().run();
-                } else {
-                    buttonsOptions[selected].press().run();
+            if (!rebinding) {
+                int keyCode = e.getKeyCode();
+                Page page = pages.get(selectedPage);
+                if (keyCode == PsychicMemory.SETTING_VALUES.UP_KEY) {
+                    page.changeSelected(-1);
+                } else if (keyCode == PsychicMemory.SETTING_VALUES.DOWN_KEY) {
+                    page.changeSelected(1);
+                } else if (keyCode == PsychicMemory.SETTING_VALUES.FIRE_KEY) {
+                    page.pressButton();
+                } else if (keyCode == PsychicMemory.SETTING_VALUES.SLOW_KEY) {
+                    page.selectLast();
                 }
-            } else if (keyCode == PsychicMemory.SETTING_VALUES.SLOW_KEY) {
-                if (inOptions) {
-                    inOptions = false;
-                } else {
-                    selected = 2;
+            } else {
+                boolean available = true;
+                for (int i = 0; i < 6; i++) {
+                    if (e.getKeyCode() == PsychicMemory.SETTING_VALUES.getKeyByID(i) && !(rebindingTarget == i)) {
+                        available = false;
+                        break;
+                    }
+                }
+                if (available) {
+                    PsychicMemory.SETTING_VALUES.rebind(rebindingTarget, e.getKeyCode());
+                    rebinding = false;
+                    DataManager.writeSettings(PsychicMemory.SETTING_VALUES);
                 }
             }
         }

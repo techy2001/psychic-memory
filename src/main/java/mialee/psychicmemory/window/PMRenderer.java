@@ -19,11 +19,18 @@ import java.awt.image.VolatileImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The class which handles all the games rendering and visuals.
+ */
 public class PMRenderer {
     private static Canvas canvas;
     public static final Vec2i dimensions = new Vec2i(960, 720);
     private static Font baseFont;
 
+    /**
+     * This class is called from {@link PsychicMemory#main(String[])} and starts the main render thread.
+     * The render thread will render what is relevant based on the GameState
+     */
     public static void startRenderer() {
         canvas = new Canvas();
         canvas.setSize(new Dimension(dimensions.x, dimensions.y));
@@ -89,7 +96,7 @@ public class PMRenderer {
                 try {
                     Thread.sleep(5);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.sleep.error"), e.getMessage());
                 }
             }
         });
@@ -99,6 +106,10 @@ public class PMRenderer {
         frame.setVisible(true);
     }
 
+    /**
+     * Resets the font to the base font at size 12, the base font being Ubuntu-M.
+     * @param graphics The graphics to set the font for.
+     */
     private static void resetFont(Graphics graphics) {
         try {
             if (getBaseFont() == null) {
@@ -106,14 +117,21 @@ public class PMRenderer {
             }
             graphics.setFont(getBaseFont().deriveFont(12f));
         } catch (FontFormatException | IOException e) {
-            e.printStackTrace();
+            PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.font.error"), "Ubuntu-M.tff", e.getMessage());
         }
     }
 
+    /**
+     * Adds the main menu input to the window, used after each menu reset.
+     * @param listener The key listener to add.
+     */
     public static void addInput(KeyListener listener) {
         canvas.addKeyListener(listener);
     }
 
+    /**
+     * Getter for {@link #baseFont}.
+     */
     public static Font getBaseFont() {
         return baseFont;
     }

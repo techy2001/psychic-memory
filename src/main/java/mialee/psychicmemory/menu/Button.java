@@ -5,22 +5,40 @@ import mialee.psychicmemory.window.PMRenderer;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public record Button(String text, Runnable press, int x, int y, int offset) {
-    public int getX(boolean selected) {
-        return (selected ? x + offset : x) - (text.length() * 36);
+public class Button {
+    protected final String text;
+    private final Runnable press;
+    protected final int x;
+    protected final int y;
+    protected final int offset;
+
+    public Button(String text, Runnable press, int x, int y, int offset) {
+        this.text = text;
+        this.press = press;
+        this.x = x;
+        this.y = y;
+        this.offset = offset;
     }
 
-    public int getY(boolean selected) {
-        return (selected ? y + offset : y) - 36;
+    protected int getX(Graphics graphics, boolean selected) {
+        return (selected ? x + offset : x) - (graphics.getFontMetrics().stringWidth(text) / 2);
     }
 
-    public Color getColor(boolean selected) {
+    protected int getY(boolean selected) {
+        return (selected ? y + offset : y);
+    }
+
+    protected Color getColor(boolean selected) {
         return selected ? Color.WHITE : Color.GRAY;
     }
 
     public void render(Graphics graphics, boolean selected) {
         graphics.setFont(PMRenderer.getBaseFont().deriveFont(72f));
         graphics.setColor(getColor(selected));
-        graphics.drawString(text, getX(selected), getY(selected));
+        graphics.drawString(text, getX(graphics, selected), getY(selected));
+    }
+
+    public void press() {
+        press.run();
     }
 }

@@ -1,6 +1,6 @@
 package mialee.psychicmemory.game;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.data.DataManager;
 import mialee.psychicmemory.game.entities.ScoreTextEntity;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.entities.core.EntityFaction;
@@ -20,6 +20,7 @@ public class World {
     private int scoreOld = 0;
     private int scoreVisual = 0;
     private int scoreProgress = 0;
+    private int highScore = DataManager.readHighScore().score();
 
     public World(Vec2i size) {
         this.size = size;
@@ -42,13 +43,15 @@ public class World {
         }
         if (scoreProgress < 100) scoreProgress++;
         scoreVisual = MathHelper.lerpInt((float) scoreProgress / 100, scoreOld, score);
+        if (scoreVisual > highScore) highScore = scoreVisual;
     }
 
-    @SuppressWarnings("ForLoopReplaceableByForEach")
     public void render(Graphics graphics) {
-        for (int i = 0; i < entities.size(); i++) {
-            Entity entity = entities.get(i);
-            if (entity != null) entity.render(graphics);
+        for (int i = entities.size() - 1; 0 <= i; i--) {
+            if (i < entities.size()) {
+                Entity entity = entities.get(i);
+                if (entity != null) entity.render(graphics);
+            }
         }
     }
 
@@ -60,9 +63,13 @@ public class World {
 
         graphics.setFont(PMRenderer.getBaseFont().deriveFont(24f));
         graphics.setColor(Color.BLACK);
-        graphics.drawString("SCORE: " + PsychicMemory.world.getScoreVisual(), 761, 101);
+        graphics.drawString("HIGH-SCORE: " + highScore, 651, 101);
         graphics.setColor(Color.WHITE);
-        graphics.drawString("SCORE: " + PsychicMemory.world.getScoreVisual(), 760, 100);
+        graphics.drawString("HIGH-SCORE: " + highScore, 650, 100);
+        graphics.setColor(Color.BLACK);
+        graphics.drawString("SCORE: " + getScoreVisual(), 651, 151);
+        graphics.setColor(Color.WHITE);
+        graphics.drawString("SCORE: " + getScoreVisual(), 650, 150);
     }
 
     public void addEntity(Entity entity) {

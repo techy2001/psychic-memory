@@ -7,4 +7,26 @@ public class PMSettings {
     public int DOWN_KEY = 40;
     public int FIRE_KEY = 90;
     public int SLOW_KEY = 16;
+
+    public void rebind(int key, int newInput) {
+        switch (key) {
+            case 0 -> LEFT_KEY = newInput;
+            case 1 -> UP_KEY = newInput;
+            case 2 -> RIGHT_KEY = newInput;
+            case 3 -> DOWN_KEY = newInput;
+            case 4 -> FIRE_KEY = newInput;
+            case 5 -> SLOW_KEY = newInput;
+        }
+    }
+
+    public int getKeyByID(int key) {
+        return switch (key) {
+            case 0 -> LEFT_KEY;
+            case 1 -> UP_KEY;
+            case 2 -> RIGHT_KEY;
+            case 3 -> DOWN_KEY;
+            case 4 -> FIRE_KEY;
+            default -> SLOW_KEY;
+        };
+    }
 }

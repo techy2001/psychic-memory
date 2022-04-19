@@ -49,14 +49,27 @@ public class DataManager {
         }
     }
 
+    public static GameRecord readHighScore() {
+        ArrayList<GameRecord> scores = readScores();
+        GameRecord highScore = new GameRecord("null", 0);
+        for (GameRecord score : scores) {
+            if (score.score() > highScore.score()) highScore = score;
+        }
+        return highScore;
+    }
+
     public static ArrayList<GameRecord> readScores() {
         try {
             ArrayList<GameRecord> records = new ArrayList<>();
             Scanner scanner = new Scanner(new File("PMData/scores.txt"));
             while (scanner.hasNextLine()) {
-                String[] nextLine = scanner.nextLine().split(" ", 1);
-                GameRecord record = new GameRecord(nextLine[1], Integer.parseInt(nextLine[0]));
-                records.add(record);
+                try {
+                    String[] nextLine = scanner.nextLine().split(" ", 2);
+                    GameRecord record = new GameRecord(nextLine[1], Integer.parseInt(nextLine[0]));
+                    records.add(record);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.score.corrupt"), "scores.txt", e.getMessage());
+                }
             }
             Collections.sort(records);
             return records;
@@ -72,7 +85,7 @@ public class DataManager {
         try {
             File file = new File("PMData/scores.txt");
             FileWriter writer = new FileWriter(file, true);
-            writer.write("%d %s".formatted(score, name));
+            writer.write("\n%d %s".formatted(score, name));
             writer.close();
         } catch (IOException e) {
             PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.missing"), "scores.txt", e.getMessage());
