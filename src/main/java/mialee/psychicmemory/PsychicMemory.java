@@ -1,24 +1,17 @@
 package mialee.psychicmemory;
 
 import mialee.psychicmemory.data.DataManager;
-import mialee.psychicmemory.data.GameRecord;
 import mialee.psychicmemory.data.PMSettings;
 import mialee.psychicmemory.data.TextLogger;
 import mialee.psychicmemory.game.World;
-import mialee.psychicmemory.game.entities.PlayerEntity;
-import mialee.psychicmemory.game.entities.TestEntity;
-import mialee.psychicmemory.game.entities.core.EntityFaction;
 import mialee.psychicmemory.input.Input;
 import mialee.psychicmemory.lang.Language;
 import mialee.psychicmemory.lang.TranslatableText;
-import mialee.psychicmemory.math.Vec2d;
-import mialee.psychicmemory.math.Vec2i;
 import mialee.psychicmemory.menu.Menu;
 import mialee.psychicmemory.menu.ScoreMenu;
 import mialee.psychicmemory.window.PMRenderer;
 
 import javax.swing.ImageIcon;
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;

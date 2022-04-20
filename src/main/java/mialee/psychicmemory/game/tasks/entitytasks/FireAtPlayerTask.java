@@ -1,12 +1,11 @@
 package mialee.psychicmemory.game.tasks.entitytasks;
 
+import mialee.psychicmemory.game.EntityFaction;
 import mialee.psychicmemory.game.entities.EnemyBulletEntity;
 import mialee.psychicmemory.game.entities.PlayerEntity;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.EntityTask;
 import mialee.psychicmemory.math.Vec2d;
-
-import java.util.ArrayList;
 
 public class FireAtPlayerTask extends EntityTask {
     private final int cooldownMax;
@@ -38,7 +37,7 @@ public class FireAtPlayerTask extends EntityTask {
                         double radians = Math.toRadians(i * deviation + rotation);
                         double f = Math.sin(radians);
                         double h = Math.cos(radians);
-                        owner.world.addEntity(new EnemyBulletEntity(owner.world, owner.position.copy(), new Vec2d(f * speed, h * speed)));
+                        owner.world.getBank().addEntity(new EnemyBulletEntity(owner.world, owner.position.copy(), new Vec2d(f * speed, h * speed)), EntityFaction.ENEMY_BULLET);
                     }
                 } else {
                     int amount = (count - 1) / 2;
@@ -47,24 +46,14 @@ public class FireAtPlayerTask extends EntityTask {
                         double radians = Math.toRadians(i * deviation + rotation);
                         double f = Math.sin(radians);
                         double h = Math.cos(radians);
-                        owner.world.addEntity(new EnemyBulletEntity(owner.world, owner.position.copy(), new Vec2d(f * speed, h * speed)));
+                        owner.world.getBank().addEntity(new EnemyBulletEntity(owner.world, owner.position.copy(), new Vec2d(f * speed, h * speed)), EntityFaction.ENEMY_BULLET);
                     }
                 }
                 cooldown = cooldownMax;
             } else {
-                findPlayer();
+                player = owner.world.getPlayer();
             }
         }
         cooldown--;
-    }
-
-    @SuppressWarnings("ForLoopReplaceableByForEach")
-    private void findPlayer() {
-        ArrayList<Entity> entities = owner.world.getEntities();
-        for (int i = 0; i < entities.size(); i++) {
-            if (entities.get(i) instanceof PlayerEntity player) {
-                this.player = player;
-            }
-        }
     }
 }

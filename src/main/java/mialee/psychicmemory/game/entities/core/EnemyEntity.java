@@ -6,7 +6,7 @@ import mialee.psychicmemory.math.Vec2d;
 
 public abstract class EnemyEntity extends LivingEntity {
     public EnemyEntity(World board, Vec2d position) {
-        super(board, position, new Vec2d(0, 0), EntityFaction.ENEMY);
+        super(board, position, new Vec2d(0, 0));
     }
 
     @Override

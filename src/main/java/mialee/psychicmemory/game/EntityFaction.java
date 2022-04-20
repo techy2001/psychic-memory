@@ -1,4 +1,4 @@
-package mialee.psychicmemory.game.entities.core;
+package mialee.psychicmemory.game;
 
 public enum EntityFaction {
     PLAYER,

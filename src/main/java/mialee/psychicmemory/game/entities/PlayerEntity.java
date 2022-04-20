@@ -1,8 +1,8 @@
 package mialee.psychicmemory.game.entities;
 
 import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.game.EntityFaction;
 import mialee.psychicmemory.game.World;
-import mialee.psychicmemory.game.entities.core.EntityFaction;
 import mialee.psychicmemory.game.entities.core.LivingEntity;
 import mialee.psychicmemory.input.Input;
 import mialee.psychicmemory.math.Vec2d;
@@ -16,8 +16,8 @@ public class PlayerEntity extends LivingEntity {
     private int iFrames = 0;
     private final Vec2d spawnPosition;
 
-    public PlayerEntity(World board, Vec2d position, Vec2d velocity, EntityFaction faction) {
-        super(board, position, velocity, faction);
+    public PlayerEntity(World board, Vec2d position, Vec2d velocity) {
+        super(board, position, velocity);
         spawnPosition = position;
         world.setPlayer(this);
     }
@@ -67,7 +67,7 @@ public class PlayerEntity extends LivingEntity {
 
         if (fireCooldown > 0) fireCooldown--;
         if (Input.getKey(PsychicMemory.SETTING_VALUES.FIRE_KEY) && fireCooldown <= 0) {
-            this.world.addEntity(new PlayerBulletEntity(this.world, this.position.copy(), new Vec2d(0, -25), 1));
+            this.world.getBank().addEntity(new PlayerBulletEntity(this.world, this.position.copy(), new Vec2d(0, -25), 1), EntityFaction.PLAYER_BULLET);
             fireCooldown = 4;
         }
     }
@@ -111,7 +111,7 @@ public class PlayerEntity extends LivingEntity {
             lives--;
             iFrames = 120;
             position.set(spawnPosition);
-            world.clearBullets(false);
+            world.getBank().clearBullets(false);
         } else {
             PsychicMemory.end(false);
         }

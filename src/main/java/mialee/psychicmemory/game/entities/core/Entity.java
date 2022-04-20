@@ -6,15 +6,14 @@ import mialee.psychicmemory.game.tasks.Task;
 import mialee.psychicmemory.game.tasks.entitytasks.MoveWithVelocityTask;
 import mialee.psychicmemory.math.Vec2d;
 
-import javax.swing.ImageIcon;
-import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Entity {
     public final World world;
     public final Vec2d position;
     public final Vec2d velocity;
-    public final EntityFaction faction;
 
     protected String name;
     protected ImageIcon image;
@@ -26,11 +25,10 @@ public abstract class Entity {
     protected int age = 0;
     private boolean markedForDeletion = false;
 
-    public Entity(World world, Vec2d position, Vec2d velocity, EntityFaction faction) {
+    public Entity(World world, Vec2d position, Vec2d velocity) {
         this.world = world;
         this.position = position;
         this.velocity = velocity;
-        this.faction = faction;
         this.registerStats();
     }
 

@@ -1,8 +1,8 @@
 package mialee.psychicmemory.game.entities;
 
 import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.game.EntityFaction;
 import mialee.psychicmemory.game.World;
-import mialee.psychicmemory.game.entities.core.EntityFaction;
 import mialee.psychicmemory.game.entities.core.LivingEntity;
 import mialee.psychicmemory.game.tasks.entitytasks.FireAtPlayerTask;
 import mialee.psychicmemory.game.tasks.entitytasks.MoveToPositionTask;
@@ -12,8 +12,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class TestEntity extends LivingEntity {
-    public TestEntity(World board, Vec2d position, Vec2d velocity, EntityFaction faction) {
-        super(board, position, velocity, faction);
+    public TestEntity(World board, Vec2d position, Vec2d velocity) {
+        super(board, position, velocity);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class TestEntity extends LivingEntity {
 
     @Override
     protected void onDeath() {
-        world.addEntity(new ScoreTextEntity(world, this.position.copy(), new Vec2d(0, -0.5), 40, 200));
+        world.getBank().addEntity(new ScoreTextEntity(world, this.position.copy(), new Vec2d(0, -0.5), 40, 200), EntityFaction.GRAPHIC);
         super.onDeath();
     }
 }

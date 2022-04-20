@@ -4,10 +4,9 @@ import mialee.psychicmemory.GameState;
 import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.data.DataManager;
 import mialee.psychicmemory.game.entities.PlayerEntity;
-import mialee.psychicmemory.game.entities.ScoreTextEntity;
 import mialee.psychicmemory.game.entities.TestEntity;
-import mialee.psychicmemory.game.entities.core.Entity;
-import mialee.psychicmemory.game.entities.core.EntityFaction;
+import mialee.psychicmemory.game.tasks.Task;
+import mialee.psychicmemory.game.tasks.worldtasks.SpawnEntityTask;
 import mialee.psychicmemory.math.MathHelper;
 import mialee.psychicmemory.math.Vec2d;
 import mialee.psychicmemory.math.Vec2i;
@@ -17,8 +16,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class World {
-    private final ArrayList<Entity> entities = new ArrayList<>();
-    private final ArrayList<Entity> newEntities = new ArrayList<>();
+    private final EntityBank entities = new EntityBank(this);
     private PlayerEntity player;
     public final Vec2i size = new Vec2i(620, 720);
     private int score = 0;
@@ -26,44 +24,47 @@ public class World {
     private int scoreVisual = 0;
     private int scoreProgress = 0;
     private int highScore = DataManager.readHighScore().score();
+    private final ArrayList<Task> taskList = new ArrayList<>();
+    private final ArrayList<Task> pendingTasks = new ArrayList<>();
 
     public World() {
-        addEntity(new PlayerEntity(this, new Vec2d(310, 550), new Vec2d(0, 0), EntityFaction.PLAYER));
+        setPlayer(new PlayerEntity(this, new Vec2d(310, 550), new Vec2d(0, 0)));
         populateTasks();
     }
 
     protected void populateTasks() {
-
-        addEntity(new TestEntity(this, new Vec2d(0, 100), new Vec2d(3, 0), EntityFaction.ENEMY));
+        addTask(new SpawnEntityTask(this, new TestEntity(this, new Vec2d(0, 100), new Vec2d(3, 0)), EntityFaction.ENEMY));
     }
 
     public void tick() {
-        for (Entity entity : entities) {
-            entity.tick();
-        }
-        entities.addAll(newEntities);
-        newEntities.clear();
-        for (int i = 0; i < entities.size(); i++) {
-            Entity entity = entities.get(i);
-            if (entity != null) {
-                if (entity.isMarkedForDeletion()) {
-                    entities.remove(entity);
-                    i--;
+        if (!taskList.isEmpty()) {
+            Task task = taskList.get(0);
+            task.tick();
+            if (task.isComplete()) {
+                if (task.shouldLoop()) {
+                    pendingTasks.add(task);
+                    task.refresh();
                 }
+                taskList.remove(0);
             }
         }
+        taskList.addAll(pendingTasks);
+        pendingTasks.clear();
+
+        entities.tick();
+        player.tick();
         if (scoreProgress < 100) scoreProgress++;
         scoreVisual = MathHelper.lerpInt((float) scoreProgress / 100, scoreOld, score);
         if (scoreVisual > highScore) highScore = scoreVisual;
     }
 
+    public void addTask(Task task) {
+        pendingTasks.add(task);
+    }
+
     public void render(Graphics graphics) {
-        for (int i = entities.size() - 1; 0 <= i; i--) {
-            if (i < entities.size()) {
-                Entity entity = entities.get(i);
-                if (entity != null) entity.render(graphics);
-            }
-        }
+        entities.render(graphics);
+        player.render(graphics);
     }
 
     public void renderUI(Graphics graphics) {
@@ -106,21 +107,8 @@ public class World {
         }
     }
 
-    public void addEntity(Entity entity) {
-        newEntities.add(entity);
-    }
-
-    public ArrayList<Entity> getEntities() {
+    public EntityBank getBank() {
         return entities;
-    }
-
-    public void clearBullets(boolean points) {
-        for (Entity entity : entities) {
-            if (entity.faction == EntityFaction.ENEMY_BULLET) {
-                if (points) this.addEntity(new ScoreTextEntity(this, entity.position.copy(), new Vec2d(0, -0.5), 40, 10));
-                entity.markForDeletion();
-            }
-        }
     }
 
     public void addScore(int value) {

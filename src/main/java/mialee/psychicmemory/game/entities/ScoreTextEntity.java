@@ -2,20 +2,18 @@ package mialee.psychicmemory.game.entities;
 
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.core.Entity;
-import mialee.psychicmemory.game.entities.core.EntityFaction;
 import mialee.psychicmemory.game.tasks.entitytasks.DeleteSelfTask;
 import mialee.psychicmemory.game.tasks.entitytasks.MoveWithVelocityTask;
 import mialee.psychicmemory.math.Vec2d;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 
 public class ScoreTextEntity extends Entity {
     private final int lifetime;
     private final int value;
 
     public ScoreTextEntity(World board, Vec2d position, Vec2d velocity, int lifetime, int value) {
-        super(board, position, velocity, EntityFaction.GRAPHIC);
+        super(board, position, velocity);
         this.lifetime = lifetime;
         this.value = value;
     }
