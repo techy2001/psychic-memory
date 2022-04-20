@@ -8,11 +8,13 @@ import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.PlayerEntity;
 import mialee.psychicmemory.game.entities.TestEntity;
 import mialee.psychicmemory.game.entities.core.EntityFaction;
+import mialee.psychicmemory.input.Input;
 import mialee.psychicmemory.lang.Language;
 import mialee.psychicmemory.lang.TranslatableText;
 import mialee.psychicmemory.math.Vec2d;
 import mialee.psychicmemory.math.Vec2i;
 import mialee.psychicmemory.menu.Menu;
+import mialee.psychicmemory.menu.ScoreMenu;
 import mialee.psychicmemory.window.PMRenderer;
 
 import javax.swing.ImageIcon;
@@ -35,7 +37,6 @@ public class PsychicMemory {
     private final static Map<String, ImageIcon> sprites = new LinkedHashMap<>();
     public static final ImageIcon missingTexture = new ImageIcon(Objects.requireNonNull(PsychicMemory.class.getClassLoader().getResource("assets/textures/entities/cod.png")));
     public static World world;
-    public static Menu menu;
     public static long ticksPerSecond = 0;
     public static GameState gameState = GameState.MENU;
 
@@ -70,15 +71,19 @@ public class PsychicMemory {
                     continue;
                 }
 
+                if (gameState == GameState.INGAME && Input.getKey(PsychicMemory.SETTING_VALUES.PAUSE_KEY)) {
+                    gameState = GameState.PAUSED;
+                    safeSleep(200);
+                } else if (gameState == GameState.PAUSED && Input.getKey(PsychicMemory.SETTING_VALUES.PAUSE_KEY)) {
+                    gameState = GameState.INGAME;
+                    safeSleep(200);
+                }
+
                 if (gameState == GameState.INGAME) {
                     world.tick();
                 }
 
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.sleep.error"), e.getMessage());
-                }
+                safeSleep(10);
             }
         });
         gameThread.setName("gameThread");
@@ -88,21 +93,32 @@ public class PsychicMemory {
     }
 
     /**
-     * Used to start the game, beginning the selected stage.
+     * Used to wait with error detection.
+     * Used to slow the tick rate and to add a delay after hitting pause.
+     * @param millis Length of time in milliseconds to wait.
      */
-    public static void start() {
-        gameState = GameState.INGAME;
-        world.addEntity(new TestEntity(world, new Vec2d(0, 100), new Vec2d(3, 0), EntityFaction.ENEMY));
-        world.addEntity(new PlayerEntity(world, new Vec2d(360, 400), new Vec2d(0, 0), EntityFaction.PLAYER));
+    private static void safeSleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.sleep.error"), e.getMessage());
+        }
     }
 
     /**
-     * Used to reset the world back to its default state and return to the main menu, also used for the first time start.
+     * Used to start the game, beginning the selected stage.
+     */
+    public static void start() {
+        world = new World();
+        gameState = GameState.INGAME;
+    }
+
+    /**
+     * Used to reset the world back to its default state and return to the main menu.
+     * Called at the game's initial start and after winning/losing.
      */
     public static void restart() {
-        menu = new Menu();
-        PMRenderer.addInput(menu);
-        world = new World(new Vec2i(620, 720));
+        Input.menu = new Menu();
         gameState = GameState.MENU;
     }
 
@@ -111,8 +127,8 @@ public class PsychicMemory {
      * @param win Tells if the end state was triggered by a win or a loss.
      */
     public static void end(boolean win) {
-        DataManager.writeScore("dummy", world.getScore());
-        restart();
+        Input.scoreMenu = new ScoreMenu(win, world.getScore(), world.getScore() > DataManager.readHighScore().score());
+        gameState = GameState.SCORE;
     }
 
     /**

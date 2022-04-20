@@ -33,17 +33,6 @@ public abstract class BulletEntity extends Entity {
         if (position.y + visualSize < 0) {
             this.markForDeletion();
         }
-        for (Entity entity : world.getEntities()) {
-            if (entity instanceof LivingEntity livingEntity) {
-                if (entity.faction == enemyFaction) {
-                    if (entity.squaredDistanceTo(this) < entity.squaredHitboxes(this)) {
-                        if (livingEntity.damage(damage)) {
-                            this.markForDeletion();
-                        }
-                    }
-                }
-            }
-        }
     }
 
     @Override

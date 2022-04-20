@@ -33,7 +33,9 @@ public class Page {
     }
 
     public void changeSelected(int change) {
-        this.selected = MathHelper.clampLoop(0, buttons.size() - 1, selected + change);
+        if (buttons.size() > 0) {
+            this.selected = MathHelper.clampLoop(0, buttons.size() - 1, selected + change);
+        }
     }
 
     public void selectLast() {

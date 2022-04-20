@@ -67,7 +67,7 @@ public class PMRenderer {
                 graphics.setColor(Color.green);
                 graphics.fillRect(0, 0, dimensions.x, dimensions.y);
 
-                if (PsychicMemory.gameState != GameState.MENU) {
+                if (PsychicMemory.gameState == GameState.INGAME || PsychicMemory.gameState == GameState.PAUSED) {
                     if (PsychicMemory.world != null) {
                         PsychicMemory.world.render(graphics);
                         resetFont(graphics);
@@ -75,7 +75,10 @@ public class PMRenderer {
                     }
                 }
                 if (PsychicMemory.gameState == GameState.MENU) {
-                    if (PsychicMemory.menu != null) PsychicMemory.menu.render(graphics);
+                    if (Input.menu != null) Input.menu.render(graphics);
+                }
+                if (PsychicMemory.gameState == GameState.SCORE) {
+                    if (Input.scoreMenu != null) Input.scoreMenu.render(graphics);
                 }
 
                 resetFont(graphics);

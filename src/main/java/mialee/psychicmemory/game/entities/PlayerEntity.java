@@ -12,13 +12,14 @@ import java.awt.Graphics;
 
 public class PlayerEntity extends LivingEntity {
     private int fireCooldown = 0;
-    private int lives = 1;
+    private int lives = 0;
     private int iFrames = 0;
     private final Vec2d spawnPosition;
 
     public PlayerEntity(World board, Vec2d position, Vec2d velocity, EntityFaction faction) {
         super(board, position, velocity, faction);
         spawnPosition = position;
+        world.setPlayer(this);
     }
 
     @Override
@@ -75,7 +76,7 @@ public class PlayerEntity extends LivingEntity {
     protected void registerStats() {
         super.registerStats();
         this.name = "Player";
-        this.hitRadius = 6;
+        this.hitRadius = 5;
         this.visualSize = 18;
         this.image = PsychicMemory.getIcon("entities/salmon.png");
         this.health = 1;
@@ -114,5 +115,9 @@ public class PlayerEntity extends LivingEntity {
         } else {
             PsychicMemory.end(false);
         }
+    }
+
+    public int getLives() {
+        return lives;
     }
 }
