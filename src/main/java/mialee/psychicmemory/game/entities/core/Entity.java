@@ -39,7 +39,7 @@ public abstract class Entity {
     protected void registerStats() {
         this.name = "";
         this.hitRadius = 20;
-        this.visualSize = 30;
+        this.visualSize = 20;
     }
 
     public void tick() {

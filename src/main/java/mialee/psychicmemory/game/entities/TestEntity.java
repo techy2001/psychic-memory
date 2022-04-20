@@ -1,11 +1,10 @@
 package mialee.psychicmemory.game.entities;
 
 import mialee.psychicmemory.PsychicMemory;
-import mialee.psychicmemory.game.EntityFaction;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.core.LivingEntity;
 import mialee.psychicmemory.game.tasks.entitytasks.FireAtPlayerTask;
-import mialee.psychicmemory.game.tasks.entitytasks.MoveToPositionTask;
+import mialee.psychicmemory.game.tasks.entitytasks.MoveToPositionLerpTask;
 import mialee.psychicmemory.math.Vec2d;
 
 import java.awt.Color;
@@ -40,21 +39,15 @@ public class TestEntity extends LivingEntity {
 
     @Override
     protected void initializeTasks() {
-        addTask(new MoveToPositionTask(this, new Vec2d(PsychicMemory.RANDOM.nextInt(400), PsychicMemory.RANDOM.nextInt(400)), 20));
-        addTask(new FireAtPlayerTask(this, 100, 50, 4, 10, 1.5f, true));
-        addTask(new MoveToPositionTask(this, new Vec2d(PsychicMemory.RANDOM.nextInt(400), PsychicMemory.RANDOM.nextInt(200)), 20));
-        addTask(new FireAtPlayerTask(this, 100, 50, 6, 22.5, 1.5f, true));
+        addTask(new MoveToPositionLerpTask(this, new Vec2d(PsychicMemory.RANDOM.nextInt(400), PsychicMemory.RANDOM.nextInt(400)), 20));
+        addTask(new FireAtPlayerTask(this, 100, 50, 4, 10, 1.5f));
+        addTask(new MoveToPositionLerpTask(this, new Vec2d(PsychicMemory.RANDOM.nextInt(400), PsychicMemory.RANDOM.nextInt(200)), 20));
+        addTask(new FireAtPlayerTask(this, 100, 50, 6, 22.5, 1.5f));
     }
 
     public void render(Graphics graphics) {
         super.render(graphics);
         graphics.setColor(Color.BLUE);
         graphics.fillOval((int) (position.x - (getHitRadius())), (int) (position.y - (getHitRadius())), getHitRadius() * 2, getHitRadius() * 2);
-    }
-
-    @Override
-    protected void onDeath() {
-        world.getBank().addEntity(new ScoreTextEntity(world, this.position.copy(), new Vec2d(0, -0.5), 40, 200), EntityFaction.GRAPHIC);
-        super.onDeath();
     }
 }

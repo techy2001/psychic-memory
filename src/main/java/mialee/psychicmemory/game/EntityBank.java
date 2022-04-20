@@ -84,9 +84,9 @@ public class EntityBank {
 
     public ArrayList<Entity> getEntities(EntityFaction faction) {
         return switch (faction) {
-            case ENEMY -> newEnemies;
-            case ENEMY_BULLET -> newEnemyBullets;
-            case PLAYER_BULLET -> newPlayerBullets;
+            case ENEMY -> enemies;
+            case ENEMY_BULLET -> enemyBullets;
+            case PLAYER_BULLET -> playerBullets;
             default -> newVisuals;
         };
     }

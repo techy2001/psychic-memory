@@ -27,7 +27,7 @@ public class PlayerEntity extends LivingEntity {
         super.tick();
         velocity.x = 0;
         velocity.y = 0;
-        int speed = 4;
+        int speed = 5;
         if (iFrames > 0) iFrames--;
 
         boolean left = Input.getKey(PsychicMemory.SETTING_VALUES.LEFT_KEY);

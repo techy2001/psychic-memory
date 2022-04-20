@@ -28,4 +28,8 @@ public abstract class LivingEntity extends Entity {
     protected void onDeath() {
         this.markForDeletion();
     }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
 }

@@ -4,8 +4,12 @@ import mialee.psychicmemory.GameState;
 import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.data.DataManager;
 import mialee.psychicmemory.game.entities.PlayerEntity;
-import mialee.psychicmemory.game.entities.TestEntity;
+import mialee.psychicmemory.game.entities.core.BossEntity;
+import mialee.psychicmemory.game.entities.enemies.FlyRouteEnemy;
+import mialee.psychicmemory.game.entities.enemies.RandomExtraEntity;
 import mialee.psychicmemory.game.tasks.Task;
+import mialee.psychicmemory.game.tasks.entitytasks.*;
+import mialee.psychicmemory.game.tasks.tasks.WaitTask;
 import mialee.psychicmemory.game.tasks.worldtasks.SpawnEntityTask;
 import mialee.psychicmemory.math.MathHelper;
 import mialee.psychicmemory.math.Vec2d;
@@ -33,7 +37,109 @@ public class World {
     }
 
     protected void populateTasks() {
-        addTask(new SpawnEntityTask(this, new TestEntity(this, new Vec2d(0, 100), new Vec2d(3, 0)), EntityFaction.ENEMY));
+//        addTask(new WaitTask(150));
+
+        BossEntity flyRouteEnemy = new BossEntity(this, new Vec2d(size.x / 2, 100));
+        flyRouteEnemy.addTask(new MoveToPositionTask(flyRouteEnemy, new Vec2d(150, 200), 10));
+        flyRouteEnemy.addTask(new MoveToPositionTask(flyRouteEnemy, new Vec2d(100, 200), 10));
+        addTask(new SpawnEntityTask(this, flyRouteEnemy, EntityFaction.ENEMY));
+//
+//        for (int i = 0; i < 8; i++) {
+//            addTask(new WaitTask(10));
+//            FlyRouteEnemy flyRouteEnemy = new FlyRouteEnemy(this, new Vec2d(50, -50));
+//            flyRouteEnemy.addTask(new MoveToPositionTask(flyRouteEnemy, new Vec2d(150, 200), 100));
+//            flyRouteEnemy.addTask(new MoveToPositionTask(flyRouteEnemy, new Vec2d(size.x + 50, 200), 140));
+//            flyRouteEnemy.addTask(new DeleteSelfTask(flyRouteEnemy));
+//            addTask(new SpawnEntityTask(this, flyRouteEnemy, EntityFaction.ENEMY));
+//        }
+//        addTask(new WaitTask(10));
+//
+//        for (int i = 0; i < 8; i++) {
+//            addTask(new WaitTask(10));
+//            FlyRouteEnemy flyRouteEnemy = new FlyRouteEnemy(this, new Vec2d(size.x - 50, -50));
+//            flyRouteEnemy.addTask(new MoveToPositionTask(flyRouteEnemy, new Vec2d(size.x - 150, 200), 100));
+//            flyRouteEnemy.addTask(new MoveToPositionTask(flyRouteEnemy, new Vec2d(-50, 200), 140));
+//            flyRouteEnemy.addTask(new DeleteSelfTask(flyRouteEnemy));
+//            addTask(new SpawnEntityTask(this, flyRouteEnemy, EntityFaction.ENEMY));
+//        }
+//        addTask(new WaitTask(10));
+//
+//
+//        for (int i = 0; i < 8; i++) {
+//            addTask(new WaitTask(20));
+//            RandomExtraEntity randomExtra = new RandomExtraEntity(this, new Vec2d(-50, 60), 0.1f);
+//            randomExtra.setTask(new FireAtPlayerTask(randomExtra, 1, 12, 1, 15, 3));
+//            randomExtra.addTask(new MoveWithVelocityTask(randomExtra, 100));
+//            randomExtra.velocity.set(new Vec2d(3, 1f));
+//            addTask(new SpawnEntityTask(this, randomExtra, EntityFaction.ENEMY));
+//        }
+//
+//        for (int i = 0; i < 8; i++) {
+//            addTask(new WaitTask(20));
+//            RandomExtraEntity randomExtra = new RandomExtraEntity(this, new Vec2d(size.x + 50, 60), 0.1f);
+//            randomExtra.setTask(new FireAtPlayerTask(randomExtra, 1, 12, 1, 15, 3));
+//            randomExtra.addTask(new MoveWithVelocityTask(randomExtra, 100));
+//            randomExtra.velocity.set(new Vec2d(-3, 1f));
+//            addTask(new SpawnEntityTask(this, randomExtra, EntityFaction.ENEMY));
+//        }
+//
+//
+//        for (int i = 0; i < 8; i++) {
+//            {
+//                addTask(new WaitTask(5));
+//                FlyRouteEnemy flyRouteEnemy = new FlyRouteEnemy(this, new Vec2d(50, -50));
+//                flyRouteEnemy.addTask(new MoveToPositionTask(flyRouteEnemy, new Vec2d(150, 200), 100));
+//                flyRouteEnemy.addTask(new MoveToPositionTask(flyRouteEnemy, new Vec2d(size.x - 150, 200), 140));
+//                flyRouteEnemy.addTask(new MoveToPositionTask(flyRouteEnemy, new Vec2d(150, size.y + 50), 140));
+//                flyRouteEnemy.addTask(new DeleteSelfTask(flyRouteEnemy));
+//                addTask(new SpawnEntityTask(this, flyRouteEnemy, EntityFaction.ENEMY));
+//            }
+//            {
+//                addTask(new WaitTask(5));
+//                FlyRouteEnemy flyRouteEnemy = new FlyRouteEnemy(this, new Vec2d(size.x - 50, -50));
+//                flyRouteEnemy.addTask(new MoveToPositionTask(flyRouteEnemy, new Vec2d(size.x - 150, 200), 100));
+//                flyRouteEnemy.addTask(new MoveToPositionTask(flyRouteEnemy, new Vec2d(150, 200), 140));
+//                flyRouteEnemy.addTask(new MoveToPositionTask(flyRouteEnemy, new Vec2d((float) size.x - 150, size.y + 50), 140));
+//                flyRouteEnemy.addTask(new DeleteSelfTask(flyRouteEnemy));
+//                addTask(new SpawnEntityTask(this, flyRouteEnemy, EntityFaction.ENEMY));
+//            }
+//        }
+//        addTask(new WaitTask(160));
+//
+//        for (int i = 0; i < 16; i++) {
+//            addTask(new WaitTask(30));
+//            double x = PsychicMemory.RANDOM.nextDouble(size.x - 100) + 50;
+//            FlyRouteEnemy flyRouteEnemy = new FlyRouteEnemy(this, new Vec2d(x, -50));
+//            flyRouteEnemy.addTask(new MoveToPositionTask(flyRouteEnemy, new Vec2d(x, 100), 80));
+//            flyRouteEnemy.addTask(new FireBulletsRoundTask(flyRouteEnemy, 1, 0, 6, 2));
+//            flyRouteEnemy.addTask(new MoveToPositionTask(flyRouteEnemy, new Vec2d(x + (PsychicMemory.RANDOM.nextBoolean() ? -80 : 80), size.y + 50), 220));
+//            flyRouteEnemy.addTask(new DeleteSelfTask(flyRouteEnemy));
+//            addTask(new SpawnEntityTask(this, flyRouteEnemy, EntityFaction.ENEMY));
+//        }
+//        addTask(new WaitTask(120));
+//
+//        for (int i = 0; i < 6; i++) {
+//            for (int j = 0; j < 4; j++) {
+//                {
+//                    addTask(new WaitTask(10));
+//                    RandomExtraEntity randomExtra = new RandomExtraEntity(this, new Vec2d(-50, 0), 0.01f);
+//                    randomExtra.setTask(new FireAtPlayerTask(randomExtra, 1, 120, 1, 15, 3));
+//                    randomExtra.addTask(new MoveToPositionTask(randomExtra, new Vec2d(size.x + 50, 100 + (20 * i) + (60 * j)), 200));
+//                    randomExtra.addTask(new DeleteSelfTask(randomExtra));
+//                    randomExtra.setHealth(2);
+//                    addTask(new SpawnEntityTask(this, randomExtra, EntityFaction.ENEMY));
+//                }
+//                {
+//                    addTask(new WaitTask(10));
+//                    RandomExtraEntity randomExtra = new RandomExtraEntity(this, new Vec2d(size.x + 50, 0), 0.01f);
+//                    randomExtra.setTask(new FireAtPlayerTask(randomExtra, 1, 120, 1, 15, 3));
+//                    randomExtra.addTask(new MoveToPositionTask(randomExtra, new Vec2d(-50, 100 + (20 * i) + (60 * j)), 200));
+//                    randomExtra.addTask(new DeleteSelfTask(randomExtra));
+//                    randomExtra.setHealth(2);
+//                    addTask(new SpawnEntityTask(this, randomExtra, EntityFaction.ENEMY));
+//                }
+//            }
+//        }
     }
 
     public void tick() {

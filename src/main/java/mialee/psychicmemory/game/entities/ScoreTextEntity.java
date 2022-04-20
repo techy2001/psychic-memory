@@ -5,7 +5,9 @@ import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.entitytasks.DeleteSelfTask;
 import mialee.psychicmemory.game.tasks.entitytasks.MoveWithVelocityTask;
 import mialee.psychicmemory.math.Vec2d;
+import mialee.psychicmemory.window.PMRenderer;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class ScoreTextEntity extends Entity {
@@ -39,8 +41,12 @@ public class ScoreTextEntity extends Entity {
 
     @Override
     public void render(Graphics graphics) {
-        int length = Integer.toString(value).length();
+        graphics.setFont(PMRenderer.getBaseFont().deriveFont(((((float) value / 100) / 8) + 0.875f) * 12f));
+        int width = graphics.getFontMetrics().stringWidth(String.valueOf(value));
+        int height = graphics.getFontMetrics().getHeight();
+        graphics.setColor(Color.BLACK);
+        graphics.drawString(String.valueOf(value), (int) position.x - (width / 2) - 1, (int) position.y - (height / 2) - 1);
         graphics.setColor(Color.WHITE);
-        graphics.drawString(String.valueOf(value), (int) position.x - (6 * length), (int) position.y - 6);
+        graphics.drawString(String.valueOf(value), (int) position.x - (width / 2), (int) position.y - (height / 2));
     }
 }

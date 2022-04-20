@@ -7,18 +7,21 @@ import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.EntityTask;
 import mialee.psychicmemory.math.Vec2d;
 
-public class FireBulletsRoundTask extends EntityTask {
+public class FireBulletsRoundSpinTask extends EntityTask {
     private final int cooldownMax;
     private final int count;
     private final double speed;
+    private final double spin;
     private final int offset;
     private int cooldown;
+    private int shot = 0;
 
-    public FireBulletsRoundTask(Entity owner, int length, int cooldown, int count, double speed) {
+    public FireBulletsRoundSpinTask(Entity owner, int length, int cooldown, int count, double speed, double spin) {
         super(owner, length);
         this.cooldownMax = cooldown;
         this.count = count;
         this.speed = speed;
+        this.spin = spin;
         this.offset = PsychicMemory.RANDOM.nextInt(360);
     }
 
@@ -27,11 +30,12 @@ public class FireBulletsRoundTask extends EntityTask {
         super.tick();
         if (cooldown <= 0) {
             for (int i = 0; i < count; i++) {
-                double f = Math.sin(((((float) 360 / count) * i) + offset) * ((float) Math.PI / 180));
-                double h = Math.cos(((((float) 360 / count) * i) + offset) * ((float) Math.PI / 180));
+                double f = Math.sin(((((float) 360 / count) * i) + offset + (shot * spin)) * ((float) Math.PI / 180));
+                double h = Math.cos(((((float) 360 / count) * i) + offset + (shot * spin)) * ((float) Math.PI / 180));
                 owner.world.getBank().addEntity(new EnemyBulletEntity(owner.world, owner.position.copy(), new Vec2d(f * speed, h * speed)), EntityFaction.ENEMY_BULLET);
             }
             cooldown = cooldownMax;
+            shot++;
         }
         cooldown--;
     }

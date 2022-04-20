@@ -15,13 +15,12 @@ public class FireAtPlayerTask extends EntityTask {
     private int cooldown;
     private PlayerEntity player;
 
-    public FireAtPlayerTask(Entity owner, int length, int cooldown, int count, double deviation, double speed, boolean loop) {
+    public FireAtPlayerTask(Entity owner, int length, int cooldown, int count, double deviation, double speed) {
         super(owner, length);
         this.cooldownMax = cooldown;
         this.count = count;
         this.deviation = deviation;
         this.speed = speed;
-        this.loop = loop;
     }
 
     @Override
