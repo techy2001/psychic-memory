@@ -1,11 +1,10 @@
 package mialee.psychicmemory.game.entities.core;
 
 import mialee.psychicmemory.game.World;
-import mialee.psychicmemory.game.EntityFaction;
 import mialee.psychicmemory.math.Vec2d;
 
 public abstract class LivingEntity extends Entity {
-    protected int health;
+    public int health;
 
     public LivingEntity(World board, Vec2d position, Vec2d velocity) {
         super(board, position, velocity);

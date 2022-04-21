@@ -26,4 +26,13 @@ public class MathHelper {
         }
         return input;
     }
+
+    public static double clampDouble(double start, double end, double input) {
+        if (input < start) {
+            return start;
+        } else if (input > end) {
+            return end;
+        }
+        return input;
+    }
 }

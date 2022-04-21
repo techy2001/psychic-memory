@@ -4,7 +4,6 @@ import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.core.EnemyEntity;
 import mialee.psychicmemory.game.tasks.Task;
-import mialee.psychicmemory.game.tasks.entitytasks.MoveWithVelocityTask;
 import mialee.psychicmemory.math.Vec2d;
 
 public class RandomExtraEntity extends EnemyEntity {
@@ -14,6 +13,7 @@ public class RandomExtraEntity extends EnemyEntity {
     public RandomExtraEntity(World board, Vec2d position, float chance) {
         super(board, position);
         this.chance = chance;
+        this.health = 3;
     }
 
     public void tick() {

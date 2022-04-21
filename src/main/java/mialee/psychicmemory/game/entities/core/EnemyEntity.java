@@ -4,13 +4,20 @@ import mialee.psychicmemory.game.EntityFaction;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.PlayerEntity;
 import mialee.psychicmemory.game.entities.ScoreTextEntity;
+import mialee.psychicmemory.math.MathHelper;
 import mialee.psychicmemory.math.Vec2d;
 
-public class EnemyEntity extends LivingEntity {
-    private int score = 100;
+public abstract class EnemyEntity extends LivingEntity {
+    public int score;
 
     public EnemyEntity(World board, Vec2d position) {
         super(board, position, new Vec2d(0, 0));
+    }
+
+    @Override
+    protected void registerStats() {
+        super.registerStats();
+        this.score = 100;
     }
 
     @Override
@@ -27,13 +34,9 @@ public class EnemyEntity extends LivingEntity {
         }
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
-
     @Override
     protected void onDeath() {
-        world.getBank().addEntity(new ScoreTextEntity(world, this.position.copy(), new Vec2d(0, -0.5), 40, score), EntityFaction.GRAPHIC);
+        world.getBank().addEntity(new ScoreTextEntity(world, this.position.copy(), new Vec2d(0, -0.5), (int) (40 * (MathHelper.clampDouble(1f, 2f, (float) score / 100))), score), EntityFaction.GRAPHIC);
         super.onDeath();
     }
 

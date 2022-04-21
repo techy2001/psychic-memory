@@ -4,11 +4,12 @@ import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.entitytasks.DeleteSelfTask;
 import mialee.psychicmemory.game.tasks.entitytasks.MoveWithVelocityTask;
+import mialee.psychicmemory.math.MathHelper;
 import mialee.psychicmemory.math.Vec2d;
 import mialee.psychicmemory.window.PMRenderer;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public class ScoreTextEntity extends Entity {
     private final int lifetime;
@@ -41,7 +42,7 @@ public class ScoreTextEntity extends Entity {
 
     @Override
     public void render(Graphics graphics) {
-        graphics.setFont(PMRenderer.getBaseFont().deriveFont(((((float) value / 100) / 8) + 0.875f) * 12f));
+        graphics.setFont(PMRenderer.getBaseFont().deriveFont((float) (12f * (MathHelper.clampDouble(1f, 2f, (float) value / 100)))));
         int width = graphics.getFontMetrics().stringWidth(String.valueOf(value));
         int height = graphics.getFontMetrics().getHeight();
         graphics.setColor(Color.BLACK);

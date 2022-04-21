@@ -15,13 +15,13 @@ public abstract class Entity {
     public final Vec2d position;
     public final Vec2d velocity;
 
-    protected String name;
-    protected ImageIcon image;
-    protected int hitRadius;
-    protected int visualSize;
+    public String name;
+    public ImageIcon image;
+    public int hitRadius;
+    public int visualSize;
 
-    private final ArrayList<Task> taskList = new ArrayList<>();
-    private final ArrayList<Task> pendingTasks = new ArrayList<>();
+    protected final ArrayList<Task> taskList = new ArrayList<>();
+    protected final ArrayList<Task> pendingTasks = new ArrayList<>();
     protected int age = 0;
     private boolean markedForDeletion = false;
 
@@ -88,5 +88,9 @@ public abstract class Entity {
 
     public void addTask(Task task) {
         pendingTasks.add(task);
+    }
+
+    public void setImage(ImageIcon image) {
+        this.image = image;
     }
 }

@@ -1,6 +1,5 @@
 package mialee.psychicmemory.game.tasks.entitytasks;
 
-import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.game.EntityFaction;
 import mialee.psychicmemory.game.entities.EnemyBulletEntity;
 import mialee.psychicmemory.game.entities.core.Entity;
@@ -12,9 +11,9 @@ public class FireBulletsRoundSpinTask extends EntityTask {
     private final int count;
     private final double speed;
     private final double spin;
-    private final int offset;
+    private int offset = 0;
     private int cooldown;
-    private int shot = 0;
+    private int shot = 1;
 
     public FireBulletsRoundSpinTask(Entity owner, int length, int cooldown, int count, double speed, double spin) {
         super(owner, length);
@@ -22,7 +21,6 @@ public class FireBulletsRoundSpinTask extends EntityTask {
         this.count = count;
         this.speed = speed;
         this.spin = spin;
-        this.offset = PsychicMemory.RANDOM.nextInt(360);
     }
 
     @Override
@@ -38,5 +36,9 @@ public class FireBulletsRoundSpinTask extends EntityTask {
             shot++;
         }
         cooldown--;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 }

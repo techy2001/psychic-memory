@@ -16,7 +16,7 @@ public class MoveToPositionLerpTask extends EntityTask {
     @Override
     public void tick() {
         super.tick();
-        owner.position.set(start.lerp(destination, Math.pow((float) tick / length, 3)));
+        owner.position.set(start.lerp(destination, Math.pow((float) tick / length, 4)));
     }
 
     @Override
