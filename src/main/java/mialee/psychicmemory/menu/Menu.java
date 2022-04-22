@@ -25,13 +25,14 @@ public class Menu {
 
         Page pageOptions = new Page();
         pageOptions.addText(new Text("Rebind Keys", 72f, 480, 100, Alignment.CENTER));
-        pageOptions.addButton(new KeyButton(0, "Left: ", () -> startRebind(0), 480, 250, 0));
-        pageOptions.addButton(new KeyButton(1, "Up: ", () -> startRebind(1), 480, 300, 0));
-        pageOptions.addButton(new KeyButton(2, "Right: ", () -> startRebind(2), 480, 350, 0));
-        pageOptions.addButton(new KeyButton(3, "Down: ", () -> startRebind(3), 480, 400, 0));
-        pageOptions.addButton(new KeyButton(4, "Fire: ", () -> startRebind(4), 480, 450, 0));
-        pageOptions.addButton(new KeyButton(5, "Slow: ", () -> startRebind(5), 480, 500, 0));
-        pageOptions.addButton(new KeyButton(6, "Pause: ", () -> startRebind(6), 480, 550, 0));
+        pageOptions.addButton(new KeyButton(0, "Left: ", () -> startRebind(0), 480, 200, 0));
+        pageOptions.addButton(new KeyButton(1, "Up: ", () -> startRebind(1), 480, 250, 0));
+        pageOptions.addButton(new KeyButton(2, "Right: ", () -> startRebind(2), 480, 300, 0));
+        pageOptions.addButton(new KeyButton(3, "Down: ", () -> startRebind(3), 480, 350, 0));
+        pageOptions.addButton(new KeyButton(4, "Fire: ", () -> startRebind(4), 480, 400, 0));
+        pageOptions.addButton(new KeyButton(5, "Blank: ", () -> startRebind(5), 480, 450, 0));
+        pageOptions.addButton(new KeyButton(6, "Slow: ", () -> startRebind(6), 480, 500, 0));
+        pageOptions.addButton(new KeyButton(7, "Pause: ", () -> startRebind(7), 480, 550, 0));
         pageOptions.addButton(new Button("Back", () -> selectedPage = 0, 480, 650, 0));
         pages.add(pageOptions);
 

@@ -42,12 +42,12 @@ public class ScoreTextEntity extends Entity {
 
     @Override
     public void render(Graphics graphics) {
-        graphics.setFont(PMRenderer.getBaseFont().deriveFont((float) (12f * (MathHelper.clampDouble(1f, 2f, (float) value / 100)))));
+        graphics.setFont(PMRenderer.getBaseFont().deriveFont((float) (12f * (MathHelper.clampDouble(1f, 2f, (float) Math.abs(value) / 100)))));
         int width = graphics.getFontMetrics().stringWidth(String.valueOf(value));
         int height = graphics.getFontMetrics().getHeight();
         graphics.setColor(Color.BLACK);
         graphics.drawString(String.valueOf(value), (int) position.x - (width / 2) - 1, (int) position.y - (height / 2) - 1);
-        graphics.setColor(Color.WHITE);
+        graphics.setColor(value >= 0 ? Color.WHITE: Color.RED);
         graphics.drawString(String.valueOf(value), (int) position.x - (width / 2), (int) position.y - (height / 2));
     }
 }

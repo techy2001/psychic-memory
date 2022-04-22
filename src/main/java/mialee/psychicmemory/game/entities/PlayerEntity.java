@@ -12,23 +12,28 @@ import java.awt.Graphics;
 
 public class PlayerEntity extends LivingEntity {
     private int fireCooldown = 0;
-    private int lives = 0;
+    private int blankCooldown = 0;
+    private int lives = 3;
+    private int blanks = 3;
     private int iFrames = 0;
     private final Vec2d spawnPosition;
 
     public PlayerEntity(World board, Vec2d position, Vec2d velocity) {
         super(board, position, velocity);
-        spawnPosition = position;
+        spawnPosition = position.copy();
         world.setPlayer(this);
     }
 
     @Override
     public void tick() {
+        if (iFrames > 0) iFrames--;
+        if (iFrames > 180) return;
+
         super.tick();
+
         velocity.x = 0;
         velocity.y = 0;
-        int speed = 5;
-        if (iFrames > 0) iFrames--;
+        int speed = 6;
 
         boolean left = Input.getKey(PsychicMemory.SETTING_VALUES.LEFT_KEY);
         boolean right = Input.getKey(PsychicMemory.SETTING_VALUES.RIGHT_KEY);
@@ -68,7 +73,13 @@ public class PlayerEntity extends LivingEntity {
         if (fireCooldown > 0) fireCooldown--;
         if (Input.getKey(PsychicMemory.SETTING_VALUES.FIRE_KEY) && fireCooldown <= 0) {
             this.world.getBank().addEntity(new PlayerBulletEntity(this.world, this.position.copy(), new Vec2d(0, -25), 1), EntityFaction.PLAYER_BULLET);
-            fireCooldown = 4;
+            fireCooldown = 5;
+        }
+        if (blankCooldown > 0) blankCooldown--;
+        if (Input.getKey(PsychicMemory.SETTING_VALUES.BLANK_KEY) && blankCooldown <= 0 && blanks > 0) {
+            this.world.getBank().clearBullets(true);
+            blanks--;
+            blankCooldown = 200;
         }
     }
 
@@ -87,6 +98,7 @@ public class PlayerEntity extends LivingEntity {
 
     @Override
     public void render(Graphics graphics) {
+        if (iFrames > 180) return;
         super.render(graphics);
         if (Input.getKey(PsychicMemory.SETTING_VALUES.SLOW_KEY)) {
             graphics.setColor(Color.BLACK);
@@ -94,11 +106,17 @@ public class PlayerEntity extends LivingEntity {
             graphics.setColor(Color.RED);
             graphics.fillOval((int) (position.x - (getHitRadius())) + 2, (int) (position.y - getHitRadius()) + 2, (getHitRadius() * 2) - 4, (getHitRadius() * 2) - 4);
         }
+        if (iFrames > 0) {
+            graphics.setColor(new Color(0, 255, 255, 120));
+            graphics.fillOval((int) (position.x - visualSize * 1.2), (int) (position.y - visualSize * 1.2), (int) (visualSize * 2.4), (int) (visualSize * 2.4));
+            graphics.setColor(Color.BLACK);
+            graphics.drawOval((int) (position.x - visualSize * 1.2), (int) (position.y - visualSize * 1.2), (int) (visualSize * 2.4), (int) (visualSize * 2.4));
+        }
     }
 
     @Override
     public boolean damage(int amount) {
-        if (iFrames == 0) {
+        if (iFrames <= 0) {
             return super.damage(amount);
         } else {
             return false;
@@ -109,7 +127,8 @@ public class PlayerEntity extends LivingEntity {
     protected void onDeath() {
         if (lives > 0) {
             lives--;
-            iFrames = 120;
+            iFrames = 240;
+            world.getBank().addEntity(new ScoreTextEntity(world, position.copy(), new Vec2d(0, -0.5f), 80, -5000), EntityFaction.GRAPHIC);
             position.set(spawnPosition);
             world.getBank().clearBullets(false);
         } else {
@@ -119,5 +138,9 @@ public class PlayerEntity extends LivingEntity {
 
     public int getLives() {
         return lives;
+    }
+
+    public int getBlanks() {
+        return blanks;
     }
 }

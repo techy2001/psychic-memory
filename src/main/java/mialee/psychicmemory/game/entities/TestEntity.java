@@ -39,9 +39,9 @@ public class TestEntity extends LivingEntity {
 
     @Override
     protected void initializeTasks() {
-        addTask(new MoveToPositionLerpTask(this, new Vec2d(PsychicMemory.RANDOM.nextInt(400), PsychicMemory.RANDOM.nextInt(400)), 20));
+        addTask(new MoveToPositionLerpTask(this, new Vec2d(PsychicMemory.RANDOM.nextInt(400), PsychicMemory.RANDOM.nextInt(400)), 4, 20));
         addTask(new FireAtPlayerTask(this, 100, 50, 4, 10, 1.5f));
-        addTask(new MoveToPositionLerpTask(this, new Vec2d(PsychicMemory.RANDOM.nextInt(400), PsychicMemory.RANDOM.nextInt(200)), 20));
+        addTask(new MoveToPositionLerpTask(this, new Vec2d(PsychicMemory.RANDOM.nextInt(400), PsychicMemory.RANDOM.nextInt(200)), 4, 20));
         addTask(new FireAtPlayerTask(this, 100, 50, 6, 22.5, 1.5f));
     }
 

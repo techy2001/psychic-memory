@@ -22,19 +22,21 @@ public class ScoreMenu {
         for (Text text : texts) {
             text.render(graphics);
         }
-        new Text(name + ((System.nanoTime() / 400000000 % 2 == 0) ? "_" : "  "), 36f, 480, 360, Alignment.CENTER).render(graphics);
+        new Text(name + (name.length() < 20 ? ((System.nanoTime() / 400000000 % 2 == 0) ? "_" : "  ") : ""), 36f, 480, 360, Alignment.CENTER).render(graphics);
     }
 
     public void addKey(char keyChar) {
-        name.append(keyChar);
+        if (name.length() < 20) name.append(keyChar);
     }
 
     public void removeKey() {
-        name.deleteCharAt(name.length() - 1);
+        if (name.length() > 0) name.deleteCharAt(name.length() - 1);
     }
 
     public void finishName() {
-        DataManager.writeScore(name.toString(), score);
-        PsychicMemory.restart();
+        if (!name.toString().equals("")) {
+            DataManager.writeScore(name.toString(), score);
+            PsychicMemory.restart();
+        }
     }
 }

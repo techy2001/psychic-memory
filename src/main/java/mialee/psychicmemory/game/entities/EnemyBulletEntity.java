@@ -19,6 +19,7 @@ public class EnemyBulletEntity extends BulletEntity {
         if (player != null) {
             if (player.squaredDistanceTo(this) < player.squaredHitboxes(this)) {
                 player.damage(1);
+                markForDeletion();
             }
         }
     }

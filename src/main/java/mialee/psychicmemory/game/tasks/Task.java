@@ -26,6 +26,11 @@ public abstract class Task {
         return loop;
     }
 
+    public Task setLoop(boolean loop) {
+        this.loop = loop;
+        return this;
+    }
+
     public void refresh() {
         tick = 0;
         complete = false;
