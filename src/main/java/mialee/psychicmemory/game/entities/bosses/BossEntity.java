@@ -2,10 +2,12 @@ package mialee.psychicmemory.game.entities.bosses;
 
 import mialee.psychicmemory.game.EntityFaction;
 import mialee.psychicmemory.game.World;
-import mialee.psychicmemory.game.entities.ScoreTextEntity;
+import mialee.psychicmemory.game.entities.PlayerBulletEntity;
 import mialee.psychicmemory.game.entities.core.EnemyEntity;
+import mialee.psychicmemory.game.entities.visuals.ScoreTextEntity;
 import mialee.psychicmemory.game.tasks.Task;
 import mialee.psychicmemory.game.tasks.entitytasks.DeleteSelfTask;
+import mialee.psychicmemory.game.tasks.entitytasks.FireBulletsRoundSpinTask;
 import mialee.psychicmemory.game.tasks.entitytasks.MoveToPositionLerpTask;
 import mialee.psychicmemory.game.tasks.tasks.WaitTask;
 import mialee.psychicmemory.math.MathHelper;
@@ -25,6 +27,7 @@ public class BossEntity extends EnemyEntity {
     private double healthVisual = 0;
     private int healthProgress = 0;
     private boolean inSubPhase = false;
+    private boolean isEndBoss = false;
     private int armour = 0;
 
     public BossEntity(World board, Vec2d position) {
@@ -114,9 +117,34 @@ public class BossEntity extends EnemyEntity {
             phaseCooldown = 100;
             health = maxHealth;
         } else {
-            world.getBank().addEntity(new ScoreTextEntity(world, this.position.copy(), new Vec2d(0, -0.5), (int) (40 * (MathHelper.clampDouble(1f, 2f, (float) score / 100))), score), EntityFaction.GRAPHIC);
+            if (isEndBoss) {
+                addTask(new FireBulletsRoundSpinTask(this, 40, 0, 12, 6, 25) {
+                    @Override
+                    public void tick() {
+                        if (tick == 0) refresh();
+                        tick++;
+                        if (tick >= length) {
+                            complete = true;
+                            world.getBank().addEntity(new ScoreTextEntity(world, owner.position.copy(), new Vec2d(0, -0.5), (int) (40 * (MathHelper.clampDouble(1f, 2f, (float) score / 100))), score), EntityFaction.GRAPHIC);
+                        }
+                        if (cooldown <= 0) {
+                            for (int i = 0; i < count; i++) {
+                                double f = Math.sin(((((float) 360 / count) * i) + offset + (shot * spin)) * ((float) Math.PI / 180));
+                                double h = Math.cos(((((float) 360 / count) * i) + offset + (shot * spin)) * ((float) Math.PI / 180));
+                                owner.world.getBank().addEntity(new PlayerBulletEntity(owner.world, owner.position.copy(), new Vec2d(f * speed, h * speed), 0), EntityFaction.PLAYER_BULLET);
+                            }
+                            cooldown = cooldownMax;
+                            shot++;
+                        }
+                        cooldown--;
+                    }
+                });
+                world.getBank().addEntity(new GameEndEntity(world, 280), EntityFaction.GRAPHIC);
+            } else {
+                addTask(new MoveToPositionLerpTask(this, new Vec2d(position.x, -100), 4, 120));
+                world.getBank().addEntity(new ScoreTextEntity(world, this.position.copy(), new Vec2d(0, -0.5), (int) (40 * (MathHelper.clampDouble(1f, 2f, (float) score / 100))), score), EntityFaction.GRAPHIC);
+            }
             phaseCooldown = 100;
-            addTask(new MoveToPositionLerpTask(this, new Vec2d(position.x, -100), 4, 120));
             addTask(new DeleteSelfTask(this));
         }
     }
@@ -133,5 +161,9 @@ public class BossEntity extends EnemyEntity {
 
     public boolean isInSubPhase() {
         return inSubPhase;
+    }
+
+    public void setEndBoss(boolean isEndBoss) {
+        this.isEndBoss = isEndBoss;
     }
 }

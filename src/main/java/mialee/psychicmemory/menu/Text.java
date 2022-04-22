@@ -1,6 +1,7 @@
 package mialee.psychicmemory.menu;
 
 import mialee.psychicmemory.PMRenderer;
+import mialee.psychicmemory.lang.TranslatableText;
 
 import java.awt.*;
 
@@ -10,6 +11,10 @@ public class Text {
     protected final int x;
     protected final int y;
     protected final Alignment alignment;
+
+    public Text(TranslatableText text, float size, int x, int y, Alignment alignment) {
+        this(text.toString(), size, x, y, alignment);
+    }
 
     public Text(String text, float size, int x, int y, Alignment alignment) {
         this.text = text;

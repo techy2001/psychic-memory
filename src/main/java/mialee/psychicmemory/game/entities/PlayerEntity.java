@@ -4,6 +4,7 @@ import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.game.EntityFaction;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.core.LivingEntity;
+import mialee.psychicmemory.game.entities.visuals.ScoreTextEntity;
 import mialee.psychicmemory.input.Input;
 import mialee.psychicmemory.math.Vec2d;
 
@@ -75,6 +76,7 @@ public class PlayerEntity extends LivingEntity {
             this.world.getBank().addEntity(new PlayerBulletEntity(this.world, this.position.copy(), new Vec2d(0, -25), 1), EntityFaction.PLAYER_BULLET);
             fireCooldown = 6;
         }
+
         if (blankCooldown > 0) blankCooldown--;
         if (Input.getKey(PsychicMemory.SETTING_VALUES.BLANK_KEY) && blankCooldown <= 0 && blanks > 0) {
             this.world.getBank().clearBullets(true);
@@ -128,7 +130,7 @@ public class PlayerEntity extends LivingEntity {
         if (lives > 0) {
             lives--;
             iFrames = 240;
-            world.getBank().addEntity(new ScoreTextEntity(world, position.copy(), new Vec2d(0, -0.5f), 80, -5000), EntityFaction.GRAPHIC);
+            world.getBank().addEntity(new ScoreTextEntity(world, position.copy(), new Vec2d(0, -0.5f), 80, -2000), EntityFaction.GRAPHIC);
             position.set(spawnPosition);
             world.getBank().clearBullets(false);
         } else {

@@ -3,7 +3,7 @@ package mialee.psychicmemory.game.entities.core;
 import mialee.psychicmemory.game.EntityFaction;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.PlayerEntity;
-import mialee.psychicmemory.game.entities.ScoreTextEntity;
+import mialee.psychicmemory.game.entities.visuals.ScoreTextEntity;
 import mialee.psychicmemory.math.MathHelper;
 import mialee.psychicmemory.math.Vec2d;
 

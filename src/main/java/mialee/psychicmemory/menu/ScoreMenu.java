@@ -35,7 +35,7 @@ public class ScoreMenu {
 
     public void finishName() {
         if (!name.toString().equals("")) {
-            DataManager.writeScore(name.toString(), score);
+            if (score > 0) DataManager.writeScore(name.toString(), score);
             PsychicMemory.restart();
         }
     }

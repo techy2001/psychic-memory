@@ -7,13 +7,13 @@ import mialee.psychicmemory.game.tasks.EntityTask;
 import mialee.psychicmemory.math.Vec2d;
 
 public class FireBulletsRoundSpinTask extends EntityTask {
-    private final int cooldownMax;
-    private final int count;
-    private final double speed;
-    private final double spin;
-    private int offset = 0;
-    private int cooldown;
-    private int shot = 1;
+    protected final int cooldownMax;
+    protected final int count;
+    protected final double speed;
+    protected final double spin;
+    protected int offset = 0;
+    protected int cooldown;
+    protected int shot = 1;
 
     public FireBulletsRoundSpinTask(Entity owner, int length, int cooldown, int count, double speed, double spin) {
         super(owner, length);

@@ -58,6 +58,7 @@ public class DataManager {
         return highScore;
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static ArrayList<GameRecord> readScores() {
         try {
             ArrayList<GameRecord> records = new ArrayList<>();
@@ -75,6 +76,11 @@ public class DataManager {
             return records;
         } catch (FileNotFoundException e) {
             PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.missing"), "scores.txt", e.getMessage());
+            try {
+                new File("PMData/scores.txt").createNewFile();
+            } catch (IOException ex) {
+                PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.error"), "scores.txt", e.getMessage());
+            }
         } catch (NoSuchElementException | NumberFormatException e) {
             PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.corrupt"), "scores.txt", e.getMessage());
         }
@@ -88,7 +94,7 @@ public class DataManager {
             writer.write("\n%d %s".formatted(score, name));
             writer.close();
         } catch (IOException e) {
-            PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.missing"), "scores.txt", e.getMessage());
+            PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.error"), "scores.txt", e.getMessage());
         }
     }
 }

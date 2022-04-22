@@ -65,7 +65,7 @@ public class PMRenderer {
                 graphics.setColor(Color.ORANGE);
                 graphics.fillRect(0, 0, dimensions.x, dimensions.y);
 
-                if (PsychicMemory.gameState == GameState.INGAME || PsychicMemory.gameState == GameState.PAUSED) {
+                if (PsychicMemory.gameState == GameState.INGAME || PsychicMemory.gameState == GameState.PAUSED || PsychicMemory.gameState == GameState.BOSS_PAUSED) {
                     if (PsychicMemory.world != null) {
                         PsychicMemory.world.render(graphics);
                     }

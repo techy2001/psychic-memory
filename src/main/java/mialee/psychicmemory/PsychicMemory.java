@@ -74,6 +74,12 @@ public class PsychicMemory {
                 if (gameState == GameState.INGAME) {
                     world.tick();
                 }
+                if (gameState == GameState.BOSS_PAUSED) {
+                    if (world.getLastBoss() != null) {
+                        world.getLastBoss().tick();
+                        world.getBank().addAllNew();
+                    }
+                }
 
                 safeSleep(10);
             }

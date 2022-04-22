@@ -1,4 +1,4 @@
-package mialee.psychicmemory.game.entities;
+package mialee.psychicmemory.game.entities.visuals;
 
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.core.Entity;

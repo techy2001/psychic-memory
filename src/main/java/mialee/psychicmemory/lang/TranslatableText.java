@@ -5,6 +5,7 @@ import org.json.JSONException;
 
 public class TranslatableText {
     private final String string;
+
     public TranslatableText(String value) {
         this.string = value;
     }

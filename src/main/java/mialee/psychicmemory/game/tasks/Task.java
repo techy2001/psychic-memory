@@ -3,7 +3,7 @@ package mialee.psychicmemory.game.tasks;
 public abstract class Task {
     protected int tick = 0;
     protected final int length;
-    private boolean complete = false;
+    protected boolean complete = false;
     protected boolean loop = true;
 
     public Task(int length) {

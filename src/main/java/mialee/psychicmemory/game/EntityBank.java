@@ -1,6 +1,6 @@
 package mialee.psychicmemory.game;
 
-import mialee.psychicmemory.game.entities.ScoreTextEntity;
+import mialee.psychicmemory.game.entities.visuals.ScoreTextEntity;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.math.Vec2d;
 
@@ -27,6 +27,9 @@ public class EntityBank {
     }
 
     public void tick() {
+        for (Entity entity : visuals) {
+            entity.tick();
+        }
         for (Entity entity : enemies) {
             entity.tick();
         }
@@ -36,17 +39,17 @@ public class EntityBank {
         for (Entity entity : playerBullets) {
             entity.tick();
         }
-        for (Entity entity : visuals) {
-            entity.tick();
-        }
 
-        addNew(enemies, newEnemies);
-        addNew(enemyBullets, newEnemyBullets);
-        addNew(playerBullets, newPlayerBullets);
-        addNew(visuals, newVisuals);
+        addAllNew();
     }
 
     public void render(Graphics graphics) {
+        for (int i = visuals.size() - 1; 0 <= i; i--) {
+            if (i < visuals.size()) {
+                Entity entity = visuals.get(i);
+                if (entity != null) entity.render(graphics);
+            }
+        }
         for (int i = enemies.size() - 1; 0 <= i; i--) {
             if (i < enemies.size()) {
                 Entity entity = enemies.get(i);
@@ -62,12 +65,6 @@ public class EntityBank {
         for (int i = playerBullets.size() - 1; 0 <= i; i--) {
             if (i < playerBullets.size()) {
                 Entity entity = playerBullets.get(i);
-                if (entity != null) entity.render(graphics);
-            }
-        }
-        for (int i = visuals.size() - 1; 0 <= i; i--) {
-            if (i < visuals.size()) {
-                Entity entity = visuals.get(i);
                 if (entity != null) entity.render(graphics);
             }
         }
@@ -91,7 +88,14 @@ public class EntityBank {
         };
     }
 
-    public void addNew(ArrayList<Entity> main, ArrayList<Entity> income) {
+    public void addAllNew() {
+        addNew(enemies, newEnemies);
+        addNew(enemyBullets, newEnemyBullets);
+        addNew(playerBullets, newPlayerBullets);
+        addNew(visuals, newVisuals);
+    }
+
+    private void addNew(ArrayList<Entity> main, ArrayList<Entity> income) {
         main.addAll(income);
         income.clear();
         for (int i = 0; i < main.size(); i++) {

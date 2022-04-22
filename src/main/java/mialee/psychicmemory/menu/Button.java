@@ -1,6 +1,7 @@
 package mialee.psychicmemory.menu;
 
 import mialee.psychicmemory.PMRenderer;
+import mialee.psychicmemory.lang.TranslatableText;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,6 +12,10 @@ public class Button {
     protected final int x;
     protected final int y;
     protected final int offset;
+
+    public Button(TranslatableText text, Runnable press, int x, int y, int offset) {
+        this(text.toString(), press, x, y, offset);
+    }
 
     public Button(String text, Runnable press, int x, int y, int offset) {
         this.text = text;

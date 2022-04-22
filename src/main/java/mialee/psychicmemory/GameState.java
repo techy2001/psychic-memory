@@ -7,5 +7,6 @@ public enum GameState {
     MENU,
     INGAME,
     PAUSED,
+    BOSS_PAUSED,
     SCORE
 }
