@@ -6,7 +6,7 @@ import mialee.psychicmemory.game.tasks.entitytasks.DeleteSelfTask;
 import mialee.psychicmemory.game.tasks.entitytasks.MoveWithVelocityTask;
 import mialee.psychicmemory.math.MathHelper;
 import mialee.psychicmemory.math.Vec2d;
-import mialee.psychicmemory.window.PMRenderer;
+import mialee.psychicmemory.PMRenderer;
 
 import java.awt.Color;
 import java.awt.Graphics;

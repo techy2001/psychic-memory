@@ -9,7 +9,6 @@ import mialee.psychicmemory.lang.Language;
 import mialee.psychicmemory.lang.TranslatableText;
 import mialee.psychicmemory.menu.Menu;
 import mialee.psychicmemory.menu.ScoreMenu;
-import mialee.psychicmemory.window.PMRenderer;
 
 import javax.swing.ImageIcon;
 import java.io.File;

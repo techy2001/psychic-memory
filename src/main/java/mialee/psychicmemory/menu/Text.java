@@ -1,6 +1,6 @@
 package mialee.psychicmemory.menu;
 
-import mialee.psychicmemory.window.PMRenderer;
+import mialee.psychicmemory.PMRenderer;
 
 import java.awt.*;
 

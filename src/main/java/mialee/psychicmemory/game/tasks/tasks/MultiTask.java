@@ -17,8 +17,7 @@ public class MultiTask extends Task {
     public void tick() {
         super.tick();
         for (Task task : tasks) {
-            task.tick();
-            if (task.isComplete()) task.refresh();
+            if (!task.isComplete()) task.tick();
         }
     }
 

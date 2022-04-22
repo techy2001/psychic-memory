@@ -21,6 +21,18 @@ public class Vec2d {
         return this;
     }
 
+    public Vec2d divide(Vec2d vec) {
+        this.x = this.x / vec.x;
+        this.y = this.y / vec.y;
+        return this;
+    }
+
+    public Vec2d divide(double amount) {
+        this.x = this.x / amount;
+        this.y = this.y / amount;
+        return this;
+    }
+
     public Vec2d add(Vec2d vec) {
         this.x = this.x + vec.x;
         this.y = this.y + vec.y;
@@ -30,6 +42,16 @@ public class Vec2d {
     public Vec2d set(Vec2d vec) {
         this.x = vec.x;
         this.y = vec.y;
+        return this;
+    }
+
+    public Vec2d rotate(double angle) {
+        double degrees = Math.toRadians(angle);
+        double f = Math.cos(degrees);
+        double g = Math.sin(degrees);
+        double d = this.x * f + this.y * g;
+        double h = this.y * f - this.x * g;
+        this.set(new Vec2d(d, h));
         return this;
     }
 

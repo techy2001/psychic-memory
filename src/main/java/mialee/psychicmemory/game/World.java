@@ -1,6 +1,7 @@
 package mialee.psychicmemory.game;
 
 import mialee.psychicmemory.GameState;
+import mialee.psychicmemory.PMRenderer;
 import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.data.DataManager;
 import mialee.psychicmemory.game.entities.PlayerEntity;
@@ -22,7 +23,6 @@ import mialee.psychicmemory.game.tasks.worldtasks.WaitForBossTask;
 import mialee.psychicmemory.math.MathHelper;
 import mialee.psychicmemory.math.Vec2d;
 import mialee.psychicmemory.math.Vec2i;
-import mialee.psychicmemory.window.PMRenderer;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -39,6 +39,7 @@ public class World {
     private int highScore = DataManager.readHighScore().score();
     private final ArrayList<Task> taskList = new ArrayList<>();
     private final ArrayList<Task> pendingTasks = new ArrayList<>();
+    private BossEntity lastBoss;
 
     public World() {
         setPlayer(new PlayerEntity(this, new Vec2d(310, 550), new Vec2d(0, 0)));
@@ -56,8 +57,7 @@ public class World {
             flyRouteEnemy.addTask(new DeleteSelfTask(flyRouteEnemy));
             addTask(new SpawnEntityTask(this, flyRouteEnemy, EntityFaction.ENEMY));
         }
-        addTask(new WaitTask(10));
-
+        addTask(new WaitTask(40));
         for (int i = 0; i < 8; i++) {
             addTask(new WaitTask(10));
             FlyRouteEnemy flyRouteEnemy = new FlyRouteEnemy(this, new Vec2d(size.x - 50, -50));
@@ -66,7 +66,7 @@ public class World {
             flyRouteEnemy.addTask(new DeleteSelfTask(flyRouteEnemy));
             addTask(new SpawnEntityTask(this, flyRouteEnemy, EntityFaction.ENEMY));
         }
-        addTask(new WaitTask(10));
+        addTask(new WaitTask(200));
 
         for (int i = 0; i < 8; i++) {
             addTask(new WaitTask(20));
@@ -76,7 +76,7 @@ public class World {
             randomExtra.velocity.set(new Vec2d(3, 1f));
             addTask(new SpawnEntityTask(this, randomExtra, EntityFaction.ENEMY));
         }
-
+        addTask(new WaitTask(40));
         for (int i = 0; i < 8; i++) {
             addTask(new WaitTask(20));
             RandomExtraEntity randomExtra = new RandomExtraEntity(this, new Vec2d(size.x + 50, 60), 0.1f);
@@ -85,6 +85,7 @@ public class World {
             randomExtra.velocity.set(new Vec2d(-3, 1f));
             addTask(new SpawnEntityTask(this, randomExtra, EntityFaction.ENEMY));
         }
+        addTask(new WaitTask(200));
 
         for (int i = 0; i < 8; i++) {
             {
@@ -106,7 +107,7 @@ public class World {
                 addTask(new SpawnEntityTask(this, flyRouteEnemy, EntityFaction.ENEMY));
             }
         }
-        addTask(new WaitTask(160));
+        addTask(new WaitTask(240));
 
         for (int i = 0; i < 16; i++) {
             addTask(new WaitTask(30));
@@ -118,7 +119,7 @@ public class World {
             flyRouteEnemy.addTask(new DeleteSelfTask(flyRouteEnemy));
             addTask(new SpawnEntityTask(this, flyRouteEnemy, EntityFaction.ENEMY));
         }
-        addTask(new WaitTask(120));
+        addTask(new WaitTask(240));
 
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 4; j++) {
@@ -142,39 +143,40 @@ public class World {
                 }
             }
         }
-        addTask(new WaitTask(180));
+        addTask(new WaitTask(300));
 
         {
-        BossEntity miniBossEntity = new BossEntity(this, new Vec2d(260, -20));
-        miniBossEntity.name = "BossStage1";
-        miniBossEntity.hitRadius = 20;
-        miniBossEntity.visualSize = 18;
-        miniBossEntity.image = PsychicMemory.getIcon("entities/tropical_fish.png");
-        miniBossEntity.health = 120;
-        miniBossEntity.maxHealth = 120;
-        miniBossEntity.lives = 0;
-        miniBossEntity.score = 10000;
-        miniBossEntity.addTask(new MoveToPositionLerpTask(miniBossEntity, new Vec2d(310, 120), 1, 40));
-        miniBossEntity.addTask(new WaitTask(40));
-        ArrayList<Task> phase1 = new ArrayList<>();
-        phase1.add(new FireBulletsRoundSpinTask(miniBossEntity, 50, 10, 8, 2, -15));
-        phase1.add(new MoveToPositionLerpTask(miniBossEntity, new Vec2d(520, 200), 1, 100));
-        phase1.add(new FireAtPlayerTask(miniBossEntity, 75, 25, 7, 25, 2));
-        phase1.add(new WaitTask(50));
-        phase1.add(new MoveToPositionLerpTask(miniBossEntity, new Vec2d(310, 120), 1, 80));
-        phase1.add(new FireBulletsRoundSpinTask(miniBossEntity, 1, 0, 10, 1.4, 15));
-        phase1.add(new FireBulletsRoundSpinTask(miniBossEntity, 1, 0, 10, 1.6, 15));
-        phase1.add(new FireBulletsRoundSpinTask(miniBossEntity, 1, 0, 10, 1.8, 15));
-        phase1.add(new FireBulletsRoundSpinTask(miniBossEntity, 1, 0, 10, 2, 15));
-        phase1.add(new WaitTask(90));
-        phase1.add(new MoveToPositionLerpTask(miniBossEntity, new Vec2d(100, 200), 1, 100));
-        phase1.add(new FireAtPlayerTask(miniBossEntity, 60, 20, 3, 5, 4));
-        phase1.add(new WaitTask(50));
-        phase1.add(new MoveToPositionLerpTask(miniBossEntity, new Vec2d(310, 120), 1, 80));
-        miniBossEntity.addPhase(phase1);
-        addTask(new SpawnEntityTask(this, miniBossEntity, EntityFaction.ENEMY));
-        addTask(new WaitForBossTask(this, miniBossEntity));
-    }
+            BossEntity miniBossEntity = new BossEntity(this, new Vec2d(260, -20));
+            miniBossEntity.name = "BossStage1";
+            miniBossEntity.hitRadius = 20;
+            miniBossEntity.visualSize = 18;
+            miniBossEntity.image = PsychicMemory.getIcon("entities/tropical_fish.png");
+            miniBossEntity.health = 90;
+            miniBossEntity.maxHealth = 90;
+            miniBossEntity.lives = 0;
+            miniBossEntity.score = 10000;
+            miniBossEntity.addTask(new MoveToPositionLerpTask(miniBossEntity, new Vec2d(310, 120), 1, 40));
+            miniBossEntity.addTask(new WaitTask(40));
+            ArrayList<Task> phase1 = new ArrayList<>();
+            phase1.add(new FireBulletsRoundSpinTask(miniBossEntity, 50, 10, 8, 2, -15));
+            phase1.add(new MoveToPositionLerpTask(miniBossEntity, new Vec2d(520, 200), 1, 100));
+            phase1.add(new FireAtPlayerTask(miniBossEntity, 75, 25, 7, 25, 2));
+            phase1.add(new WaitTask(50));
+            phase1.add(new MoveToPositionLerpTask(miniBossEntity, new Vec2d(310, 120), 1, 80));
+            phase1.add(new FireBulletsRoundSpinTask(miniBossEntity, 1, 0, 10, 1.4, 15));
+            phase1.add(new FireBulletsRoundSpinTask(miniBossEntity, 1, 0, 10, 1.6, 15));
+            phase1.add(new FireBulletsRoundSpinTask(miniBossEntity, 1, 0, 10, 1.8, 15));
+            phase1.add(new FireBulletsRoundSpinTask(miniBossEntity, 1, 0, 10, 2, 15));
+            phase1.add(new WaitTask(120));
+            phase1.add(new MoveToPositionLerpTask(miniBossEntity, new Vec2d(100, 200), 1, 100));
+            phase1.add(new FireAtPlayerTask(miniBossEntity, 60, 20, 3, 5, 4));
+            phase1.add(new WaitTask(50));
+            phase1.add(new MoveToPositionLerpTask(miniBossEntity, new Vec2d(310, 120), 1, 80));
+            miniBossEntity.addPhase(phase1);
+            addTask(new SpawnEntityTask(this, miniBossEntity, EntityFaction.ENEMY));
+            addTask(new WaitForBossTask(this, miniBossEntity));
+        }
+        addTask(new WaitTask(40));
 
         for (int i = 0; i < 8; i++) {
             addTask(new WaitTask(10));
@@ -218,7 +220,7 @@ public class World {
                 addTask(new SpawnEntityTask(this, flyRouteEnemy, EntityFaction.ENEMY));
             }
         }
-        addTask(new WaitTask(240));
+        addTask(new WaitTask(300));
 
         for (int i = 0; i < 24; i++) {
             addTask(new WaitTask(20));
@@ -233,19 +235,19 @@ public class World {
             flyRouteEnemy.addTask(new DeleteSelfTask(flyRouteEnemy));
             addTask(new SpawnEntityTask(this, flyRouteEnemy, EntityFaction.ENEMY));
         }
-        addTask(new WaitTask(200));
+        addTask(new WaitTask(360));
 
         {
-            BossEntity bossEntity = new BossEntity(this, new Vec2d(310, -20));
+            BossEntity bossEntity = new BossEntity(this, new Vec2d(380, -20));
             bossEntity.name = "BossStage12";
             bossEntity.hitRadius = 20;
             bossEntity.visualSize = 18;
             bossEntity.image = PsychicMemory.getIcon("entities/tropical_fish.png");
-            bossEntity.health = 120;
-            bossEntity.maxHealth = 120;
+            bossEntity.health = 100;
+            bossEntity.maxHealth = 100;
             bossEntity.lives = 1;
             bossEntity.score = 10000;
-            bossEntity.addTask(new MoveToPositionLerpTask(bossEntity, new Vec2d(360, 120), 4, 40));
+            bossEntity.addTask(new MoveToPositionLerpTask(bossEntity, new Vec2d(310, 120), 4, 40));
 
             ArrayList<Task> phase1 = new ArrayList<>();
             phase1.add(new WaitTask(20));
@@ -319,12 +321,21 @@ public class World {
     }
 
     public void render(Graphics graphics) {
+        graphics.setColor(Color.GREEN);
+        if (lastBoss != null && !lastBoss.isMarkedForDeletion() && lastBoss.isInSubPhase()) {
+            graphics.setColor(new Color(0, 160, 0));
+        }
+        graphics.fillRect(0, 0, size.x, size.y);
+
         entities.render(graphics);
         player.render(graphics);
+
+        PMRenderer.resetFont(graphics);
+        PsychicMemory.world.renderUI(graphics);
     }
 
     public void renderUI(Graphics graphics) {
-        graphics.setColor(Color.GREEN);
+        graphics.setColor(Color.DARK_GRAY);
         graphics.fillRect(size.x, 0, PMRenderer.dimensions.x - size.x, PMRenderer.dimensions.y);
         graphics.setColor(Color.BLACK);
         graphics.drawRect(size.x, 0, PMRenderer.dimensions.x - size.x, PMRenderer.dimensions.y);
@@ -397,5 +408,9 @@ public class World {
 
     public PlayerEntity getPlayer() {
         return player;
+    }
+
+    public void setLastBoss(BossEntity lastBoss) {
+        this.lastBoss = lastBoss;
     }
 }

@@ -73,7 +73,7 @@ public class PlayerEntity extends LivingEntity {
         if (fireCooldown > 0) fireCooldown--;
         if (Input.getKey(PsychicMemory.SETTING_VALUES.FIRE_KEY) && fireCooldown <= 0) {
             this.world.getBank().addEntity(new PlayerBulletEntity(this.world, this.position.copy(), new Vec2d(0, -25), 1), EntityFaction.PLAYER_BULLET);
-            fireCooldown = 5;
+            fireCooldown = 6;
         }
         if (blankCooldown > 0) blankCooldown--;
         if (Input.getKey(PsychicMemory.SETTING_VALUES.BLANK_KEY) && blankCooldown <= 0 && blanks > 0) {

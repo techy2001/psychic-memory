@@ -1,7 +1,5 @@
-package mialee.psychicmemory.window;
+package mialee.psychicmemory;
 
-import mialee.psychicmemory.GameState;
-import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.input.Input;
 import mialee.psychicmemory.lang.TranslatableText;
 import mialee.psychicmemory.math.Vec2i;
@@ -64,14 +62,12 @@ public class PMRenderer {
                 }
 
                 Graphics graphics = volatileImage.getGraphics();
-                graphics.setColor(Color.green);
+                graphics.setColor(Color.ORANGE);
                 graphics.fillRect(0, 0, dimensions.x, dimensions.y);
 
                 if (PsychicMemory.gameState == GameState.INGAME || PsychicMemory.gameState == GameState.PAUSED) {
                     if (PsychicMemory.world != null) {
                         PsychicMemory.world.render(graphics);
-                        resetFont(graphics);
-                        PsychicMemory.world.renderUI(graphics);
                     }
                 }
                 if (PsychicMemory.gameState == GameState.MENU) {
@@ -113,7 +109,7 @@ public class PMRenderer {
      * Resets the font to the base font at size 12, the base font being Ubuntu-M.
      * @param graphics The graphics to set the font for.
      */
-    private static void resetFont(Graphics graphics) {
+    public static void resetFont(Graphics graphics) {
         try {
             if (getBaseFont() == null) {
                 baseFont = Font.createFont(0, new File("Ubuntu-M.ttf"));

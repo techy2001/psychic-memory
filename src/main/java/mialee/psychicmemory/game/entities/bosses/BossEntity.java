@@ -85,11 +85,13 @@ public class BossEntity extends EnemyEntity {
         if (phaseCooldown >= 1) return false;
         healthProgress = 0;
         healthOld = healthVisual;
-        BossPhase currentPhase = phases.get(phase);
-        if (!inSubPhase && currentPhase.getSubPhaseTrigger() >= (float) health / maxHealth && currentPhase.getSubPhase() != null) {
-            inSubPhase = true;
-            world.getBank().clearBullets(true);
-            addTask(new WaitTask(10));
+        if (phases.size() > phase) {
+            BossPhase currentPhase = phases.get(phase);
+            if (!inSubPhase && currentPhase.getSubPhaseTrigger() >= (float) health / maxHealth && currentPhase.getSubPhase() != null) {
+                inSubPhase = true;
+                world.getBank().clearBullets(true);
+                addTask(new WaitTask(10));
+            }
         }
         if (armour > 0) {
             armour--;
@@ -127,5 +129,9 @@ public class BossEntity extends EnemyEntity {
         BossPhase phase = new BossPhase(tasks);
         phase.setSubPhase(new SubPhase(subtasks), ratio);
         phases.add(phase);
+    }
+
+    public boolean isInSubPhase() {
+        return inSubPhase;
     }
 }
