@@ -20,6 +20,7 @@
   "pm.menu.scores.high_scores" : "High Scores",
   "pm.menu.scores.name" : "Name",
   "pm.menu.scores.score" : "Score",
+  "pm.menu.scores.empty" : "No scores found.",
 
   "pm.game.paused" : "PAUSED",
   "pm.game.high_score" : "HIGH-SCORE",

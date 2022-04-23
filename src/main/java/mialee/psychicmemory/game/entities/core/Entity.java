@@ -19,7 +19,7 @@ public abstract class Entity {
     public final Vec2d velocity;
 
     public String name;
-    public ImageIcon image;
+    protected ImageIcon image;
     public int hitRadius;
     public int visualSize;
 

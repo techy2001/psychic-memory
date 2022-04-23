@@ -117,7 +117,7 @@ public class PlayerEntity extends LivingEntity {
         this.name = "Player";
         this.hitRadius = 5;
         this.visualSize = 18;
-        this.image = PsychicMemory.getIcon("entities/salmon.png");
+        this.image = PsychicMemory.getIcon("entities/player.png");
         this.health = 1;
     }
 

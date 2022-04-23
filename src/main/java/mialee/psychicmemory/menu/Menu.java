@@ -50,16 +50,19 @@ public class Menu {
 
         Page pageScores = new Page();
         pageScores.addText(new Text(new TranslatableText("pm.menu.scores.high_scores"), 72f, 480, 100, Alignment.CENTER));
-        pageScores.addText(new Text(new TranslatableText("pm.menu.scores.name"), 32f, 230, 180, Alignment.LEFT));
-        pageScores.addText(new Text(new TranslatableText("pm.menu.scores.score"), 32, 730, 180, Alignment.RIGHT));
-        for (int i = 0; i < 10; i++) {
-            if (i < scores.size()) {
-                pageScores.addText(new Text(scores.get(i).name(), 24f, 230, 225 + (i * 25), Alignment.LEFT));
-                pageScores.addText(new Text(String.valueOf(scores.get(i).score()), 24f, 730, 225 + (i * 25), Alignment.RIGHT));
-            } else {
-                pageScores.addText(new Text("Techy2001", 24f, 230, 225 + (i * 25), Alignment.LEFT));
-                pageScores.addText(new Text(String.valueOf(10000 - (1000 * i)), 24f, 730, 225 + (i * 25), Alignment.RIGHT));
+        if (scores.size() > 0) {
+            pageScores.addText(new Text(new TranslatableText("pm.menu.scores.name"), 32f, 230, 180, Alignment.LEFT));
+            pageScores.addText(new Text(new TranslatableText("pm.menu.scores.score"), 32, 730, 180, Alignment.RIGHT));
+            for (int i = 0; i < 10; i++) {
+                if (i < scores.size()) {
+                    pageScores.addText(new Text(scores.get(i).name(), 24f, 230, 225 + (i * 25), Alignment.LEFT));
+                    pageScores.addText(new Text(String.valueOf(scores.get(i).score()), 24f, 730, 225 + (i * 25), Alignment.RIGHT));
+                } else {
+                    break;
+                }
             }
+        } else {
+            pageScores.addText(new Text(new TranslatableText("pm.menu.scores.empty"), 24f, 480, 275, Alignment.CENTER));
         }
         pageScores.addButton(new Button(new TranslatableText("pm.menu.back"), () -> selectedPage = 0, 480, 650, -5));
         pages.add(pageScores);

@@ -72,6 +72,7 @@ public class World {
         for (int i = 0; i < 8; i++) {
             addTask(new WaitTask(10));
             BasicEnemy flyRouteEnemy = new BasicEnemy(this, new Vec2d(50, -50));
+            flyRouteEnemy.setImage(PsychicMemory.getIcon("entities/enemy_normal_0.png"));
             flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(150, 200), 1, 100));
             flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(size.x + 50, 200), 1, 140));
             flyRouteEnemy.addTask(new DeleteSelfTask(flyRouteEnemy));
@@ -81,6 +82,7 @@ public class World {
         for (int i = 0; i < 8; i++) {
             addTask(new WaitTask(10));
             BasicEnemy flyRouteEnemy = new BasicEnemy(this, new Vec2d(size.x - 50, -50));
+            flyRouteEnemy.setImage(PsychicMemory.getIcon("entities/enemy_normal_0.png"));
             flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(size.x - 150, 200), 1, 100));
             flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(-50, 200), 1, 140));
             flyRouteEnemy.addTask(new DeleteSelfTask(flyRouteEnemy));
@@ -91,6 +93,7 @@ public class World {
         for (int i = 0; i < 8; i++) {
             addTask(new WaitTask(20));
             RandomExtraEntity randomExtra = new RandomExtraEntity(this, new Vec2d(-50, 60), 0.1f);
+            randomExtra.setImage(PsychicMemory.getIcon("entities/enemy_shooter_0.png"));
             randomExtra.setTask(new FireAtPlayerTask(randomExtra, 1, 12, 1, 15, 3));
             randomExtra.addTask(new MoveWithVelocityTask(randomExtra, 100));
             randomExtra.velocity.set(new Vec2d(3, 1f));
@@ -100,6 +103,7 @@ public class World {
         for (int i = 0; i < 8; i++) {
             addTask(new WaitTask(20));
             RandomExtraEntity randomExtra = new RandomExtraEntity(this, new Vec2d(size.x + 50, 60), 0.1f);
+            randomExtra.setImage(PsychicMemory.getIcon("entities/enemy_shooter_0.png"));
             randomExtra.setTask(new FireAtPlayerTask(randomExtra, 1, 12, 1, 15, 3));
             randomExtra.addTask(new MoveWithVelocityTask(randomExtra, 100));
             randomExtra.velocity.set(new Vec2d(-3, 1f));
@@ -111,6 +115,7 @@ public class World {
             {
                 addTask(new WaitTask(5));
                 BasicEnemy flyRouteEnemy = new BasicEnemy(this, new Vec2d(50, -50));
+                flyRouteEnemy.setImage(PsychicMemory.getIcon("entities/enemy_normal_1.png"));
                 flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(150, 200), 1, 100));
                 flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(size.x - 150, 200), 1, 140));
                 flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(150, size.y + 50), 1, 140));
@@ -120,6 +125,7 @@ public class World {
             {
                 addTask(new WaitTask(5));
                 BasicEnemy flyRouteEnemy = new BasicEnemy(this, new Vec2d(size.x - 50, -50));
+                flyRouteEnemy.setImage(PsychicMemory.getIcon("entities/enemy_normal_1.png"));
                 flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(size.x - 150, 200), 1, 100));
                 flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(150, 200), 1, 140));
                 flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d((float) size.x - 150, size.y + 50), 1, 140));
@@ -133,6 +139,7 @@ public class World {
             addTask(new WaitTask(30));
             double x = PsychicMemory.RANDOM.nextDouble(size.x - 100) + 50;
             BasicEnemy flyRouteEnemy = new BasicEnemy(this, new Vec2d(x, -50));
+            flyRouteEnemy.setImage(PsychicMemory.getIcon("entities/enemy_circle_0.png"));
             flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(x, 100), 1, 80));
             flyRouteEnemy.addTask(new FireBulletsRoundTask(flyRouteEnemy, 1, 0, 6, 2));
             flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(x + (PsychicMemory.RANDOM.nextBoolean() ? -80 : 80), size.y + 50), 1, 220));
@@ -146,6 +153,7 @@ public class World {
                 {
                     addTask(new WaitTask(10));
                     RandomExtraEntity randomExtra = new RandomExtraEntity(this, new Vec2d(-50, 0), 0.01f);
+                    randomExtra.setImage(PsychicMemory.getIcon("entities/enemy_shooter_1.png"));
                     randomExtra.setTask(new FireAtPlayerTask(randomExtra, 1, 120, 1, 15, 3));
                     randomExtra.addTask(new MoveToPositionLerpTask(randomExtra, new Vec2d(size.x + 50, 100 + (20 * i) + (60 * j)), 1, 200));
                     randomExtra.addTask(new DeleteSelfTask(randomExtra));
@@ -155,6 +163,7 @@ public class World {
                 {
                     addTask(new WaitTask(10));
                     RandomExtraEntity randomExtra = new RandomExtraEntity(this, new Vec2d(size.x + 50, 0), 0.01f);
+                    randomExtra.setImage(PsychicMemory.getIcon("entities/enemy_shooter_1.png"));
                     randomExtra.setTask(new FireAtPlayerTask(randomExtra, 1, 120, 1, 15, 3));
                     randomExtra.addTask(new MoveToPositionLerpTask(randomExtra, new Vec2d(-50, 100 + (20 * i) + (60 * j)), 1, 200));
                     randomExtra.addTask(new DeleteSelfTask(randomExtra));
@@ -167,10 +176,10 @@ public class World {
 
         {
             BossEntity miniBossEntity = new BossEntity(this, new Vec2d(260, -20));
-            miniBossEntity.name = "BossStage1";
-            miniBossEntity.hitRadius = 20;
-            miniBossEntity.visualSize = 18;
-            miniBossEntity.image = PsychicMemory.getIcon("entities/tropical_fish.png");
+            miniBossEntity.name = "MiniBossStage1";
+            miniBossEntity.setImage(PsychicMemory.getIcon("entities/boss.png"));
+            miniBossEntity.hitRadius = 36;
+            miniBossEntity.visualSize = 32;
             miniBossEntity.health = 90;
             miniBossEntity.maxHealth = 90;
             miniBossEntity.lives = 0;
@@ -202,6 +211,7 @@ public class World {
             addTask(new WaitTask(10));
             {
                 BasicEnemy flyRouteEnemy = new BasicEnemy(this, new Vec2d(100, -50));
+                flyRouteEnemy.setImage(PsychicMemory.getIcon("entities/enemy_runner.png"));
                 flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(150, 120), 1, 100));
                 flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(size.x - 50, 120), 1, 120));
                 flyRouteEnemy.addTask(new FireAtPlayerTask(flyRouteEnemy, 2, 0, 3, 20, 3));
@@ -212,6 +222,7 @@ public class World {
             addTask(new WaitTask(10));
             {
                 BasicEnemy flyRouteEnemy = new BasicEnemy(this, new Vec2d(size.x - 100, -50));
+                flyRouteEnemy.setImage(PsychicMemory.getIcon("entities/enemy_runner.png"));
                 flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(size.x - 150, 120), 1, 100));
                 flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(50, 120), 1, 120));
                 flyRouteEnemy.addTask(new FireAtPlayerTask(flyRouteEnemy, 2, 0, 3, 20, 3));
@@ -222,6 +233,7 @@ public class World {
             addTask(new WaitTask(10));
             {
                 BasicEnemy flyRouteEnemy = new BasicEnemy(this, new Vec2d(50, -50));
+                flyRouteEnemy.setImage(PsychicMemory.getIcon("entities/enemy_runner.png"));
                 flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(100, 200), 1, 100));
                 flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(size.x - 50, 200), 1, 120));
                 flyRouteEnemy.addTask(new FireAtPlayerTask(flyRouteEnemy, 2, 0, 3, 20, 3));
@@ -232,6 +244,7 @@ public class World {
             addTask(new WaitTask(10));
             {
                 BasicEnemy flyRouteEnemy = new BasicEnemy(this, new Vec2d(size.x - 50, -50));
+                flyRouteEnemy.setImage(PsychicMemory.getIcon("entities/enemy_runner.png"));
                 flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(size.x - 100, 200), 1, 100));
                 flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(50, 200), 1, 120));
                 flyRouteEnemy.addTask(new FireAtPlayerTask(flyRouteEnemy, 2, 0, 3, 20, 3));
@@ -246,6 +259,7 @@ public class World {
             addTask(new WaitTask(20));
             double x = PsychicMemory.RANDOM.nextDouble(size.x - 100) + 50;
             BasicEnemy flyRouteEnemy = new BasicEnemy(this, new Vec2d(x, -50));
+            flyRouteEnemy.setImage(PsychicMemory.getIcon("entities/enemy_circle_1.png"));
             flyRouteEnemy.addTask(new MoveToPositionLerpTask(flyRouteEnemy, new Vec2d(x, 100), 1, 80));
             double spin = PsychicMemory.RANDOM.nextDouble(360);
             flyRouteEnemy.addTask(new FireBulletsRoundSpinTask(flyRouteEnemy, 1, 0, 6, 1.8, spin));
@@ -259,10 +273,10 @@ public class World {
 
         {
             BossEntity bossEntity = new BossEntity(this, new Vec2d(380, -20));
-            bossEntity.name = "BossStage12";
-            bossEntity.hitRadius = 20;
-            bossEntity.visualSize = 18;
-            bossEntity.image = PsychicMemory.getIcon("entities/tropical_fish.png");
+            bossEntity.name = "BossStage1";
+            bossEntity.setImage(PsychicMemory.getIcon("entities/boss.png"));
+            bossEntity.hitRadius = 36;
+            bossEntity.visualSize = 32;
             bossEntity.health = 100;
             bossEntity.maxHealth = 100;
             bossEntity.lives = 2;
@@ -430,9 +444,9 @@ public class World {
      * @param graphics Graphics to draw everything to.
      */
     public void render(Graphics graphics) {
-        graphics.drawImage(PsychicMemory.getIcon("background/scrolling.png").getImage(), 0, (int) (-2160 + (2160 * ((float) distance / 4920))), null);
+        graphics.drawImage(PsychicMemory.getIcon("background/background_normal.png").getImage(), 0, (int) (-1440 + (1440 * ((float) distance / 4920))), null);
         if (lastBoss != null && !lastBoss.isMarkedForDeletion() && lastBoss.isInSubPhase()) {
-            graphics.drawImage(PsychicMemory.getIcon("background/scrolling.png").getImage(), 0, -2160, null);
+            graphics.drawImage(PsychicMemory.getIcon("background/background_boss.png").getImage(), 0, 0, null);
         }
 
         entities.render(graphics);
