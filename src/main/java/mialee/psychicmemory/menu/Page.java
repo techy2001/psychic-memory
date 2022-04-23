@@ -5,6 +5,10 @@ import mialee.psychicmemory.math.MathHelper;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+/**
+ * An individual page as part of the menu.
+ * Stores its buttons and text to be rendered, as well as the currently selected button.
+ */
 public class Page {
     private final ArrayList<Button> buttons = new ArrayList<>();
     private final ArrayList<Text> texts = new ArrayList<>();

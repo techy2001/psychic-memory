@@ -12,7 +12,6 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
-import java.awt.event.KeyListener;
 import java.awt.image.VolatileImage;
 import java.io.File;
 import java.io.IOException;
@@ -120,17 +119,6 @@ public class PMRenderer {
         }
     }
 
-    /**
-     * Adds the main menu input to the window, used after each menu reset.
-     * @param listener The key listener to add.
-     */
-    public static void addInput(KeyListener listener) {
-        canvas.addKeyListener(listener);
-    }
-
-    /**
-     * Getter for {@link #baseFont}.
-     */
     public static Font getBaseFont() {
         return baseFont;
     }

@@ -9,6 +9,10 @@ import mialee.psychicmemory.math.Vec2d;
 
 import java.awt.Graphics;
 
+/**
+ * Simple Entity which will exist for its lifetime and once it is complete, end the game as a win.
+ * Summoned by the end boss when defeated and does not render.
+ */
 public class GameEndEntity extends Entity {
     private final int lifetime;
 

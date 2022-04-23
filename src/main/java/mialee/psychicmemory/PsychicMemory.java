@@ -1,6 +1,7 @@
 package mialee.psychicmemory;
 
 import mialee.psychicmemory.data.DataManager;
+import mialee.psychicmemory.data.GameRecord;
 import mialee.psychicmemory.data.PMSettings;
 import mialee.psychicmemory.data.TextLogger;
 import mialee.psychicmemory.game.World;
@@ -125,7 +126,8 @@ public class PsychicMemory {
      * @param win Tells if the end state was triggered by a win or a loss.
      */
     public static void end(boolean win) {
-        Input.scoreMenu = new ScoreMenu(win, world.getScore(), world.getScore() > DataManager.readHighScore().score());
+        GameRecord highScore = DataManager.readHighScore();
+        Input.scoreMenu = new ScoreMenu(win, world.getScore(), highScore == null || world.getScore() > highScore.score());
         gameState = GameState.SCORE;
     }
 

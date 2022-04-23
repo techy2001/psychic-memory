@@ -7,6 +7,10 @@ import mialee.psychicmemory.game.entities.visuals.ScoreTextEntity;
 import mialee.psychicmemory.math.MathHelper;
 import mialee.psychicmemory.math.Vec2d;
 
+/**
+ * A form of LivingEntity which contains a score, which will be given to the player if the enemy is killed.
+ * Also has a damage box, meaning it can damage the player on contact.
+ */
 public abstract class EnemyEntity extends LivingEntity {
     public int score;
 

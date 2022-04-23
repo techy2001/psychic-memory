@@ -3,8 +3,12 @@ package mialee.psychicmemory.game.entities.core;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.math.Vec2d;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 
+/**
+ * An entity which renders as a sphere with a coloured border and will be deleted after moving too far offscreen.
+ */
 public abstract class BulletEntity extends Entity {
     protected int damage;
     protected Color color;

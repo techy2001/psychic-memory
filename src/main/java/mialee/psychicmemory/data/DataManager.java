@@ -12,7 +12,14 @@ import java.util.Collections;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * The DataManger class handles all interactions with user save data, in both the form of high scores and settings.
+ */
 public class DataManager {
+    /**
+     * This method will read the settings file and write it to an instance of the {@link mialee.psychicmemory.data.PMSettings} class.
+     * @return The {@link mialee.psychicmemory.data.PMSettings} class containing the settings.
+     */
     public static PMSettings readSettings() {
         try {
             PMSettings settings = new PMSettings();
@@ -33,6 +40,10 @@ public class DataManager {
         return new PMSettings();
     }
 
+    /**
+     * This method will take a {@link mialee.psychicmemory.data.PMSettings} class and write it to a text file for later reading.
+     * @param settings The {@link mialee.psychicmemory.data.PMSettings} instance to write to the settings.txt file.
+     */
     public static void writeSettings(PMSettings settings) {
         try {
             File file = new File("PMData/settings.txt");
@@ -49,6 +60,10 @@ public class DataManager {
         }
     }
 
+    /**
+     * Uses {@link #readScores()} to get a list of all scores in the form of {@link mialee.psychicmemory.data.GameRecord}s and filters through to find the largest.
+     * @return The largest score found in the form of a {@link mialee.psychicmemory.data.GameRecord}.
+     */
     public static GameRecord readHighScore() {
         ArrayList<GameRecord> scores = readScores();
         GameRecord highScore = new GameRecord("null", 0);
@@ -58,6 +73,10 @@ public class DataManager {
         return highScore;
     }
 
+    /**
+     * Reads the scores.txt file and writes each set of a score and name to a {@link mialee.psychicmemory.data.GameRecord}, and returning an {@link java.util.ArrayList} containing all of these records.
+     * @return The {@link java.util.ArrayList} containing all of the {@link mialee.psychicmemory.data.GameRecord}s.
+     */
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static ArrayList<GameRecord> readScores() {
         try {
@@ -87,11 +106,16 @@ public class DataManager {
         return new ArrayList<>();
     }
 
+    /**
+     * Writes a new score to the scores.txt file.
+     * @param name The name of the player the score belongs to.
+     * @param score The score in question.
+     */
     public static void writeScore(String name, int score) {
         try {
             File file = new File("PMData/scores.txt");
             FileWriter writer = new FileWriter(file, true);
-            writer.write("\n%d %s".formatted(score, name));
+            writer.write("%d %s\n".formatted(score, name));
             writer.close();
         } catch (IOException e) {
             PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.error"), "scores.txt", e.getMessage());

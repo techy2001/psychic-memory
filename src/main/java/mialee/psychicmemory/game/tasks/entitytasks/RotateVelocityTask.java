@@ -3,6 +3,9 @@ package mialee.psychicmemory.game.tasks.entitytasks;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.EntityTask;
 
+/**
+ * Rotates the owner's velocity by {@link #rotation} degrees.
+ */
 public class RotateVelocityTask extends EntityTask {
     private final double rotation;
 

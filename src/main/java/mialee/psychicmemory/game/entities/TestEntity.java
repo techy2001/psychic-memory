@@ -10,6 +10,9 @@ import mialee.psychicmemory.math.Vec2d;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * Enemy used only for testing.
+ */
 public class TestEntity extends LivingEntity {
     public TestEntity(World board, Vec2d position, Vec2d velocity) {
         super(board, position, velocity);
@@ -45,6 +48,10 @@ public class TestEntity extends LivingEntity {
         addTask(new FireAtPlayerTask(this, 100, 50, 6, 22.5, 1.5f));
     }
 
+    /**
+     * Shows it's hitbox.
+     * @param graphics Graphics to draw the image to.
+     */
     public void render(Graphics graphics) {
         super.render(graphics);
         graphics.setColor(Color.BLUE);

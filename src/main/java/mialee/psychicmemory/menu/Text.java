@@ -5,6 +5,9 @@ import mialee.psychicmemory.lang.TranslatableText;
 
 import java.awt.*;
 
+/**
+ * Text displayable in a Page.
+ */
 public class Text {
     protected final String text;
     protected final float size;
@@ -24,6 +27,10 @@ public class Text {
         this.alignment = alignment;
     }
 
+    /**
+     * Draws the text at the given alignment.
+     * @param graphics Graphics to draw the text to.
+     */
     public void render(Graphics graphics) {
         graphics.setFont(PMRenderer.getBaseFont().deriveFont(size));
         graphics.setColor(Color.GRAY);

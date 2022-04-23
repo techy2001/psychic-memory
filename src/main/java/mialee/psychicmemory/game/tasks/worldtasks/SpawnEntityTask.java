@@ -6,6 +6,10 @@ import mialee.psychicmemory.game.entities.bosses.BossEntity;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.WorldTask;
 
+/**
+ * Task used by the world to summon an entity.
+ * Integral to the level layout.
+ */
 public class SpawnEntityTask extends WorldTask {
     private final Entity entity;
     private final EntityFaction faction;
@@ -16,6 +20,10 @@ public class SpawnEntityTask extends WorldTask {
         this.faction = faction;
     }
 
+    /**
+     * Marks the entity as the last boss if the entity is one.
+     * Important for certain game states.
+     */
     @Override
     public void tick() {
         world.getBank().addEntity(entity, faction);

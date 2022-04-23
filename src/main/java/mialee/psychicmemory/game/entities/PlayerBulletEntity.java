@@ -9,6 +9,9 @@ import mialee.psychicmemory.math.Vec2d;
 
 import java.awt.Color;
 
+/**
+ * Player bullets which damage enemies once they get close enough.
+ */
 public class PlayerBulletEntity extends BulletEntity {
     public PlayerBulletEntity(World board, Vec2d position, Vec2d velocity, int damage) {
         super(board, position, velocity, damage);

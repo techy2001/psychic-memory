@@ -2,15 +2,23 @@ package mialee.psychicmemory.game.tasks.entitytasks;
 
 import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.game.EntityFaction;
-import mialee.psychicmemory.game.entities.EnemyBulletEntity;
+import mialee.psychicmemory.game.entities.enemies.EnemyBulletEntity;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.EntityTask;
 import mialee.psychicmemory.math.Vec2d;
 
+/**
+ * Fires a large bullet followed by a crowd of smaller bullets.
+ */
 public class LargeTrailDownwardTask extends EntityTask {
     private final double rotation;
     private final double speed;
 
+    /**
+     * @param owner Entity to fire the bullets from.
+     * @param rotation Amount to rotate the shot by, starting at straight downwards.
+     * @param speed Speed for the bullets to fire at.
+     */
     public LargeTrailDownwardTask(Entity owner, double rotation, double speed) {
         super(owner, 1);
         this.speed = speed;

@@ -1,5 +1,8 @@
 package mialee.psychicmemory.math;
 
+/**
+ * A class which stores two double values.
+ */
 public class Vec2d {
     public double x;
     public double y;
@@ -9,21 +12,9 @@ public class Vec2d {
         this.y = y;
     }
 
-    public Vec2d multiply(Vec2d vec) {
-        this.x = this.x * vec.x;
-        this.y = this.y * vec.y;
-        return this;
-    }
-
     public Vec2d multiply(double amount) {
         this.x = this.x * amount;
         this.y = this.y * amount;
-        return this;
-    }
-
-    public Vec2d divide(Vec2d vec) {
-        this.x = this.x / vec.x;
-        this.y = this.y / vec.y;
         return this;
     }
 
@@ -45,6 +36,11 @@ public class Vec2d {
         return this;
     }
 
+    /**
+     * Rotates the Vector by the number of degrees.
+     * @param angle Angle to turn by.
+     * @return Itself.
+     */
     public Vec2d rotate(double angle) {
         double degrees = Math.toRadians(angle);
         double f = Math.cos(degrees);

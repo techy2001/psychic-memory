@@ -4,10 +4,13 @@ import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.WorldTask;
 
-public class WaitForBossTask extends WorldTask {
+/**
+ * Task which waits until the given entity is defeated.
+ */
+public class WaitForEntityTask extends WorldTask {
     private final Entity target;
 
-    public WaitForBossTask(World world, Entity target) {
+    public WaitForEntityTask(World world, Entity target) {
         super(world, 1);
         this.target = target;
     }

@@ -1,12 +1,15 @@
 package mialee.psychicmemory.game.tasks.entitytasks;
 
 import mialee.psychicmemory.game.EntityFaction;
-import mialee.psychicmemory.game.entities.EnemyBulletEntity;
+import mialee.psychicmemory.game.entities.enemies.EnemyBulletEntity;
 import mialee.psychicmemory.game.entities.PlayerEntity;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.EntityTask;
 import mialee.psychicmemory.math.Vec2d;
 
+/**
+ * Basic task for firing at the player.
+ */
 public class FireAtPlayerTask extends EntityTask {
     private final int cooldownMax;
     private final int count;
@@ -15,6 +18,15 @@ public class FireAtPlayerTask extends EntityTask {
     private int cooldown;
     private PlayerEntity player;
 
+    /**
+     * Creates a new firing task aimed at the player.
+     * @param owner Entity to fire the bullets from.
+     * @param length Amount of time to perform the task.
+     * @param cooldown Delay between firing.
+     * @param count Amount of bullets to fire.
+     * @param deviation Distance between bullets fired.
+     * @param speed Velocity of the bullets.
+     */
     public FireAtPlayerTask(Entity owner, int length, int cooldown, int count, double deviation, double speed) {
         super(owner, length);
         this.cooldownMax = cooldown;
@@ -23,6 +35,9 @@ public class FireAtPlayerTask extends EntityTask {
         this.speed = speed;
     }
 
+    /**
+     * Takes the player position and owner position in order to get a vector towards the player and rotates based on the offset.
+     */
     @Override
     public void tick() {
         super.tick();

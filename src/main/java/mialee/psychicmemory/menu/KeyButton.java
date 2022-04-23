@@ -7,6 +7,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
+/**
+ * A button specific to the key rebindings menu, showing both the key and the text.
+ * Renders a specific key's text gotten from {@link java.awt.event.KeyEvent#getKeyText(int)}.
+ */
 public class KeyButton extends Button {
     private final int key;
 

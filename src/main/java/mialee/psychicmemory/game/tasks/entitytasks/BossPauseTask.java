@@ -5,6 +5,9 @@ import mialee.psychicmemory.PsychicMemory;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.EntityTask;
 
+/**
+ * A task used only by bosses in order to pause or unpause the game.
+ */
 public class BossPauseTask extends EntityTask {
     private final boolean pause;
 

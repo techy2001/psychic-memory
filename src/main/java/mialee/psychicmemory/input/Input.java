@@ -10,15 +10,29 @@ import mialee.psychicmemory.menu.ScoreMenu;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * KeyListener which manages input for the entire game.
+ */
 public class Input implements KeyListener {
     private static final boolean[] pressedKeys = new boolean[128];
     public static Menu menu;
     public static ScoreMenu scoreMenu;
 
+    /**
+     * @param keyCode KeyCode to check if it's pressed or not.
+     * @return If said KeyCode is pressed.
+     */
     public static boolean getKey(int keyCode) {
         return pressedKeys[keyCode];
     }
 
+    /**
+     * Input any time a key is pressed.
+     * Writes to the {@link #pressedKeys} array that said key is down.
+     * If in the menu, will be used for menu navigation.
+     * If rebinding in settings, will be used for that and write to settings if successful.
+     * @param e KeyEvent of any keys which are pressed.
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() < 128) pressedKeys[e.getKeyCode()] = true;
@@ -53,11 +67,19 @@ public class Input implements KeyListener {
         }
     }
 
+    /**
+     * Marks any keys released as no longer being held.
+     * @param e KeyEvent of keys that are released.
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() < 128) pressedKeys[e.getKeyCode()] = false;
     }
 
+    /**
+     * If currently in the score input menu will be used to type the user's name.
+     * @param e KeyEvent of keys that are typed.
+     */
     @Override
     public void keyTyped(KeyEvent e) {
         if (PsychicMemory.gameState == GameState.SCORE) {

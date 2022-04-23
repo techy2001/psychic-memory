@@ -11,6 +11,10 @@ import mialee.psychicmemory.PMRenderer;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * Entity which is summoned when an enemy dies or bullet is cleared.
+ * At the end of its lifetime the points are added to the total.
+ */
 public class ScoreTextEntity extends Entity {
     private final int lifetime;
     private final int value;
@@ -40,6 +44,10 @@ public class ScoreTextEntity extends Entity {
         super.markForDeletion();
     }
 
+    /**
+     * Displays the point value and scales based on said value.
+     * @param graphics Graphics to draw the image to.
+     */
     @Override
     public void render(Graphics graphics) {
         graphics.setFont(PMRenderer.getBaseFont().deriveFont((float) (12f * (MathHelper.clampDouble(1f, 2f, (float) Math.abs(value) / 100)))));
