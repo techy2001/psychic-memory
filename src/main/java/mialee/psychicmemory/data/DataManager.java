@@ -115,7 +115,7 @@ public class DataManager {
         try {
             File file = new File("PMData/scores.txt");
             FileWriter writer = new FileWriter(file, true);
-            writer.write("%d %s\n".formatted(score, name));
+            writer.write("%s%d %s".formatted(readScores().size() > 0 ? "\n" : "", score, name));
             writer.close();
         } catch (IOException e) {
             PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.error"), "scores.txt", e.getMessage());

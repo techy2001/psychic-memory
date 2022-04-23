@@ -175,7 +175,7 @@ public class PlayerEntity extends LivingEntity {
             iFrames = 240;
             world.getBank().addEntity(new ScoreTextEntity(world, position.copy(), new Vec2d(0, -0.5f), 80, -2000), EntityFaction.GRAPHIC);
             addTask(new ClearBulletsTask(this, false).setLoop(false));
-            addTask(new FireBulletsRoundSpinTask(this, 20, 0, 12, 4, 25).setLoop(false));
+            addTask(new FireBulletsRoundSpinTask(this, 1, 0, 20, 4, 25).setLoop(false));
             addTask(new MoveToPositionLerpTask(this, spawnPosition.copy(), 0, 0).setLoop(false));
         } else {
             PsychicMemory.end(false);

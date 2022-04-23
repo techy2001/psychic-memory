@@ -42,6 +42,7 @@ public class World {
     private final EntityBank entities = new EntityBank(this);
     private PlayerEntity player;
     public final Vec2i size = new Vec2i(620, 720);
+    private int distance = 0;
     private int score = 0;
     private int scoreOld = 0;
     private int scoreVisual = 0;
@@ -397,6 +398,7 @@ public class World {
         if (!taskList.isEmpty()) {
             Task task = taskList.get(0);
             task.tick();
+            if (!(task instanceof WaitForEntityTask)) distance++;
             if (task.isComplete()) {
                 if (task.shouldLoop()) {
                     pendingTasks.add(task);
@@ -407,7 +409,7 @@ public class World {
         }
         taskList.addAll(pendingTasks);
         pendingTasks.clear();
-
+        
         entities.tick();
         player.tick();
         if (scoreProgress < 100) scoreProgress++;
@@ -428,11 +430,10 @@ public class World {
      * @param graphics Graphics to draw everything to.
      */
     public void render(Graphics graphics) {
-        graphics.setColor(new Color(33, 23, 56));
+        graphics.drawImage(PsychicMemory.getIcon("background/scrolling.png").getImage(), 0, (int) (-2160 + (2160 * ((float) distance / 4920))), null);
         if (lastBoss != null && !lastBoss.isMarkedForDeletion() && lastBoss.isInSubPhase()) {
-            graphics.setColor(new Color(22, 12, 6));
+            graphics.drawImage(PsychicMemory.getIcon("background/scrolling.png").getImage(), 0, -2160, null);
         }
-        graphics.fillRect(0, 0, size.x, size.y);
 
         entities.render(graphics);
         player.render(graphics);
