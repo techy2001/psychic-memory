@@ -135,15 +135,15 @@ public class PlayerEntity extends LivingEntity {
         if (iFrames > 180) return;
         super.render(graphics);
         if (Input.getKey(PsychicMemory.SETTING_VALUES.SLOW_KEY)) {
-            graphics.setColor(Color.BLACK);
+            graphics.setColor(Color.CYAN);
             graphics.fillOval((int) (position.x - (getHitRadius())), (int) (position.y - getHitRadius()), getHitRadius() * 2, getHitRadius() * 2);
-            graphics.setColor(Color.RED);
+            graphics.setColor(Color.WHITE);
             graphics.fillOval((int) (position.x - (getHitRadius())) + 2, (int) (position.y - getHitRadius()) + 2, (getHitRadius() * 2) - 4, (getHitRadius() * 2) - 4);
         }
         if (iFrames > 0) {
             graphics.setColor(new Color(0, 255, 255, 120));
             graphics.fillOval((int) (position.x - visualSize * 1.2), (int) (position.y - visualSize * 1.2), (int) (visualSize * 2.4), (int) (visualSize * 2.4));
-            graphics.setColor(Color.BLACK);
+            graphics.setColor(new Color(121, 120, 138));
             graphics.drawOval((int) (position.x - visualSize * 1.2), (int) (position.y - visualSize * 1.2), (int) (visualSize * 2.4), (int) (visualSize * 2.4));
         }
     }

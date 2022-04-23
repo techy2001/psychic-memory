@@ -68,7 +68,7 @@ public class Button {
      * @return The colour to draw the button in.
      */
     protected Color getColor(boolean selected) {
-        return selected ? Color.WHITE : Color.GRAY;
+        return selected ? new Color(202, 199, 220) : new Color(121, 120, 138);
     }
 
     public void render(Graphics graphics, boolean selected) {

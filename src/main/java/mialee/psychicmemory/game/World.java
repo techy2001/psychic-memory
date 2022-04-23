@@ -450,7 +450,6 @@ public class World {
         }
 
         entities.render(graphics);
-        player.render(graphics);
 
         if (PsychicMemory.gameState == GameState.PAUSED) {
             graphics.setColor(new Color(0, 0, 0, 80));
@@ -472,52 +471,52 @@ public class World {
     public void renderUI(Graphics graphics) {
         graphics.setColor(new Color(41, 41, 57));
         graphics.fillRect(size.x, 0, PMRenderer.dimensions.x - size.x, PMRenderer.dimensions.y);
-        graphics.setColor(Color.BLACK);
+        graphics.setColor(new Color(121, 120, 138));
         graphics.drawRect(size.x, 0, PMRenderer.dimensions.x - size.x, PMRenderer.dimensions.y);
 
         if (PsychicMemory.gameState == GameState.PAUSED || PsychicMemory.gameState == GameState.BOSS_PAUSED) {
             graphics.setFont(PMRenderer.getBaseFont().deriveFont(72f));
             int xOffset = graphics.getFontMetrics().stringWidth(new TranslatableText("pm.game.paused").toString()) / 2;
             int yOffset = graphics.getFontMetrics().getHeight() / 2;
-            graphics.setColor(Color.BLACK);
+            graphics.setColor(new Color(121, 120, 138));
             graphics.drawString(new TranslatableText("pm.game.paused").toString(), 311 - xOffset, 361 - yOffset);
-            graphics.setColor(PsychicMemory.gameState == GameState.PAUSED ? Color.WHITE : Color.RED);
+            graphics.setColor(PsychicMemory.gameState == GameState.PAUSED ? new Color(202, 199, 220) : Color.RED);
             graphics.drawString(new TranslatableText("pm.game.paused").toString(), 310 - xOffset, 360 - yOffset);
         }
 
         graphics.setFont(PMRenderer.getBaseFont().deriveFont(24f));
-        graphics.setColor(Color.BLACK);
+        graphics.setColor(new Color(61, 60, 69));
         graphics.drawString(new TranslatableText("pm.game.high_score") + ": ", 651, 201);
         graphics.drawString("%08d".formatted(highScore), 811, 201);
-        graphics.setColor(Color.WHITE);
+        graphics.setColor(new Color(202, 199, 220));
         graphics.drawString(new TranslatableText("pm.game.high_score") + ": ", 650, 200);
         graphics.drawString("%08d".formatted(highScore), 810, 200);
-        graphics.setColor(Color.BLACK);
+        graphics.setColor(new Color(61, 60, 69));
         graphics.drawString(new TranslatableText("pm.game.score") + ": ", 651, 231);
         graphics.drawString("%08d".formatted(getScoreVisual()), 811, 231);
-        graphics.setColor(Color.WHITE);
+        graphics.setColor(new Color(202, 199, 220));
         graphics.drawString(new TranslatableText("pm.game.score") + ": ", 650, 230);
         graphics.drawString("%08d".formatted(getScoreVisual()), 810, 230);
 
         if (player != null) {
-            graphics.setColor(Color.BLACK);
+            graphics.setColor(new Color(61, 60, 69));
             graphics.drawString(new TranslatableText("pm.game.life") + ": ", 651, 301);
-            graphics.setColor(Color.WHITE);
+            graphics.setColor(new Color(202, 199, 220));
             graphics.drawString(new TranslatableText("pm.game.life") + ": ", 650, 300);
             for (int i = 0; i < player.getLives(); i++) {
-                graphics.setColor(Color.RED);
+                graphics.setColor(new Color(228, 17, 112));
                 graphics.fillOval(760 + (i * 30), 300 - 20, 24, 24);
-                graphics.setColor(Color.ORANGE);
+                graphics.setColor(new Color(255, 200, 194));
                 graphics.fillOval(762 + (i * 30), 302 - 20, 20, 20);
             }
-            graphics.setColor(Color.BLACK);
+            graphics.setColor(new Color(61, 60, 69));
             graphics.drawString(new TranslatableText("pm.game.blanks") + ": ", 651, 331);
-            graphics.setColor(Color.WHITE);
+            graphics.setColor(new Color(202, 199, 220));
             graphics.drawString(new TranslatableText("pm.game.blanks") + ": ", 650, 330);
             for (int i = 0; i < player.getBlanks(); i++) {
-                graphics.setColor(Color.BLUE);
+                graphics.setColor(new Color(68, 95, 248));
                 graphics.fillOval(760 + (i * 30), 330 - 20, 24, 24);
-                graphics.setColor(Color.CYAN);
+                graphics.setColor(new Color(179, 221, 255));
                 graphics.fillOval(762 + (i * 30), 332 - 20, 20, 20);
             }
         }

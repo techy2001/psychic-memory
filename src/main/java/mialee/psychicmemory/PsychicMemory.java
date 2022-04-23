@@ -20,6 +20,7 @@ import java.util.Random;
 
 /**
  * The main game class.
+ * The overall game has no real underlying issues left, all that could really be done to improve would simply be some more game content.
  */
 public class PsychicMemory {
     public static String dir = "PMData";

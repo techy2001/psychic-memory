@@ -86,13 +86,13 @@ public class BossEntity extends EnemyEntity {
     public void render(Graphics graphics) {
         super.render(graphics);
         graphics.setFont(graphics.getFont().deriveFont(24f));
-        graphics.setColor(Color.BLACK);
+        graphics.setColor(new Color(19, 25, 41));
         graphics.drawString(String.valueOf(lives), 11, (9 + graphics.getFontMetrics().getHeight() / 2) - phaseCooldown);
-        graphics.setColor(Color.WHITE);
+        graphics.setColor(new Color(202, 199, 220));
         graphics.drawString(String.valueOf(lives), 10, (8 + graphics.getFontMetrics().getHeight() / 2) - phaseCooldown);
-        graphics.setColor(inSubPhase ? Color.RED : Color.ORANGE);
+        graphics.setColor(inSubPhase ? new Color(219, 41, 41) : new Color(245, 87, 68));
         graphics.fillRect(32, 12 - phaseCooldown, (int) MathHelper.clampDouble(0, ((float) age / 80) * 580, ((float) healthVisual / maxHealth) * 580), 10);
-        graphics.setColor(Color.BLACK);
+        graphics.setColor(new Color(19, 25, 41));
         graphics.drawRect(32, 12 - phaseCooldown, (int) MathHelper.clampDouble(0, ((float) age / 80) * 580, ((float) healthVisual / maxHealth) * 580), 10);
     }
 

@@ -61,7 +61,7 @@ public class PMRenderer {
                 }
 
                 Graphics graphics = volatileImage.getGraphics();
-                graphics.setColor(Color.ORANGE);
+                graphics.setColor(new Color(41, 41, 57));
                 graphics.fillRect(0, 0, dimensions.x, dimensions.y);
 
                 if (PsychicMemory.gameState == GameState.INGAME || PsychicMemory.gameState == GameState.PAUSED || PsychicMemory.gameState == GameState.BOSS_PAUSED) {
@@ -79,10 +79,10 @@ public class PMRenderer {
                 resetFont(graphics);
                 String fps = "FPS: %d".formatted(frameRate);
                 String tps = "TPS: %d".formatted(PsychicMemory.ticksPerSecond);
-                graphics.setColor(Color.GRAY);
+                graphics.setColor(new Color(61, 60, 69));
                 graphics.drawString(fps, dimensions.x - 53, 13);
                 graphics.drawString(tps, dimensions.x - 53, 25);
-                graphics.setColor(Color.WHITE);
+                graphics.setColor(new Color(202, 199, 220));
                 graphics.drawString(fps, dimensions.x - 54, 12);
                 graphics.drawString(tps, dimensions.x - 54, 24);
 

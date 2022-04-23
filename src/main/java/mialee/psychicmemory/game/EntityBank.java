@@ -78,6 +78,7 @@ public class EntityBank {
                 if (entity != null) entity.render(graphics);
             }
         }
+        world.getPlayer().render(graphics);
         for (int i = enemyBullets.size() - 1; 0 <= i; i--) {
             if (i < enemyBullets.size()) {
                 Entity entity = enemyBullets.get(i);

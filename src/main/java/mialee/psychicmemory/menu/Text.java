@@ -33,7 +33,7 @@ public class Text {
      */
     public void render(Graphics graphics) {
         graphics.setFont(PMRenderer.getBaseFont().deriveFont(size));
-        graphics.setColor(Color.GRAY);
+        graphics.setColor(new Color(202, 199, 220));
         int offset = switch (alignment) {
             case LEFT -> 0;
             case CENTER -> -(graphics.getFontMetrics().stringWidth(text) / 2);

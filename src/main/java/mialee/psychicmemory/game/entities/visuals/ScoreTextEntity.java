@@ -53,9 +53,9 @@ public class ScoreTextEntity extends Entity {
         graphics.setFont(PMRenderer.getBaseFont().deriveFont((float) (12f * (MathHelper.clampDouble(1f, 2f, (float) Math.abs(value) / 100)))));
         int width = graphics.getFontMetrics().stringWidth(String.valueOf(value));
         int height = graphics.getFontMetrics().getHeight();
-        graphics.setColor(Color.BLACK);
-        graphics.drawString(String.valueOf(value), (int) position.x - (width / 2) - 1, (int) position.y - (height / 2) - 1);
-        graphics.setColor(value >= 0 ? Color.WHITE: Color.RED);
+        graphics.setColor(new Color(61, 60, 69));
+        graphics.drawString(String.valueOf(value), (int) position.x - (width / 2) - 1, (int) position.y - (height / 2) + 1);
+        graphics.setColor(value >= 0 ? new Color(202, 199, 220) : Color.RED);
         graphics.drawString(String.valueOf(value), (int) position.x - (width / 2), (int) position.y - (height / 2));
     }
 }
