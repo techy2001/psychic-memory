@@ -1,6 +1,6 @@
 package mialee.psychicmemory.game.tasks.entitytasks;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.game.EntityFaction;
 import mialee.psychicmemory.game.entities.enemies.EnemyBulletEntity;
 import mialee.psychicmemory.game.entities.core.Entity;
@@ -38,7 +38,7 @@ public class OverheadConeTask extends EntityTask {
         super.tick();
         if (cooldown <= 0) {
             for (int i = 0; i < count; i++) {
-                owner.world.getBank().addEntity(new EnemyBulletEntity(owner.world, owner.position.copy(), new Vec2d(0, -speed).rotate(PsychicMemory.RANDOM.nextDouble(240) - 120)), EntityFaction.ENEMY_BULLET);
+                owner.world.getBank().addEntity(new EnemyBulletEntity(owner.world, owner.position.copy(), new Vec2d(0, -speed).rotate(Main.RANDOM.nextDouble(240) - 120)), EntityFaction.ENEMY_BULLET);
             }
             cooldown = cooldownMax;
         }

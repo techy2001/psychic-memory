@@ -1,6 +1,6 @@
 package mialee.psychicmemory.game.entities.bosses;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.Task;
@@ -28,7 +28,7 @@ public class GameEndEntity extends Entity {
             @Override
             public void tick() {
                 super.tick();
-                PsychicMemory.end(true);
+                Main.end(true);
             }
         });
     }

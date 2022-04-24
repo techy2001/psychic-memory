@@ -1,6 +1,6 @@
 package mialee.psychicmemory.menu;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.data.DataManager;
 
 import java.awt.*;
@@ -67,12 +67,12 @@ public class ScoreMenu {
      */
     public void finishName() {
         if (score <= 0) {
-            PsychicMemory.restart();
+            Main.restart();
             return;
         }
         if (!name.toString().equals("")) {
             DataManager.writeScore(name.toString(), score);
-            PsychicMemory.restart();
+            Main.restart();
         }
     }
 }

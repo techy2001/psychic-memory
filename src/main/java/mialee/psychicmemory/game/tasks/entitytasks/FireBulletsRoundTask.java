@@ -1,6 +1,6 @@
 package mialee.psychicmemory.game.tasks.entitytasks;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.game.EntityFaction;
 import mialee.psychicmemory.game.entities.enemies.EnemyBulletEntity;
 import mialee.psychicmemory.game.entities.core.Entity;
@@ -31,7 +31,7 @@ public class FireBulletsRoundTask extends EntityTask {
         this.cooldownMax = cooldown;
         this.count = count;
         this.speed = speed;
-        this.offset = PsychicMemory.RANDOM.nextInt(360);
+        this.offset = Main.RANDOM.nextInt(360);
     }
 
     @Override

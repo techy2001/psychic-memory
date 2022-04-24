@@ -1,7 +1,7 @@
 package mialee.psychicmemory.game.tasks.entitytasks;
 
 import mialee.psychicmemory.GameState;
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.game.tasks.EntityTask;
 
@@ -18,7 +18,7 @@ public class BossPauseTask extends EntityTask {
 
     @Override
     public void tick() {
-        PsychicMemory.gameState = pause ? GameState.BOSS_PAUSED : GameState.INGAME;
+        Main.gameState = pause ? GameState.BOSS_PAUSED : GameState.INGAME;
         super.tick();
     }
 }

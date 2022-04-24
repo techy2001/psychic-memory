@@ -1,6 +1,6 @@
 package mialee.psychicmemory.game.entities.enemies;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.tasks.Task;
 import mialee.psychicmemory.math.Vec2d;
@@ -19,7 +19,7 @@ public class RandomExtraEntity extends BasicEnemy {
 
     public void tick() {
         super.tick();
-        if (PsychicMemory.RANDOM.nextFloat() <= chance) {
+        if (Main.RANDOM.nextFloat() <= chance) {
             if (task != null) task.tick();
         }
     }

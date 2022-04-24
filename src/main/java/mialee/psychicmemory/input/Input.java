@@ -1,7 +1,7 @@
 package mialee.psychicmemory.input;
 
 import mialee.psychicmemory.GameState;
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.data.DataManager;
 import mialee.psychicmemory.menu.Menu;
 import mialee.psychicmemory.menu.Page;
@@ -37,31 +37,31 @@ public class Input implements KeyListener {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() < 128) pressedKeys[e.getKeyCode()] = true;
 
-        if (PsychicMemory.gameState == GameState.MENU) {
+        if (Main.gameState == GameState.MENU) {
             if (!menu.rebinding) {
                 int keyCode = e.getKeyCode();
                 Page page = menu.pages.get(menu.selectedPage);
-                if (keyCode == PsychicMemory.SETTING_VALUES.UP_KEY) {
+                if (keyCode == Main.SETTING_VALUES.UP_KEY) {
                     page.changeSelected(-1);
-                } else if (keyCode == PsychicMemory.SETTING_VALUES.DOWN_KEY) {
+                } else if (keyCode == Main.SETTING_VALUES.DOWN_KEY) {
                     page.changeSelected(1);
-                } else if (keyCode == PsychicMemory.SETTING_VALUES.FIRE_KEY) {
+                } else if (keyCode == Main.SETTING_VALUES.FIRE_KEY) {
                     page.pressButton();
-                } else if (keyCode == PsychicMemory.SETTING_VALUES.SLOW_KEY) {
+                } else if (keyCode == Main.SETTING_VALUES.SLOW_KEY) {
                     page.selectLast();
                 }
             } else {
                 boolean available = true;
                 for (int i = 0; i < 6; i++) {
-                    if (e.getKeyCode() == PsychicMemory.SETTING_VALUES.getKeyByID(i) && !(menu.rebindingTarget == i)) {
+                    if (e.getKeyCode() == Main.SETTING_VALUES.getKeyByID(i) && !(menu.rebindingTarget == i)) {
                         available = false;
                         break;
                     }
                 }
                 if (available) {
-                    PsychicMemory.SETTING_VALUES.rebind(menu.rebindingTarget, e.getKeyCode());
+                    Main.SETTING_VALUES.rebind(menu.rebindingTarget, e.getKeyCode());
                     menu.rebinding = false;
-                    DataManager.writeSettings(PsychicMemory.SETTING_VALUES);
+                    DataManager.writeSettings(Main.SETTING_VALUES);
                 }
             }
         }
@@ -82,7 +82,7 @@ public class Input implements KeyListener {
      */
     @Override
     public void keyTyped(KeyEvent e) {
-        if (PsychicMemory.gameState == GameState.SCORE) {
+        if (Main.gameState == GameState.SCORE) {
             if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
                 scoreMenu.removeKey();
                 return;

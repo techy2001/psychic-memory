@@ -22,14 +22,14 @@ import java.util.Random;
  * The main game class.
  * The overall game has no real underlying issues left, all that could really be done to improve would simply be some more game content.
  */
-public class PsychicMemory {
+public class Main {
     public static String dir = "PMData";
     public static TextLogger LOGGER;
     public static Language LANGUAGE;
     public static Random RANDOM = new Random();
     public static PMSettings SETTING_VALUES;
     private final static Map<String, ImageIcon> sprites = new LinkedHashMap<>();
-    public static final ImageIcon missingTexture = new ImageIcon(Objects.requireNonNull(PsychicMemory.class.getClassLoader().getResource("assets/textures/entities/cod.png")));
+    public static final ImageIcon missingTexture = new ImageIcon(Objects.requireNonNull(Main.class.getClassLoader().getResource("assets/textures/entities/cod.png")));
     public static World world;
     public static long ticksPerSecond = 0;
     public static GameState gameState = GameState.MENU;
@@ -65,10 +65,10 @@ public class PsychicMemory {
                     continue;
                 }
 
-                if (gameState == GameState.INGAME && Input.getKey(PsychicMemory.SETTING_VALUES.PAUSE_KEY)) {
+                if (gameState == GameState.INGAME && Input.getKey(Main.SETTING_VALUES.PAUSE_KEY)) {
                     gameState = GameState.PAUSED;
                     safeSleep(200);
-                } else if (gameState == GameState.PAUSED && Input.getKey(PsychicMemory.SETTING_VALUES.PAUSE_KEY)) {
+                } else if (gameState == GameState.PAUSED && Input.getKey(Main.SETTING_VALUES.PAUSE_KEY)) {
                     gameState = GameState.INGAME;
                     safeSleep(200);
                 }
@@ -101,7 +101,7 @@ public class PsychicMemory {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
-            PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.sleep.error"), e.getMessage());
+            Main.LOGGER.loggedError(new TranslatableText("pm.sleep.error"), e.getMessage());
         }
     }
 
@@ -151,7 +151,7 @@ public class PsychicMemory {
     private static ImageIcon loadImage(String location) {
         ImageIcon icon;
         try {
-            icon = new ImageIcon(Objects.requireNonNull(PsychicMemory.class.getClassLoader().getResource("assets/textures/" + location)));
+            icon = new ImageIcon(Objects.requireNonNull(Main.class.getClassLoader().getResource("assets/textures/" + location)));
         } catch (Exception e) {
             icon = missingTexture;
             LOGGER.loggedError(new TranslatableText("pm.data.image.missing"), location, e.getMessage());

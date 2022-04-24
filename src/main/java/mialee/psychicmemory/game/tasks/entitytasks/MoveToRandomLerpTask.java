@@ -1,6 +1,6 @@
 package mialee.psychicmemory.game.tasks.entitytasks;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.game.entities.core.Entity;
 import mialee.psychicmemory.math.Vec2d;
 
@@ -24,6 +24,6 @@ public class MoveToRandomLerpTask extends MoveToPositionLerpTask {
     @Override
     public void refresh() {
         super.refresh();
-        destination.set(new Vec2d(PsychicMemory.RANDOM.nextDouble(560) + 30, PsychicMemory.RANDOM.nextDouble(200) + 30));
+        destination.set(new Vec2d(Main.RANDOM.nextDouble(560) + 30, Main.RANDOM.nextDouble(200) + 30));
     }
 }

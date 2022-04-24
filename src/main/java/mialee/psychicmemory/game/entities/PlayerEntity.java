@@ -1,6 +1,6 @@
 package mialee.psychicmemory.game.entities;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.game.EntityFaction;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.core.LivingEntity;
@@ -61,12 +61,12 @@ public class PlayerEntity extends LivingEntity {
         velocity.y = 0;
         int speed = 6;
 
-        boolean left = Input.getKey(PsychicMemory.SETTING_VALUES.LEFT_KEY);
-        boolean right = Input.getKey(PsychicMemory.SETTING_VALUES.RIGHT_KEY);
-        boolean up = Input.getKey(PsychicMemory.SETTING_VALUES.UP_KEY);
-        boolean down = Input.getKey(PsychicMemory.SETTING_VALUES.DOWN_KEY);
+        boolean left = Input.getKey(Main.SETTING_VALUES.LEFT_KEY);
+        boolean right = Input.getKey(Main.SETTING_VALUES.RIGHT_KEY);
+        boolean up = Input.getKey(Main.SETTING_VALUES.UP_KEY);
+        boolean down = Input.getKey(Main.SETTING_VALUES.DOWN_KEY);
 
-        if (Input.getKey(PsychicMemory.SETTING_VALUES.SLOW_KEY)) {
+        if (Input.getKey(Main.SETTING_VALUES.SLOW_KEY)) {
             speed /= 2;
         }
         if (left) {
@@ -97,13 +97,13 @@ public class PlayerEntity extends LivingEntity {
         }
 
         if (fireCooldown > 0) fireCooldown--;
-        if (Input.getKey(PsychicMemory.SETTING_VALUES.FIRE_KEY) && fireCooldown <= 0) {
+        if (Input.getKey(Main.SETTING_VALUES.FIRE_KEY) && fireCooldown <= 0) {
             this.world.getBank().addEntity(new PlayerBulletEntity(this.world, this.position.copy(), new Vec2d(0, -25), 1), EntityFaction.PLAYER_BULLET);
             fireCooldown = 6;
         }
 
         if (blankCooldown > 0) blankCooldown--;
-        if (Input.getKey(PsychicMemory.SETTING_VALUES.BLANK_KEY) && blankCooldown <= 0 && blanks > 0) {
+        if (Input.getKey(Main.SETTING_VALUES.BLANK_KEY) && blankCooldown <= 0 && blanks > 0) {
             this.world.getBank().clearBullets(true);
             blanks--;
             blankCooldown = 200;
@@ -117,7 +117,7 @@ public class PlayerEntity extends LivingEntity {
         this.name = "Player";
         this.hitRadius = 5;
         this.visualSize = 18;
-        this.image = PsychicMemory.getIcon("entities/player.png");
+        this.image = Main.getIcon("entities/player.png");
         this.health = 1;
     }
 
@@ -134,7 +134,7 @@ public class PlayerEntity extends LivingEntity {
     public void render(Graphics graphics) {
         if (iFrames > 180) return;
         super.render(graphics);
-        if (Input.getKey(PsychicMemory.SETTING_VALUES.SLOW_KEY)) {
+        if (Input.getKey(Main.SETTING_VALUES.SLOW_KEY)) {
             graphics.setColor(Color.CYAN);
             graphics.fillOval((int) (position.x - (getHitRadius())), (int) (position.y - getHitRadius()), getHitRadius() * 2, getHitRadius() * 2);
             graphics.setColor(Color.WHITE);
@@ -178,7 +178,7 @@ public class PlayerEntity extends LivingEntity {
             addTask(new FireBulletsRoundSpinTask(this, 1, 0, 20, 4, 25).setLoop(false));
             addTask(new MoveToPositionLerpTask(this, spawnPosition.copy(), 0, 0).setLoop(false));
         } else {
-            PsychicMemory.end(false);
+            Main.end(false);
         }
     }
 

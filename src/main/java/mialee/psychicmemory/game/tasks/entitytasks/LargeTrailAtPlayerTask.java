@@ -1,6 +1,6 @@
 package mialee.psychicmemory.game.tasks.entitytasks;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.game.EntityFaction;
 import mialee.psychicmemory.game.entities.enemies.EnemyBulletEntity;
 import mialee.psychicmemory.game.entities.PlayerEntity;
@@ -39,8 +39,8 @@ public class LargeTrailAtPlayerTask extends EntityTask {
         owner.world.getBank().addEntity(leader, EntityFaction.ENEMY_BULLET);
         for (int i = 0; i < 20; i++) {
             owner.world.getBank().addEntity(new EnemyBulletEntity(owner.world, owner.position.copy(),
-                    playerAngle.copy().multiply(PsychicMemory.RANDOM.nextDouble(speed - 2.2f) + 2)
-                            .rotate(rotation + PsychicMemory.RANDOM.nextDouble(6) - 3)), EntityFaction.ENEMY_BULLET);
+                    playerAngle.copy().multiply(Main.RANDOM.nextDouble(speed - 2.2f) + 2)
+                            .rotate(rotation + Main.RANDOM.nextDouble(6) - 3)), EntityFaction.ENEMY_BULLET);
         }
     }
 }

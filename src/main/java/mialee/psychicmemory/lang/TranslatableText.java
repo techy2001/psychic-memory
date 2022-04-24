@@ -1,6 +1,6 @@
 package mialee.psychicmemory.lang;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import org.json.JSONException;
 
 /**
@@ -23,9 +23,9 @@ public class TranslatableText {
     public String toString() {
         String string = this.string;
         try {
-            string = PsychicMemory.LANGUAGE.getLang().get(string).toString();
+            string = Main.LANGUAGE.getLang().get(string).toString();
         } catch (JSONException e) {
-            PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.lang.missing_translation"), this.string, PsychicMemory.LANGUAGE.getLangName());
+            Main.LOGGER.loggedError(new TranslatableText("pm.lang.missing_translation"), this.string, Main.LANGUAGE.getLangName());
         } catch (NullPointerException ignored) {}
         return string;
     }

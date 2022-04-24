@@ -1,6 +1,6 @@
 package mialee.psychicmemory.menu;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.data.DataManager;
 import mialee.psychicmemory.data.GameRecord;
 import mialee.psychicmemory.lang.TranslatableText;
@@ -25,7 +25,7 @@ public class Menu {
     public Menu() {
         Page pageMain = new Page();
         pageMain.addText(new Text(new TranslatableText("pm.game"), 72f, 480, 200, Alignment.CENTER));
-        pageMain.addButton(new Button(new TranslatableText("pm.menu.start"), PsychicMemory::start, 480, 330, -5));
+        pageMain.addButton(new Button(new TranslatableText("pm.menu.start"), Main::start, 480, 330, -5));
         pageMain.addButton(new Button(new TranslatableText("pm.menu.scores"), () -> selectedPage = 2, 480, 400, -5));
         pageMain.addButton(new Button(new TranslatableText("pm.menu.options"), () -> selectedPage = 1, 480, 470, -5));
         pageMain.addButton(new Button(new TranslatableText("pm.menu.quit"), () -> System.exit(1), 480, 540, -5));

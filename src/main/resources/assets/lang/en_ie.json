@@ -34,6 +34,7 @@
   "pm.data.file.corrupt" : "File \"%s\" corrupt. %s",
   "pm.data.lang.missing" : "Language \"%s\" not found. %s",
   "pm.data.image.missing" : "Image \"%s\" not found. %s",
+  "pm.data.image.entity.missing" : "Entity \"%s\" spawned at distance %s has no texture.",
   "pm.data.font.error" : "Error loading font \"%s\". %s",
   "pm.data.score.corrupt": "Score file \"%s\" corrupt. %s",
   "pm.lang.missing_translation" : "Lang entry for \"%s\" not found in language %s.",

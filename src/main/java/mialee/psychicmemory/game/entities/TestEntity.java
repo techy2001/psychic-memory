@@ -1,6 +1,6 @@
 package mialee.psychicmemory.game.entities;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.entities.core.LivingEntity;
 import mialee.psychicmemory.game.tasks.entitytasks.FireAtPlayerTask;
@@ -42,9 +42,9 @@ public class TestEntity extends LivingEntity {
 
     @Override
     protected void initializeTasks() {
-        addTask(new MoveToPositionLerpTask(this, new Vec2d(PsychicMemory.RANDOM.nextInt(400), PsychicMemory.RANDOM.nextInt(400)), 4, 20));
+        addTask(new MoveToPositionLerpTask(this, new Vec2d(Main.RANDOM.nextInt(400), Main.RANDOM.nextInt(400)), 4, 20));
         addTask(new FireAtPlayerTask(this, 100, 50, 4, 10, 1.5f));
-        addTask(new MoveToPositionLerpTask(this, new Vec2d(PsychicMemory.RANDOM.nextInt(400), PsychicMemory.RANDOM.nextInt(200)), 4, 20));
+        addTask(new MoveToPositionLerpTask(this, new Vec2d(Main.RANDOM.nextInt(400), Main.RANDOM.nextInt(200)), 4, 20));
         addTask(new FireAtPlayerTask(this, 100, 50, 6, 22.5, 1.5f));
     }
 

@@ -1,6 +1,6 @@
 package mialee.psychicmemory.data;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.lang.TranslatableText;
 
 import java.io.File;
@@ -30,11 +30,12 @@ public class DataManager {
             settings.DOWN_KEY = Integer.parseInt(scanner.nextLine().split(" ")[1]);
             settings.FIRE_KEY = Integer.parseInt(scanner.nextLine().split(" ")[1]);
             settings.SLOW_KEY = Integer.parseInt(scanner.nextLine().split(" ")[1]);
+            settings.PAUSE_KEY = Integer.parseInt(scanner.nextLine().split(" ")[1]);
             return settings;
         } catch (FileNotFoundException e) {
-            PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.missing"), "settings.txt", e.getMessage());
+            Main.LOGGER.loggedError(new TranslatableText("pm.data.file.missing"), "settings.txt", e.getMessage());
         } catch (NoSuchElementException | NumberFormatException e) {
-            PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.corrupt"), "settings.txt", e.getMessage());
+            Main.LOGGER.loggedError(new TranslatableText("pm.data.file.corrupt"), "settings.txt", e.getMessage());
         }
         writeSettings(new PMSettings());
         return new PMSettings();
@@ -54,9 +55,10 @@ public class DataManager {
             writer.write("DOWN_KEY: %d\n".formatted(settings.DOWN_KEY));
             writer.write("FIRE_KEY: %d\n".formatted(settings.FIRE_KEY));
             writer.write("SLOW_KEY: %d\n".formatted(settings.SLOW_KEY));
+            writer.write("PAUSE_KEY: %d\n".formatted(settings.PAUSE_KEY));
             writer.close();
         } catch (IOException e) {
-            PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.missing"), "settings.txt", e.getMessage());
+            Main.LOGGER.loggedError(new TranslatableText("pm.data.file.missing"), "settings.txt", e.getMessage());
         }
     }
 
@@ -88,20 +90,20 @@ public class DataManager {
                     GameRecord record = new GameRecord(nextLine[1], Integer.parseInt(nextLine[0]));
                     records.add(record);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.score.corrupt"), "scores.txt", e.getMessage());
+                    Main.LOGGER.loggedError(new TranslatableText("pm.data.score.corrupt"), "scores.txt", e.getMessage());
                 }
             }
             Collections.sort(records);
             return records;
         } catch (FileNotFoundException e) {
-            PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.missing"), "scores.txt", e.getMessage());
+            Main.LOGGER.loggedError(new TranslatableText("pm.data.file.missing"), "scores.txt", e.getMessage());
             try {
                 new File("PMData/scores.txt").createNewFile();
             } catch (IOException ex) {
-                PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.error"), "scores.txt", e.getMessage());
+                Main.LOGGER.loggedError(new TranslatableText("pm.data.file.error"), "scores.txt", e.getMessage());
             }
         } catch (NoSuchElementException | NumberFormatException e) {
-            PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.corrupt"), "scores.txt", e.getMessage());
+            Main.LOGGER.loggedError(new TranslatableText("pm.data.file.corrupt"), "scores.txt", e.getMessage());
         }
         return new ArrayList<>();
     }
@@ -118,7 +120,7 @@ public class DataManager {
             writer.write("%s%d %s".formatted(readScores().size() > 0 ? "\n" : "", score, name));
             writer.close();
         } catch (IOException e) {
-            PsychicMemory.LOGGER.loggedError(new TranslatableText("pm.data.file.error"), "scores.txt", e.getMessage());
+            Main.LOGGER.loggedError(new TranslatableText("pm.data.file.error"), "scores.txt", e.getMessage());
         }
     }
 }

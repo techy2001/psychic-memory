@@ -1,9 +1,10 @@
 package mialee.psychicmemory.game.entities.core;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.game.World;
 import mialee.psychicmemory.game.tasks.Task;
 import mialee.psychicmemory.game.tasks.entitytasks.MoveWithVelocityTask;
+import mialee.psychicmemory.lang.TranslatableText;
 import mialee.psychicmemory.math.Vec2d;
 
 import javax.swing.ImageIcon;
@@ -86,7 +87,10 @@ public abstract class Entity {
      * @param graphics Graphics to draw the image to.
      */
     public void render(Graphics graphics) {
-        if (image == null) image = PsychicMemory.missingTexture;
+        if (image == null) {
+            image = Main.missingTexture;
+            Main.LOGGER.loggedError(new TranslatableText("pm.data.image.entity.missing"), this.name, world.getDistance());
+        }
         graphics.drawImage(image.getImage(), (int) (position.x - visualSize), (int) (position.y - visualSize), visualSize * 2, visualSize * 2, null);
     }
 

@@ -1,6 +1,6 @@
 package mialee.psychicmemory.data;
 
-import mialee.psychicmemory.PsychicMemory;
+import mialee.psychicmemory.Main;
 import mialee.psychicmemory.lang.TranslatableText;
 
 import java.io.FileWriter;
@@ -54,7 +54,7 @@ public class TextLogger {
             formatted = "%s %s\n".formatted(prefix, string);
         }
         try {
-            FileWriter writer = new FileWriter(PsychicMemory.dir + "/logs/log-" + logTime + ".txt", true);
+            FileWriter writer = new FileWriter(Main.dir + "/logs/log-" + logTime + ".txt", true);
             writer.write(formatted);
             writer.close();
         } catch (IOException e) {
