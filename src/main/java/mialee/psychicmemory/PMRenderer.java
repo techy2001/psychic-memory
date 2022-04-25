@@ -111,7 +111,7 @@ public class PMRenderer {
     public static void resetFont(Graphics graphics) {
         try {
             if (getBaseFont() == null) {
-                baseFont = Font.createFont(0, new File("Ubuntu-M.ttf"));
+                baseFont = Font.createFont(0, new File(Main.class.getClassLoader().getResource("assets/font/Ubuntu-M.ttf").getFile()));
             }
             graphics.setFont(getBaseFont().deriveFont(12f));
         } catch (FontFormatException | IOException e) {
