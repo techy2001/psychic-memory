@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="psychic-memory:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/psychic_memory_jar</output-path>
+    <root id="archive" name="psychic-memory.jar">
+      <element id="module-output" name="psychic-memory" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/json/json/20211205/json-20211205.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

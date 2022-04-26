@@ -109,14 +109,15 @@ public class PMRenderer {
      * @param graphics The graphics to set the font for.
      */
     public static void resetFont(Graphics graphics) {
-        try {
-            if (getBaseFont() == null) {
+        if (getBaseFont() == null) {
+            try {
                 baseFont = Font.createFont(0, new File(Main.class.getClassLoader().getResource("assets/font/Ubuntu-M.ttf").getFile()));
+            } catch (FontFormatException | IOException e) {
+                baseFont = graphics.getFont();
+                Main.LOGGER.loggedError(new TranslatableText("pm.data.font.error"), "Ubuntu-M.tff", e.getMessage());
             }
-            graphics.setFont(getBaseFont().deriveFont(12f));
-        } catch (FontFormatException | IOException e) {
-            Main.LOGGER.loggedError(new TranslatableText("pm.data.font.error"), "Ubuntu-M.tff", e.getMessage());
         }
+        graphics.setFont(getBaseFont().deriveFont(12f));
     }
 
     public static Font getBaseFont() {

@@ -3,9 +3,8 @@ package mialee.psychicmemory.lang;
 import mialee.psychicmemory.Main;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 /**
  * A class used to keep track of language files stored in JSON.
@@ -22,7 +21,13 @@ public class Language {
         URL resource = TranslatableText.class.getClassLoader().getResource("assets/lang/%s.json".formatted(name));
         try {
             assert resource != null;
-            lang = new JSONObject(Files.readString(Path.of(resource.toURI())));
+            InputStream stream = resource.openStream();
+            StringBuilder langRaw = new StringBuilder();
+            int cp;
+            while ((cp = stream.read()) != -1) {
+                langRaw.append((char) cp);
+            }
+            lang = new JSONObject(langRaw.toString());
             langName = name;
         } catch (Exception e) {
             Main.LOGGER.loggedError(new TranslatableText("pm.data.lang.missing"), name, e.getMessage());
